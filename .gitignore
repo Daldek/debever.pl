@@ -1,0 +1,22 @@
+# Python
+.venv/
+.python-version
+*.pyc
+__pycache__/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build
+node_modules/
+dist/
+
+# Environment
+.env
+.env.local
