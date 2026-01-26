@@ -1,9 +1,9 @@
 # Progress projektu debever.pl
 
-## Ostatnia aktualizacja: 2026-01-26 (sesja 2)
+## Ostatnia aktualizacja: 2026-01-26 (sesja 2 zakończona)
 
 ## Aktualny status
-- [ ] Phase 1: Wizytówka — W TRAKCIE (szkielet gotowy)
+- [ ] Phase 1: Wizytówka — W TRAKCIE (90% gotowe, brakuje portfolio)
 - [ ] Phase 2: Blog — NIE ROZPOCZĘTE
 
 ## Co zostało zrobione
@@ -28,26 +28,20 @@
 - [x] 2026-01-26: Narzędzie PMAXTP (/tools/pmaxtp.html) - ukryte, dark mode
 - [x] 2026-01-26: Plik wodowskazy.csv (/tools/wodowskazy.csv)
 - [x] 2026-01-26: Strona 404.html
-
-## Aktualnie w trakcie
-> Sesja 1 zakończona. Setup projektu kompletny.
-> Branch: develop
-> Ostatni commit: [HTML] Szkielet index.html + [CSS] Bazowe style
+- [x] 2026-01-26: Zdjęcie profilowe (profile.jpg) w sekcji O mnie
+- [x] 2026-01-26: Dane firmowe z CEIDG (NIP, REGON, adres, email)
 
 ## Następne kroki (TODO)
 1. Uzupełnić GA4 Measurement ID w index.html (linia z G-XXXXXXXXXX)
-2. Wygenerować apple-touch-icon.png (180x180) z SVG
-3. Dodać zdjęcie profilowe (O mnie)
-3. Dodać screenshoty do portfolio
-4. Uzupełnić dane firmowe (NIP, adres, email, telefon)
-5. Dodać favicon
-6. Testy cross-browser
-7. Połączyć z GitHub remote
-8. Deploy na Mikrus VPS
+2. Dodać screenshoty do portfolio (5 obrazków w assets/images/portfolio/)
+3. Wygenerować apple-touch-icon.png (180x180) z favicon.svg
+4. Skonwertować og-image.svg na PNG (1200x630)
+5. Testy cross-browser
+6. Połączyć z GitHub remote
+7. Deploy na Mikrus VPS (konfiguracja nginx + SSL)
 
 ## Znane problemy / Blokery
 - Brak screenshotów do portfolio (do dostarczenia przez właściciela)
-- Dane firmowe placeholder [DO UZUPEŁNIENIA]
 - Brak apple-touch-icon.png (wygenerować z favicon.svg na realfavicongenerator.net)
 - Brak og-image.png (skonwertować og-image.svg na PNG 1200x630)
 
@@ -58,11 +52,10 @@
 - 2026-01-26: BEM dla CSS (block__element--modifier)
 
 ## Notatki dla przyszłej sesji
-> Setup projektu ukończony. Strona ma kompletny szkielet HTML z wszystkimi sekcjami.
-> CSS obsługuje responsywność (1/2/4 kolumny) i mobile menu.
+> Strona prawie gotowa do deploymentu. Brakuje tylko:
+> - Screenshotów do portfolio (5 obrazków)
+> - GA4 Measurement ID
+> - Konwersja SVG → PNG (favicon, og-image)
 >
-> Do zrobienia w kolejnej sesji:
-> - Ikony SVG dla usług
-> - Obrazki (profile.jpg, portfolio/)
-> - Dane firmowe od właściciela
-> - GitHub remote + pierwszy deploy
+> Strona może być wdrożona bez portfolio — kafelki będą miały placeholdery.
+> Narzędzia Python w przyszłości: subdomeny lub ścieżki, potrzebny gunicorn + nginx reverse proxy.
