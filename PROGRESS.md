@@ -33,12 +33,13 @@
 - [x] 2026-01-26: Testy cross-browser + poprawki kompatybilności Safari
 - [x] 2026-01-26: Połączenie z GitHub (https://github.com/Daldek/debever.pl)
 - [x] 2026-01-26: GA4 Measurement ID skonfigurowany (G-3KHED211LP)
+- [x] 2026-01-26: Deploy testowy na Mikrus (http://srv08.mikr.us:40693/)
 
 ## Następne kroki (TODO)
 1. Dodać screenshoty do portfolio (5 obrazków w assets/images/portfolio/)
 2. Wygenerować apple-touch-icon.png (180x180) z favicon.svg
 3. Skonwertować og-image.svg na PNG (1200x630)
-4. Deploy na Mikrus VPS (konfiguracja nginx + SSL)
+4. Deploy produkcyjny (SSL + domena debever.pl)
 
 ## Znane problemy / Blokery
 - Brak screenshotów do portfolio (do dostarczenia przez właściciela)
@@ -52,10 +53,16 @@
 - 2026-01-26: GitHub remote: https://github.com/Daldek/debever.pl
 
 ## Notatki dla przyszłej sesji
-> Strona prawie gotowa do deploymentu. Brakuje tylko:
-> - Screenshotów do portfolio (5 obrazków)
-> - GA4 Measurement ID
-> - Konwersja SVG → PNG (favicon, og-image)
+> Strona testowa działa na Mikrusie: http://srv08.mikr.us:40693/
+> GA4 tymczasowo wyłączone (zakomentowane w index.html).
 >
-> Strona może być wdrożona bez portfolio — kafelki będą miały placeholdery.
-> Narzędzia Python w przyszłości: subdomeny lub ścieżki, potrzebny gunicorn + nginx reverse proxy.
+> Do deploymentu produkcyjnego:
+> - Włączyć GA4
+> - Skonfigurować SSL (Let's Encrypt)
+> - Przekierować domenę debever.pl na Mikrusa
+> - Zaktualizować nginx na port 80/443
+>
+> Aktualizacja strony na Mikrusie:
+> ```
+> cd /var/www/debever.pl && sudo git pull && sudo systemctl reload nginx
+> ```
