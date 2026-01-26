@@ -1,6 +1,6 @@
 # Progress projektu debever.pl
 
-## Ostatnia aktualizacja: 2026-01-26 (sesja 3 — migracja bloga)
+## Ostatnia aktualizacja: 2026-01-26 (sesja 4 — tagi, RSS, SEO)
 
 ## Aktualny status
 - [ ] Phase 1: Wizytówka — W TRAKCIE (90% gotowe, brakuje portfolio)
@@ -42,6 +42,13 @@
 - [x] 2026-01-26: Blog — wygenerowane 26 plików HTML + index.html
 - [x] 2026-01-26: Nawigacja — dodany link do bloga
 - [x] 2026-01-26: Sitemap — dodane 26 URL-i wpisów blogowych
+- [x] 2026-01-26: Blog — strony tagów (/blog/tag/*.html)
+- [x] 2026-01-26: Blog — klikalne tagi we wpisach
+- [x] 2026-01-26: Blog — lista tagów (blog/TAGS.md)
+- [x] 2026-01-26: Blog — poprawki CSS (padding-top, mniejsze nagłówki)
+- [x] 2026-01-26: SEO — RSS Feed (/blog/feed.xml)
+- [x] 2026-01-26: SEO — automatyczna aktualizacja sitemap.xml przy build.py
+- [x] 2026-01-26: Deploy na Mikrus — zainstalowane zależności Python (markdown2, pyyaml)
 
 ## Następne kroki (TODO)
 1. Dodać screenshoty do portfolio (5 obrazków w assets/images/portfolio/)
@@ -65,19 +72,21 @@
 > Strona testowa działa na Mikrusie: http://srv08.mikr.us:40693/
 > GA4 tymczasowo wyłączone (zakomentowane w index.html).
 >
-> **Blog:**
-> - 26 wpisów z WordPress zmigrowanych do Markdown w blog/posts/
-> - Skrypt `python3 blog/build.py` generuje pliki HTML
-> - Po dodaniu/edycji wpisu uruchomić build.py ponownie
-> - Zależności Python: pyyaml, markdown2
+> **Blog — dodawanie nowych wpisów:**
+> 1. Utwórz plik `blog/posts/YYYY-MM-DD-slug.md` z frontmatter YAML
+> 2. Uruchom `python3 blog/build.py`
+> 3. Zacommituj i push
+> 4. Na Mikrusie: `cd /var/www/debever.pl && sudo git pull && python3.12 blog/build.py`
+>
+> **Zależności Python:** pyyaml, markdown2
+> - Na Mikrusie użyć `python3.12` (system ma Python 3.10, ale pip zainstalował pakiety dla 3.12)
+>
+> **Dostępne tagi:** zobacz `blog/TAGS.md` lub output z `build.py`
+>
+> **RSS Feed:** /blog/feed.xml (autodiscovery w nagłówkach HTML)
 >
 > Do deploymentu produkcyjnego:
 > - Włączyć GA4
 > - Skonfigurować SSL (Let's Encrypt)
 > - Przekierować domenę debever.pl na Mikrusa
 > - Zaktualizować nginx na port 80/443
->
-> Aktualizacja strony na Mikrusie:
-> ```
-> cd /var/www/debever.pl && sudo git pull && python3 blog/build.py && sudo systemctl reload nginx
-> ```
