@@ -30,15 +30,15 @@
 - [x] 2026-01-26: Strona 404.html
 - [x] 2026-01-26: Zdjęcie profilowe (profile.jpg) w sekcji O mnie
 - [x] 2026-01-26: Dane firmowe z CEIDG (NIP, REGON, adres, email)
+- [x] 2026-01-26: Testy cross-browser + poprawki kompatybilności Safari
 
 ## Następne kroki (TODO)
 1. Uzupełnić GA4 Measurement ID w index.html (linia z G-XXXXXXXXXX)
 2. Dodać screenshoty do portfolio (5 obrazków w assets/images/portfolio/)
 3. Wygenerować apple-touch-icon.png (180x180) z favicon.svg
 4. Skonwertować og-image.svg na PNG (1200x630)
-5. Testy cross-browser
-6. Połączyć z GitHub remote
-7. Deploy na Mikrus VPS (konfiguracja nginx + SSL)
+5. Połączyć z GitHub remote
+6. Deploy na Mikrus VPS (konfiguracja nginx + SSL)
 
 ## Znane problemy / Blokery
 - Brak screenshotów do portfolio (do dostarczenia przez właściciela)
