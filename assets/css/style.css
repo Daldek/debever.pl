@@ -274,6 +274,17 @@ p:last-child {
   transform: translateY(-2px);
 }
 
+.btn--secondary {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.btn--secondary:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
 /* ==========================================================================
    SERVICES
    ========================================================================== */
@@ -302,6 +313,11 @@ p:last-child {
   height: 48px;
   margin-bottom: var(--space-md);
   color: var(--accent);
+}
+
+.service-card__icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .service-card__title {
@@ -485,6 +501,120 @@ p:last-child {
 
   .contact__info {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE - Mobile Menu (max 768px)
+   ========================================================================== */
+
+/* ==========================================================================
+   PRIVACY PAGE
+   ========================================================================== */
+
+.privacy__content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.privacy__section {
+  margin-bottom: var(--space-xl);
+}
+
+.privacy__section h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-md);
+  color: var(--accent);
+}
+
+.privacy__section h3 {
+  font-size: 1.1rem;
+  margin: var(--space-md) 0 var(--space-sm);
+}
+
+.privacy__section p,
+.privacy__section li {
+  color: var(--text-secondary);
+}
+
+.privacy__section ul {
+  margin: var(--space-sm) 0;
+  padding-left: var(--space-lg);
+  list-style: disc;
+}
+
+.privacy__section li {
+  margin-bottom: var(--space-xs);
+}
+
+.privacy__section code {
+  background-color: var(--bg-tertiary);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.privacy__back {
+  margin-top: var(--space-xl);
+  text-align: center;
+}
+
+/* ==========================================================================
+   COOKIE BANNER
+   ========================================================================== */
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: var(--space-md);
+  z-index: 1001;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cookie-banner[hidden] {
+  display: none;
+}
+
+.cookie-banner__content {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center;
+  text-align: center;
+}
+
+.cookie-banner__content p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.cookie-banner__link {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.cookie-banner__actions .btn {
+  padding: var(--space-xs) var(--space-md);
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .cookie-banner__content {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
   }
 }
 

@@ -1,0 +1,14 @@
+{
+  "name": "Piotr de Bever",
+  "short_name": "de Bever",
+  "icons": [
+    {
+      "src": "/assets/images/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "theme_color": "#0d1117",
+  "background_color": "#0d1117",
+  "display": "standalone"
+}

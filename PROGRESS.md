@@ -1,6 +1,6 @@
 # Progress projektu debever.pl
 
-## Ostatnia aktualizacja: 2026-01-26 (sesja 1)
+## Ostatnia aktualizacja: 2026-01-26 (sesja 2)
 
 ## Aktualny status
 - [ ] Phase 1: Wizytówka — W TRAKCIE (szkielet gotowy)
@@ -16,6 +16,11 @@
 - [x] 2026-01-26: Style bazowe (reset, zmienne CSS, dark mode)
 - [x] 2026-01-26: Responsywność (mobile/tablet/desktop)
 - [x] 2026-01-26: Mobile hamburger menu (JS)
+- [x] 2026-01-26: Ikony SVG do kart usług (Lucide Icons)
+- [x] 2026-01-26: Favicon SVG (symbol fali) + site.webmanifest
+- [x] 2026-01-26: Google Analytics 4 (z cookie consent, RODO-compliant)
+- [x] 2026-01-26: Baner cookie consent
+- [x] 2026-01-26: Strona polityki prywatności (privacy.html)
 
 ## Aktualnie w trakcie
 > Sesja 1 zakończona. Setup projektu kompletny.
@@ -23,8 +28,9 @@
 > Ostatni commit: [HTML] Szkielet index.html + [CSS] Bazowe style
 
 ## Następne kroki (TODO)
-1. Dodać ikony do kart usług (Lucide/Heroicons)
-2. Dodać zdjęcie profilowe (O mnie)
+1. Uzupełnić GA4 Measurement ID w index.html (linia z G-XXXXXXXXXX)
+2. Wygenerować apple-touch-icon.png (180x180) z SVG
+3. Dodać zdjęcie profilowe (O mnie)
 3. Dodać screenshoty do portfolio
 4. Uzupełnić dane firmowe (NIP, adres, email, telefon)
 5. Dodać favicon
@@ -35,6 +41,7 @@
 ## Znane problemy / Blokery
 - Brak screenshotów do portfolio (do dostarczenia przez właściciela)
 - Dane firmowe placeholder [DO UZUPEŁNIENIA]
+- Brak apple-touch-icon.png (wygenerować z favicon.svg na realfavicongenerator.net)
 
 ## Decyzje projektowe
 - 2026-01-26: GitHub — pomijamy na razie, praca lokalna

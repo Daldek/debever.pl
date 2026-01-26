@@ -32,4 +32,66 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  // Cookie Consent & Google Analytics
+  initCookieConsent();
 });
+
+/**
+ * Cookie Consent Management
+ */
+function initCookieConsent() {
+  const COOKIE_KEY = 'cookie_consent';
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const rejectBtn = document.getElementById('cookie-reject');
+
+  if (!banner) return;
+
+  const consent = localStorage.getItem(COOKIE_KEY);
+
+  if (consent === null) {
+    banner.hidden = false;
+  } else if (consent === 'accepted') {
+    loadGoogleAnalytics();
+  }
+
+  acceptBtn?.addEventListener('click', () => {
+    localStorage.setItem(COOKIE_KEY, 'accepted');
+    banner.hidden = true;
+    loadGoogleAnalytics();
+  });
+
+  rejectBtn?.addEventListener('click', () => {
+    localStorage.setItem(COOKIE_KEY, 'rejected');
+    banner.hidden = true;
+  });
+}
+
+/**
+ * Load Google Analytics 4
+ */
+function loadGoogleAnalytics() {
+  const measurementId = window.GA_MEASUREMENT_ID;
+
+  if (!measurementId || measurementId === 'G-XXXXXXXXXX') {
+    console.warn('Google Analytics: Measurement ID not configured');
+    return;
+  }
+
+  // Load gtag.js
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+  document.head.appendChild(script);
+
+  // Initialize gtag
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', measurementId, {
+    anonymize_ip: true
+  });
+
+  window.gtag = gtag;
+}
