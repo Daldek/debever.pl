@@ -32,13 +32,13 @@
 - [x] 2026-01-26: Dane firmowe z CEIDG (NIP, REGON, adres, email)
 - [x] 2026-01-26: Testy cross-browser + poprawki kompatybilności Safari
 - [x] 2026-01-26: Połączenie z GitHub (https://github.com/Daldek/debever.pl)
+- [x] 2026-01-26: GA4 Measurement ID skonfigurowany (G-3KHED211LP)
 
 ## Następne kroki (TODO)
-1. Uzupełnić GA4 Measurement ID w index.html (linia z G-XXXXXXXXXX)
-2. Dodać screenshoty do portfolio (5 obrazków w assets/images/portfolio/)
-3. Wygenerować apple-touch-icon.png (180x180) z favicon.svg
-4. Skonwertować og-image.svg na PNG (1200x630)
-5. Deploy na Mikrus VPS (konfiguracja nginx + SSL)
+1. Dodać screenshoty do portfolio (5 obrazków w assets/images/portfolio/)
+2. Wygenerować apple-touch-icon.png (180x180) z favicon.svg
+3. Skonwertować og-image.svg na PNG (1200x630)
+4. Deploy na Mikrus VPS (konfiguracja nginx + SSL)
 
 ## Znane problemy / Blokery
 - Brak screenshotów do portfolio (do dostarczenia przez właściciela)
