@@ -13,15 +13,14 @@ Tworzysz statyczną stronę-wizytówkę dla **Piotra de Bevera** — inżyniera 
 - **GitHub:** https://github.com/Daldek
 - **LinkedIn:** https://www.linkedin.com/in/piotr-de-bever/
 
-### Dane firmowe (do uzupełnienia przez właściciela)
+### Dane firmowe
 
 ```
-Nazwa firmy: [DO UZUPEŁNIENIA]
-NIP: [DO UZUPEŁNIENIA]
-REGON: [DO UZUPEŁNIENIA]
-Adres: [DO UZUPEŁNIENIA]
-Email: [DO UZUPEŁNIENIA]
-Telefon: [DO UZUPEŁNIENIA]
+Nazwa firmy: Piotr de Bever
+NIP: 7773460753
+REGON: 543702842
+Adres: ul. Kazimierza Odnowiciela 6, 62-010 Pobiedziska
+Email: kontakt@debever.pl
 ```
 
 ---
