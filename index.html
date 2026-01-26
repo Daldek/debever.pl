@@ -6,15 +6,28 @@
   <meta name="description" content="Piotr de Bever - Inżynier hydrolog, modelowanie hydrauliczne, analizy GIS. Profesjonalne usługi hydrologiczne i hydrauliczne.">
   <meta name="author" content="Piotr de Bever">
   <meta name="keywords" content="hydrologia, modelowanie hydrauliczne, HEC-RAS, MIKE DHI, TELEMAC, GIS, analizy przestrzenne, Poznań">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Piotr de Bever - Inżynier hydrolog">
-  <meta property="og:description" content="Modelowanie hydrauliczne, analizy hydrologiczne i przestrzenne GIS">
+  <meta property="og:description" content="Modelowanie hydrauliczne, analizy hydrologiczne i przestrzenne GIS. Profesjonalne usługi dla biur projektowych i inwestorów.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://debever.pl/">
   <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="Piotr de Bever">
+  <meta property="og:image" content="https://debever.pl/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Piotr de Bever - Inżynier hydrolog, modelowanie hydrauliczne, GIS">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Piotr de Bever - Inżynier hydrolog">
+  <meta name="twitter:description" content="Modelowanie hydrauliczne, analizy hydrologiczne i przestrzenne GIS">
+  <meta name="twitter:image" content="https://debever.pl/assets/images/og-image.png">
 
   <title>Piotr de Bever | Inżynier hydrolog · Modelowanie hydrauliczne · GIS</title>
+  <link rel="canonical" href="https://debever.pl/">
 
   <!-- Favicon -->
   <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
@@ -34,6 +47,116 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://debever.pl/#website",
+        "url": "https://debever.pl/",
+        "name": "Piotr de Bever",
+        "description": "Inżynier hydrolog - modelowanie hydrauliczne, analizy hydrologiczne, GIS",
+        "inLanguage": "pl-PL"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://debever.pl/#person",
+        "name": "Piotr de Bever",
+        "jobTitle": "Inżynier hydrolog",
+        "description": "Specjalista w zakresie modelowania hydraulicznego, analiz hydrologicznych i GIS",
+        "url": "https://debever.pl/",
+        "image": "https://debever.pl/assets/images/profile.jpg",
+        "sameAs": [
+          "https://www.linkedin.com/in/piotr-de-bever/",
+          "https://github.com/Daldek"
+        ],
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Uniwersytet Przyrodniczy we Wrocławiu"
+        },
+        "knowsAbout": [
+          "Modelowanie hydrauliczne",
+          "HEC-RAS",
+          "MIKE DHI",
+          "TELEMAC",
+          "Hydrologia",
+          "GIS",
+          "Analizy przestrzenne",
+          "Python"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Poznań",
+          "addressCountry": "PL"
+        }
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://debever.pl/#business",
+        "name": "Piotr de Bever - Usługi hydrologiczne",
+        "description": "Profesjonalne usługi w zakresie modelowania hydraulicznego, analiz hydrologicznych i przestrzennych GIS",
+        "url": "https://debever.pl/",
+        "founder": { "@id": "https://debever.pl/#person" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Poznań",
+          "addressCountry": "PL"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Polska"
+        },
+        "serviceType": [
+          "Modelowanie hydrauliczne 1D/2D/3D",
+          "Analizy hydrologiczne",
+          "Analizy przestrzenne GIS",
+          "Mapy zagrożenia powodziowego"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Usługi",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Modelowanie hydrauliczne",
+                "description": "Modele 1D, 2D i 3D przepływu wody w korytach rzecznych, zbiornikach i na terenach zalewowych"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Analizy hydrologiczne",
+                "description": "Wyznaczanie zlewni, obliczanie hydrogramów odpływu, bilanse wodne"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Analizy przestrzenne GIS",
+                "description": "Mapy zagrożenia powodziowego, przetwarzanie danych przestrzennych, analiza NMT"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Analiza danych",
+                "description": "Automatyzacja przetwarzania danych hydrologicznych i meteorologicznych, wizualizacja wyników"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Header -->
@@ -233,8 +356,8 @@
             <div class="contact__item">
               <h3>Social</h3>
               <ul class="contact__social">
-                <li><a href="https://www.linkedin.com/in/piotr-de-bever/" target="_blank" rel="noopener">LinkedIn</a></li>
-                <li><a href="https://github.com/Daldek" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/piotr-de-bever/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://github.com/Daldek" target="_blank" rel="noopener noreferrer">GitHub</a></li>
               </ul>
             </div>
           </div>

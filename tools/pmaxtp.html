@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>PMAXTP - Pobieranie danych | Piotr de Bever</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#0d1117">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- XLSX library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --accent: #58a6ff;
+      --accent-hover: #79b8ff;
+      --border: #30363d;
+      --font-serif: 'Merriweather', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      background-color: var(--bg-secondary);
+      padding: 2.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      max-width: 450px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      font-family: var(--font-sans);
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+    }
+
+    input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    select option {
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    button {
+      width: 100%;
+      padding: 0.875rem 1.5rem;
+      margin-top: 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      background-color: var(--accent);
+      color: var(--bg-primary);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: justify;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .method-info {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>PMAXTP</h1>
+    <p class="subtitle">Pobieranie danych opadów maksymalnych z IMGW-PIB</p>
+
+    <form id="api-form">
+      <label for="method">Metoda:</label>
+      <select id="method" required>
+        <option value="P">POT (Peak Over Threshold)</option>
+        <option value="A">AMP (Annual Maximum Precipitation)</option>
+      </select>
+      <p class="method-info">POT — metoda przekroczeń progu, AMP — maksima roczne</p>
+
+      <label for="lat">Szerokość geograficzna (lat):</label>
+      <input type="number" id="lat" step="0.0001" placeholder="np. 52.4064" required>
+
+      <label for="lon">Długość geograficzna (lon):</label>
+      <input type="number" id="lon" step="0.0001" placeholder="np. 16.9252" required>
+
+      <button type="submit">Pobierz dane (XLSX)</button>
+    </form>
+
+    <div class="footer">
+      <p>
+        Źródłem pochodzenia danych jest <strong>Instytut Meteorologii i Gospodarki Wodnej – Państwowy Instytut Badawczy</strong>.
+        Dane pochodzą ze strony <a href="https://klimat.imgw.pl/opady-maksymalne" target="_blank" rel="noopener noreferrer">klimat.imgw.pl/opady-maksymalne</a>
+      </p>
+      <p style="margin-top: 1rem;">
+        „Modele probabilistyczne opadów maksymalnych o określonym czasie trwania i prawdopodobieństwie przewyższenia – Projekt PMAXTP"
+        pod redakcją Bogdana Ozga-Zielińskiego, IMGW-PIB, Warszawa 2022
+      </p>
+    </div>
+
+    <a href="/" class="back-link">&larr; Strona główna</a>
+  </div>
+
+  <script>
+    function formatCoordinate(value) {
+      return parseFloat(value).toFixed(4);
+    }
+
+    function validateCoordinates(lat, lon) {
+      // Poland bounding box (approximate)
+      const PL_LAT_MIN = 49.0;
+      const PL_LAT_MAX = 54.9;
+      const PL_LON_MIN = 14.1;
+      const PL_LON_MAX = 24.2;
+
+      if (isNaN(lat) || isNaN(lon)) {
+        alert("Podano niepoprawne współrzędne geograficzne.");
+        return false;
+      }
+
+      if (lat < PL_LAT_MIN || lat > PL_LAT_MAX || lon < PL_LON_MIN || lon > PL_LON_MAX) {
+        alert("Współrzędne wykraczają poza obszar Polski.\n\nDozwolony zakres:\nLat: " + PL_LAT_MIN + " - " + PL_LAT_MAX + "\nLon: " + PL_LON_MIN + " - " + PL_LON_MAX);
+        return false;
+      }
+
+      return true;
+    }
+
+    function buildPmaxtpUrl(method, lat, lon) {
+      const baseUrl = "https://powietrze.imgw.pl/tpmax-api/point";
+      return `${baseUrl}/${encodeURIComponent(method)}/KS/${formatCoordinate(lat)}/${formatCoordinate(lon)}`;
+    }
+
+    document.getElementById("api-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const method = document.getElementById("method").value;
+      const lat = parseFloat(document.getElementById("lat").value);
+      const lon = parseFloat(document.getElementById("lon").value);
+
+      if (!validateCoordinates(lat, lon)) return;
+
+      const url = buildPmaxtpUrl(method, lat, lon);
+      const button = e.target.querySelector("button");
+      const originalText = button.textContent;
+
+      try {
+        button.textContent = "Pobieranie...";
+        button.disabled = true;
+
+        const response = await fetch(url, { cache: "no-store" });
+
+        if (!response.ok) {
+          throw new Error(`Błąd pobierania danych: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (!data || !data.data) {
+          alert("Brak danych do zapisania dla podanych współrzędnych.");
+          return;
+        }
+
+        const workbook = XLSX.utils.book_new();
+        const regulationText = [
+          [""],
+          ["REGULAMIN UDOSTĘPNIANIA DANYCH PROJEKTU PMAXTP"],
+          ["Udostępnienie i korzystanie z danych na zasadach licencji CC-BY 4.0."],
+          ["Źródło: IMGW-PIB, https://klimat.imgw.pl/opady-maksymalne"]
+        ];
+
+        const categories = ["ks", "rb", "sg"];
+        const sheetNames = {
+          ks: "Kwantyle opadu",
+          rb: "Błąd estymacji",
+          sg: "Górna granica ufności"
+        };
+
+        categories.forEach(category => {
+          if (!data.data[category]) return;
+
+          const firstEntry = Object.values(data.data[category])[0];
+          const keysOrder = Object.keys(firstEntry).map(key => `${key}%`);
+          const orderedKeys = ["Czas trwania (min)", ...keysOrder];
+
+          const sheetData = Object.entries(data.data[category]).map(([time, values]) => {
+            const row = { "Czas trwania (min)": time };
+            keysOrder.forEach(key => {
+              const originalKey = key.slice(0, -1);
+              row[key] = values[originalKey] ?? "";
+            });
+            return row;
+          });
+
+          const worksheet = XLSX.utils.json_to_sheet(sheetData, { header: orderedKeys });
+          XLSX.utils.sheet_add_aoa(worksheet, regulationText, { origin: -1 });
+          XLSX.utils.book_append_sheet(workbook, worksheet, sheetNames[category]);
+        });
+
+        const fileName = `pmaxtp_${method}_${formatCoordinate(lat)}_${formatCoordinate(lon)}.xlsx`;
+        XLSX.writeFile(workbook, fileName);
+
+      } catch (error) {
+        alert("Wystąpił błąd: " + error.message);
+        console.error(error);
+      } finally {
+        button.textContent = originalText;
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

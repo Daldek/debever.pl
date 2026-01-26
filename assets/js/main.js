@@ -74,15 +74,23 @@ function initCookieConsent() {
 function loadGoogleAnalytics() {
   const measurementId = window.GA_MEASUREMENT_ID;
 
+  // Validate Measurement ID format (G-XXXXXXXXXX or GT-XXXXXXXXXX)
+  const GA_ID_PATTERN = /^(G|GT)-[A-Z0-9]{10,12}$/;
+
   if (!measurementId || measurementId === 'G-XXXXXXXXXX') {
     console.warn('Google Analytics: Measurement ID not configured');
+    return;
+  }
+
+  if (!GA_ID_PATTERN.test(measurementId)) {
+    console.error('Google Analytics: Invalid Measurement ID format');
     return;
   }
 
   // Load gtag.js
   const script = document.createElement('script');
   script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
   document.head.appendChild(script);
 
   // Initialize gtag

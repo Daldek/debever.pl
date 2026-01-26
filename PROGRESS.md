@@ -21,6 +21,13 @@
 - [x] 2026-01-26: Google Analytics 4 (z cookie consent, RODO-compliant)
 - [x] 2026-01-26: Baner cookie consent
 - [x] 2026-01-26: Strona polityki prywatności (privacy.html)
+- [x] 2026-01-26: Audyt bezpieczeństwa + poprawki (walidacja GA ID, noreferrer, referrer-policy)
+- [x] 2026-01-26: SEO: robots.txt, sitemap.xml, canonical URL
+- [x] 2026-01-26: Structured Data (JSON-LD): Person, ProfessionalService, WebSite
+- [x] 2026-01-26: Open Graph + Twitter Cards + og-image.svg
+- [x] 2026-01-26: Narzędzie PMAXTP (/tools/pmaxtp.html) - ukryte, dark mode
+- [x] 2026-01-26: Plik wodowskazy.csv (/tools/wodowskazy.csv)
+- [x] 2026-01-26: Strona 404.html
 
 ## Aktualnie w trakcie
 > Sesja 1 zakończona. Setup projektu kompletny.
@@ -42,6 +49,7 @@
 - Brak screenshotów do portfolio (do dostarczenia przez właściciela)
 - Dane firmowe placeholder [DO UZUPEŁNIENIA]
 - Brak apple-touch-icon.png (wygenerować z favicon.svg na realfavicongenerator.net)
+- Brak og-image.png (skonwertować og-image.svg na PNG 1200x630)
 
 ## Decyzje projektowe
 - 2026-01-26: GitHub — pomijamy na razie, praca lokalna

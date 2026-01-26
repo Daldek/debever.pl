@@ -1,0 +1,15 @@
+# robots.txt for debever.pl
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://debever.pl/sitemap.xml
+
+# Block sensitive files
+Disallow: /CLAUDE.md
+Disallow: /PROGRESS.md
+Disallow: /.git/
+
+# Hidden tools (accessible only via direct URL)
+Disallow: /tools/
