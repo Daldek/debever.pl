@@ -25,8 +25,10 @@ from typing import Optional
 BLOG_DIR = Path(__file__).parent
 POSTS_DIR = BLOG_DIR / "posts"
 OUTPUT_DIR = BLOG_DIR
+TAGS_DIR = BLOG_DIR / "tag"
 TEMPLATE_FILE = BLOG_DIR / "template.html"
 INDEX_TEMPLATE_FILE = BLOG_DIR / "index-template.html"
+TAG_TEMPLATE_FILE = BLOG_DIR / "tag-template.html"
 
 # Markdown extensions for code highlighting and extras
 MARKDOWN_EXTRAS = [
@@ -38,6 +40,24 @@ MARKDOWN_EXTRAS = [
     "task_list",
     "cuddled-lists",
 ]
+
+
+def slugify(text: str) -> str:
+    """Convert text to URL-friendly slug."""
+    # Convert to lowercase
+    slug = text.lower()
+    # Replace Polish characters
+    polish_chars = {
+        'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n',
+        'ó': 'o', 'ś': 's', 'ź': 'z', 'ż': 'z'
+    }
+    for pl, en in polish_chars.items():
+        slug = slug.replace(pl, en)
+    # Replace spaces and special chars with hyphens
+    slug = re.sub(r'[^a-z0-9]+', '-', slug)
+    # Remove leading/trailing hyphens
+    slug = slug.strip('-')
+    return slug
 
 
 class Post:
@@ -146,10 +166,13 @@ def render_post(post: Post, template: str, prev_post: Optional[Post], next_post:
     if next_post:
         nav_next = f'<a href="{next_post.url}" class="blog-nav__link blog-nav__link--next">{next_post.title} &rarr;</a>'
 
-    # Build tags HTML
+    # Build tags HTML with links
     tags_html = ""
     if post.tags:
-        tags_list = ", ".join(f'<span class="blog-post__tag">{tag}</span>' for tag in post.tags)
+        tags_list = ", ".join(
+            f'<a href="/blog/tag/{slugify(tag)}.html" class="blog-post__tag">{tag}</a>'
+            for tag in post.tags
+        )
         tags_html = f'<div class="blog-post__tags">{tags_list}</div>'
 
     # Replace placeholders in template
@@ -191,6 +214,39 @@ def render_index(posts: list[Post], template: str) -> str:
     html = html.replace("{{post_count}}", str(len(posts)))
 
     return html
+
+
+def render_tag_page(tag: str, posts: list[Post], template: str) -> str:
+    """Render a tag page with all posts for that tag."""
+    posts_html = []
+
+    for post in posts:
+        post_item = f'''
+        <article class="blog-list__item">
+          <time class="blog-list__date" datetime="{post.date_iso}">{post.date_display}</time>
+          <h2 class="blog-list__title"><a href="/blog/{post.url}">{post.title}</a></h2>
+          <p class="blog-list__excerpt">{post.excerpt}</p>
+          <span class="blog-list__category">{post.category}</span>
+        </article>'''
+        posts_html.append(post_item)
+
+    html = template.replace("{{tag}}", tag)
+    html = html.replace("{{tag_slug}}", slugify(tag))
+    html = html.replace("{{posts}}", "\n".join(posts_html))
+    html = html.replace("{{post_count}}", str(len(posts)))
+
+    return html
+
+
+def collect_tags(posts: list[Post]) -> dict[str, list[Post]]:
+    """Collect all tags and their associated posts."""
+    tags = {}
+    for post in posts:
+        for tag in post.tags:
+            if tag not in tags:
+                tags[tag] = []
+            tags[tag].append(post)
+    return tags
 
 
 def build():
@@ -250,7 +306,39 @@ def build():
     index_path.write_text(index_html, encoding="utf-8")
     print(f"  Generated: index.html")
 
-    print(f"\nBuild complete! {len(posts)} posts generated.")
+    # Generate tag pages
+    print("\nGenerating tag pages...")
+    tags = collect_tags(posts)
+
+    # Create tags directory if it doesn't exist
+    TAGS_DIR.mkdir(exist_ok=True)
+
+    try:
+        tag_template = load_template(TAG_TEMPLATE_FILE)
+    except FileNotFoundError:
+        tag_template = create_default_tag_template()
+
+    for tag, tag_posts in sorted(tags.items()):
+        tag_html = render_tag_page(tag, tag_posts, tag_template)
+        tag_slug = slugify(tag)
+        tag_path = TAGS_DIR / f"{tag_slug}.html"
+        tag_path.write_text(tag_html, encoding="utf-8")
+        print(f"  Generated: tag/{tag_slug}.html ({len(tag_posts)} posts)")
+
+    # Generate tags list file
+    tags_list_path = BLOG_DIR / "TAGS.md"
+    tags_sorted = sorted(tags.items(), key=lambda x: len(x[1]), reverse=True)
+    tags_content = "# Lista tagów\n\n"
+    tags_content += "| Tag | Liczba wpisów |\n"
+    tags_content += "|-----|---------------|\n"
+    for tag, tag_posts in tags_sorted:
+        tags_content += f"| {tag} | {len(tag_posts)} |\n"
+    tags_list_path.write_text(tags_content, encoding="utf-8")
+
+    print(f"\nBuild complete! {len(posts)} posts, {len(tags)} tags generated.")
+    print(f"\n--- Lista tagów (posortowana wg popularności) ---")
+    for tag, tag_posts in tags_sorted:
+        print(f"  {tag}: {len(tag_posts)} wpisów")
 
 
 def create_default_index_template() -> str:
@@ -297,6 +385,73 @@ def create_default_index_template() -> str:
 
       <div class="blog-list">
         {{posts}}
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Piotr de Bever. Wszelkie prawa zastrzeżone.</p>
+      <nav class="footer__nav">
+        <a href="/">Strona główna</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>'''
+
+
+def create_default_tag_template() -> str:
+    """Create a default tag template if none exists."""
+    return '''<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Wpisy z tagiem {{tag}} - Blog Piotra de Bevera">
+  <title>Tag: {{tag}} | Piotr de Bever</title>
+  <link rel="canonical" href="https://debever.pl/blog/tag/{{tag_slug}}.html">
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">Piotr de Bever</a>
+      <nav class="nav">
+        <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+          <span class="nav__hamburger"></span>
+        </button>
+        <ul class="nav__list">
+          <li><a href="/#uslugi" class="nav__link">Usługi</a></li>
+          <li><a href="/#portfolio" class="nav__link">Portfolio</a></li>
+          <li><a href="/#o-mnie" class="nav__link">O mnie</a></li>
+          <li><a href="/#kontakt" class="nav__link">Kontakt</a></li>
+          <li><a href="/blog/" class="nav__link nav__link--active">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="blog-index">
+    <div class="container">
+      <header class="blog-index__header">
+        <p class="blog-index__breadcrumb"><a href="/blog/">Blog</a> / Tag</p>
+        <h1 class="blog-index__title">#{{tag}}</h1>
+        <p class="blog-index__count">{{post_count}} wpisów</p>
+      </header>
+
+      <div class="blog-list">
+        {{posts}}
+      </div>
+
+      <div class="blog-post__back">
+        <a href="/blog/" class="btn btn--secondary">&larr; Wszystkie wpisy</a>
       </div>
     </div>
   </main>

@@ -806,6 +806,29 @@ p:last-child {
   background-color: var(--bg-tertiary);
   padding: 0.25em 0.75em;
   border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.blog-post__tag:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+/* Blog Index Breadcrumb */
+.blog-index__breadcrumb {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.blog-index__breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.blog-index__breadcrumb a:hover {
+  text-decoration: underline;
 }
 
 /* Blog Post Content */
