@@ -425,6 +425,20 @@ def build():
         tags_content += f"| {tag} | {len(tag_posts)} |\n"
     tags_list_path.write_text(tags_content, encoding="utf-8")
 
+    # Generate RSS feed
+    print("\nGenerating RSS feed...")
+    rss_content = generate_rss_feed(posts)
+    rss_path = BLOG_DIR / "feed.xml"
+    rss_path.write_text(rss_content, encoding="utf-8")
+    print(f"  Generated: feed.xml")
+
+    # Update sitemap.xml
+    print("\nUpdating sitemap.xml...")
+    sitemap_content = generate_sitemap(posts)
+    sitemap_path = BLOG_DIR.parent / "sitemap.xml"
+    sitemap_path.write_text(sitemap_content, encoding="utf-8")
+    print(f"  Updated: sitemap.xml")
+
     print(f"\nBuild complete! {len(posts)} posts, {len(tags)} tags generated.")
     print(f"\n--- Lista tagów (posortowana wg popularności) ---")
     for tag, tag_posts in tags_sorted:
@@ -491,6 +505,75 @@ def create_default_index_template() -> str:
   <script src="/assets/js/main.js"></script>
 </body>
 </html>'''
+
+
+def generate_rss_feed(posts: list[Post]) -> str:
+    """Generate RSS 2.0 feed for the blog."""
+    items = []
+    for post in posts[:20]:  # Last 20 posts
+        item = f'''    <item>
+      <title>{post.title}</title>
+      <link>https://debever.pl/blog/{post.url}</link>
+      <guid isPermaLink="true">https://debever.pl/blog/{post.url}</guid>
+      <pubDate>{post.date.strftime("%a, %d %b %Y 00:00:00 +0100")}</pubDate>
+      <description><![CDATA[{post.excerpt}]]></description>
+      <category>{post.category}</category>
+    </item>'''
+        items.append(item)
+
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog Piotra de Bevera</title>
+    <link>https://debever.pl/blog/</link>
+    <description>Artykuły o hydrologii, modelowaniu hydraulicznym, HEC-RAS, GIS i programowaniu</description>
+    <language>pl</language>
+    <lastBuildDate>{datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0100")}</lastBuildDate>
+    <atom:link href="https://debever.pl/blog/feed.xml" rel="self" type="application/rss+xml"/>
+{chr(10).join(items)}
+  </channel>
+</rss>'''
+
+
+def generate_sitemap(posts: list[Post]) -> str:
+    """Generate sitemap.xml with all pages and blog posts."""
+    today = datetime.now().strftime("%Y-%m-%d")
+
+    urls = [
+        # Main pages
+        f'''  <url>
+    <loc>https://debever.pl/</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>''',
+        f'''  <url>
+    <loc>https://debever.pl/privacy.html</loc>
+    <lastmod>2026-01-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>''',
+        f'''  <url>
+    <loc>https://debever.pl/blog/</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>''',
+    ]
+
+    # Blog posts
+    for post in posts:
+        urls.append(f'''  <url>
+    <loc>https://debever.pl/blog/{post.url}</loc>
+    <lastmod>{post.date_iso}</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>''')
+
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{chr(10).join(urls)}
+</urlset>'''
 
 
 def create_default_tag_template() -> str:

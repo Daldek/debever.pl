@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog Piotra de Bevera</title>
+    <link>https://debever.pl/blog/</link>
+    <description>Artykuły o hydrologii, modelowaniu hydraulicznym, HEC-RAS, GIS i programowaniu</description>
+    <language>pl</language>
+    <lastBuildDate>Mon, 26 Jan 2026 18:28:28 +0100</lastBuildDate>
+    <atom:link href="https://debever.pl/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Windows – Debian – macOS</title>
+      <link>https://debever.pl/blog/2026-01-12-windows-debian-macos.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2026-01-12-windows-debian-macos.html</guid>
+      <pubDate>Mon, 12 Jan 2026 00:00:00 +0100</pubDate>
+      <description><![CDATA[Po przejściu z Windows na macOS potrzebowałem dostępu do aplikacji niedostępnych na Macu. Rozwiązaniem było zainstalowanie Debiana na starszym komputerze.]]></description>
+      <category>Programming</category>
+    </item>
+    <item>
+      <title>HEC-RAS od zera – tworzenie geometrii modelu</title>
+      <link>https://debever.pl/blog/2025-09-28-hec-ras-od-zera-tworzenie-geometrii-modelu.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2025-09-28-hec-ras-od-zera-tworzenie-geometrii-modelu.html</guid>
+      <pubDate>Sun, 28 Sep 2025 00:00:00 +0100</pubDate>
+      <description><![CDATA[Ten poradnik kontynuuje serię HEC-RAS od zera, budując na poprzednim omówieniu interfejsu użytkownika.]]></description>
+      <category>HEC-RAS</category>
+    </item>
+    <item>
+      <title>HEC-RAS od zera – interfejs użytkownika w programie HEC-RAS</title>
+      <link>https://debever.pl/blog/2025-09-08-hec-ras-od-zera-interfejs-uzytkownika.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2025-09-08-hec-ras-od-zera-interfejs-uzytkownika.html</guid>
+      <pubDate>Mon, 08 Sep 2025 00:00:00 +0100</pubDate>
+      <description><![CDATA[Omówienie odświeżonej wersji HEC-RAS z października, zauważając że najnowsza stabilna wersja to 6.6.]]></description>
+      <category>HEC-RAS</category>
+    </item>
+    <item>
+      <title>HEC-RAS od zera – podstawy modelowania ruchu wody</title>
+      <link>https://debever.pl/blog/2025-09-05-hec-ras-od-zera-podstawy-modelowania.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2025-09-05-hec-ras-od-zera-podstawy-modelowania.html</guid>
+      <pubDate>Fri, 05 Sep 2025 00:00:00 +0100</pubDate>
+      <description><![CDATA[Artykuł otwierający serię HEC-RAS od zera wyjaśnia klasyfikację modeli przepływu wody.]]></description>
+      <category>HEC-RAS</category>
+    </item>
+    <item>
+      <title>HEC-RAS od zera – wstęp do serii artykułów</title>
+      <link>https://debever.pl/blog/2025-09-03-hec-ras-od-zera-wstep.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2025-09-03-hec-ras-od-zera-wstep.html</guid>
+      <pubDate>Wed, 03 Sep 2025 00:00:00 +0100</pubDate>
+      <description><![CDATA[Autor wprowadza nową serię o modelowaniu hydraulicznym HEC-RAS. Wyjaśnia, dlaczego lepiej zacząć od modeli 1D.]]></description>
+      <category>HEC-RAS</category>
+    </item>
+    <item>
+      <title>Czym jest zlewnia?</title>
+      <link>https://debever.pl/blog/2025-09-02-czym-jest-zlewnia.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2025-09-02-czym-jest-zlewnia.html</guid>
+      <pubDate>Tue, 02 Sep 2025 00:00:00 +0100</pubDate>
+      <description><![CDATA[Zlewnia to obszar, z którego woda spływa do jednego miejsca. Dzielą się na naturalne i zurbanizowane oraz kontrolowane i niekontrolowane.]]></description>
+      <category>Hydrology</category>
+    </item>
+    <item>
+      <title>Tworzenie siatki w BlueKenue</title>
+      <link>https://debever.pl/blog/2025-04-03-tworzenie-siatki-w-bluekenue.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2025-04-03-tworzenie-siatki-w-bluekenue.html</guid>
+      <pubDate>Thu, 03 Apr 2025 00:00:00 +0100</pubDate>
+      <description><![CDATA[Przewodnik krok po kroku do przygotowania siatek obliczeniowych w BlueKenue dla modelowania 2D i 3D w oprogramowaniu TELEMAC.]]></description>
+      <category>Telemac</category>
+    </item>
+    <item>
+      <title>Skąd brać dane do projektów?</title>
+      <link>https://debever.pl/blog/2025-03-29-skad-brac-dane-do-projektow.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2025-03-29-skad-brac-dane-do-projektow.html</guid>
+      <pubDate>Sat, 29 Mar 2025 00:00:00 +0100</pubDate>
+      <description><![CDATA[Omówienie źródeł danych hydrometeorologicznych dla projektów w Europie. Porównanie dostępności danych w Polsce, Danii i Szwecji.]]></description>
+      <category>Climate</category>
+    </item>
+    <item>
+      <title>Transfer plików w sieci domowej</title>
+      <link>https://debever.pl/blog/2025-03-20-transfer-plikow-w-sieci-domowej.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2025-03-20-transfer-plikow-w-sieci-domowej.html</guid>
+      <pubDate>Thu, 20 Mar 2025 00:00:00 +0100</pubDate>
+      <description><![CDATA[Praktyczny przewodnik jak szybko przesyłać pliki między komputerami w sieci domowej za pomocą wbudowanego serwera HTTP w Pythonie.]]></description>
+      <category>Programming</category>
+    </item>
+    <item>
+      <title>O tym jak próbowałem zautomatyzować pobieranie danych z IMGW</title>
+      <link>https://debever.pl/blog/2024-10-17-automatyzacja-pobierania-danych-imgw.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2024-10-17-automatyzacja-pobierania-danych-imgw.html</guid>
+      <pubDate>Thu, 17 Oct 2024 00:00:00 +0100</pubDate>
+      <description><![CDATA[Historia prób stworzenia narzędzia Python do automatyzacji pobierania publicznych danych z IMGW i napotkanych przy tym wyzwań.]]></description>
+      <category>Programming</category>
+    </item>
+    <item>
+      <title>Wprowadzenie do GIS</title>
+      <link>https://debever.pl/blog/2024-10-07-wprowadzenie-do-gis.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2024-10-07-wprowadzenie-do-gis.html</guid>
+      <pubDate>Mon, 07 Oct 2024 00:00:00 +0100</pubDate>
+      <description><![CDATA[Systemy Informacji Geograficznej (GIS) to potężne narzędzia do analizy przestrzennej, stosowane w codziennym życiu.]]></description>
+      <category>GIS</category>
+    </item>
+    <item>
+      <title>Zupełnie nowy HEC-RAS 2025</title>
+      <link>https://debever.pl/blog/2024-10-03-zupelnie-nowy-hec-ras-2025.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2024-10-03-zupelnie-nowy-hec-ras-2025.html</guid>
+      <pubDate>Thu, 03 Oct 2024 00:00:00 +0100</pubDate>
+      <description><![CDATA[Od dziesięcioleci HEC-RAS należy do najpopularniejszych programów do modelowania hydraulicznego. Niedawno pojawiły się informacje o nowej generacji.]]></description>
+      <category>HEC-RAS</category>
+    </item>
+    <item>
+      <title>Rola zbiorników w ochronie przeciwpowodziowej</title>
+      <link>https://debever.pl/blog/2024-09-14-rola-zbiornikow-w-ochronie-przeciwpowodziowej.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2024-09-14-rola-zbiornikow-w-ochronie-przeciwpowodziowej.html</guid>
+      <pubDate>Sat, 14 Sep 2024 00:00:00 +0100</pubDate>
+      <description><![CDATA[Wpis rozszerza temat zbiorników retencyjnych i ich wpływu na systemy ochrony przeciwpowodziowej.]]></description>
+      <category>Hydrology</category>
+    </item>
+    <item>
+      <title>Społeczny Monitoring Wód WWF Polska</title>
+      <link>https://debever.pl/blog/2024-05-07-spoleczny-monitoring-wod-wwf-polska.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2024-05-07-spoleczny-monitoring-wod-wwf-polska.html</guid>
+      <pubDate>Tue, 07 May 2024 00:00:00 +0100</pubDate>
+      <description><![CDATA[Około wiosny 2021 roku odkryłem stronę Strażników Rzek WWF Polska i zacząłem dokumentować przeszkody za pomocą aplikacji Barrier Tracker.]]></description>
+      <category>Hydrology</category>
+    </item>
+    <item>
+      <title>Czy to ptak? Czy to samolot? Nie, to Hydroni!</title>
+      <link>https://debever.pl/blog/2024-04-04-czy-to-ptak-nie-to-hydroni.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2024-04-04-czy-to-ptak-nie-to-hydroni.html</guid>
+      <pubDate>Thu, 04 Apr 2024 00:00:00 +0100</pubDate>
+      <description><![CDATA[Stagnacja prowadzi do regresji, więc zdecydowałem się wesprzeć nowo powstałą fundację o nazwie Hydroni.]]></description>
+      <category>Other</category>
+    </item>
+    <item>
+      <title>Rzeka Główna i jej zlewnia</title>
+      <link>https://debever.pl/blog/2024-01-03-rzeka-glowna-i-jej-zlewnia.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2024-01-03-rzeka-glowna-i-jej-zlewnia.html</guid>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 +0100</pubDate>
+      <description><![CDATA[Zainspirowany pracą o rzece Wrzesini, postanowiłem przyjrzeć się bliżej rzece położonej w pobliżu mojego miejsca zamieszkania.]]></description>
+      <category>GIS</category>
+    </item>
+    <item>
+      <title>Krótko o suszy</title>
+      <link>https://debever.pl/blog/2023-08-13-krotko-o-suszy.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2023-08-13-krotko-o-suszy.html</guid>
+      <pubDate>Sun, 13 Aug 2023 00:00:00 +0100</pubDate>
+      <description><![CDATA[Nie ma uniwersalnej definicji suszy. Każdy postrzega ją inaczej w zależności od wykonywanego zawodu i lokalizacji.]]></description>
+      <category>Hydrology</category>
+    </item>
+    <item>
+      <title>Problem niezrozumienia, ignorancji czy umyślne działania?</title>
+      <link>https://debever.pl/blog/2023-08-07-problem-niezrozumienia.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2023-08-07-problem-niezrozumienia.html</guid>
+      <pubDate>Mon, 07 Aug 2023 00:00:00 +0100</pubDate>
+      <description><![CDATA[Dyskusje w mediach społecznościowych na temat zmian klimatu i suszy ujawniają uporczywe nieporozumienia.]]></description>
+      <category>Other</category>
+    </item>
+    <item>
+      <title>HEC-RAS crash course #2, czyli o tym jak wyciągnąć cyferki z kolorowej mapy</title>
+      <link>https://debever.pl/blog/2022-12-08-hec-ras-crash-course-2.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2022-12-08-hec-ras-crash-course-2.html</guid>
+      <pubDate>Thu, 08 Dec 2022 00:00:00 +0100</pubDate>
+      <description><![CDATA[Pierwsza część przyspieszonego kursu modelowania HEC-RAS obejmowała podstawy modelowania 2D. Ten artykuł pokazuje jak analizować wyniki.]]></description>
+      <category>HEC-RAS</category>
+    </item>
+    <item>
+      <title>HEC-RAS crash course #1, czyli o supremacji modeli 2D nad 1D</title>
+      <link>https://debever.pl/blog/2022-11-21-hec-ras-crash-course-1.html</link>
+      <guid isPermaLink="true">https://debever.pl/blog/2022-11-21-hec-ras-crash-course-1.html</guid>
+      <pubDate>Mon, 21 Nov 2022 00:00:00 +0100</pubDate>
+      <description><![CDATA[Druga zwrotka bo zawsze chciałem zacząć od środka. Rozpoczynając pracę z modelowaniem hydraulicznym, preferowałem szybkie przejście do modeli 2D.]]></description>
+      <category>HEC-RAS</category>
+    </item>
+  </channel>
+</rss>
