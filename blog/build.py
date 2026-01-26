@@ -196,7 +196,7 @@ def render_post(post: Post, template: str, prev_post: Optional[Post], next_post:
     return html
 
 
-def render_index(posts: list[Post], template: str) -> str:
+def render_index(posts: list[Post], template: str, tags: dict[str, list[Post]] = None) -> str:
     """Render the blog index page."""
     posts_html = []
 
@@ -212,6 +212,13 @@ def render_index(posts: list[Post], template: str) -> str:
 
     html = template.replace("{{posts}}", "\n".join(posts_html))
     html = html.replace("{{post_count}}", str(len(posts)))
+
+    # Generate tags cloud if tags provided
+    if tags:
+        tags_cloud_html = generate_tags_cloud(tags)
+        html = html.replace("{{tags_cloud}}", tags_cloud_html)
+    else:
+        html = html.replace("{{tags_cloud}}", "")
 
     return html
 
@@ -247,6 +254,87 @@ def collect_tags(posts: list[Post]) -> dict[str, list[Post]]:
                 tags[tag] = []
             tags[tag].append(post)
     return tags
+
+
+# Thematic tag categories
+TAG_CATEGORIES = {
+    "Hydraulika i modelowanie": [
+        "hydraulika", "hec-ras", "modelowanie", "modelowanie-hydrauliczne",
+        "mike21", "telemac", "bluekenue", "2d", "hotstart", "symulacja",
+        "geometria", "interfejs", "ras2025", "mesh", "siatka", "hydraulics",
+        "teoria", "cisnienie-hydrostatyczne", "hydrostatyka", "plyn-doskonaly",
+        "rownanie-ciaglosci", "dynamika-plynow"
+    ],
+    "Hydrologia": [
+        "hydrologia", "hydrology", "zlewnia", "basin", "catchment", "wododział",
+        "susza", "powodz", "ochrona-przeciwpowodziowa", "zbiorniki-retencyjne",
+        "gospodarka-wodna", "jezioro-biezdruchowo", "limnologia", "pobiedziska"
+    ],
+    "GIS i dane przestrzenne": [
+        "gis", "qgis", "arcgis", "dane-przestrzenne", "analiza-przestrzenna"
+    ],
+    "Klimat i środowisko": [
+        "klimat", "ochrona-srodowiska", "citizen-science", "smw", "wwf",
+        "monitoring-wod", "jakosc-wody", "hydroni", "fundacja"
+    ],
+    "Programowanie": [
+        "python", "api", "imgw", "opendata", "dane", "http-server",
+        "transfer", "sieć", "pyenv", "ssh", "vnc", "windows", "debian", "macos"
+    ],
+    "Źródła danych": [
+        "API", "IMGW", "SMHI", "DMI", "meteorology", "oceanography"
+    ],
+    "Inne": [
+        "tutorial", "wprowadzenie", "blog", "powitanie", "edukacja",
+        "media-spolecznosciowe"
+    ]
+}
+
+
+def generate_tags_cloud(tags: dict[str, list[Post]]) -> str:
+    """Generate HTML for thematic tags cloud."""
+    html_parts = []
+    used_tags = set()
+
+    for category, category_tags in TAG_CATEGORIES.items():
+        # Find tags that exist in this category
+        existing_tags = []
+        for tag in category_tags:
+            # Case-insensitive matching
+            for actual_tag in tags.keys():
+                if actual_tag.lower() == tag.lower() and actual_tag not in used_tags:
+                    existing_tags.append((actual_tag, len(tags[actual_tag])))
+                    used_tags.add(actual_tag)
+                    break
+
+        if existing_tags:
+            # Sort by count descending
+            existing_tags.sort(key=lambda x: x[1], reverse=True)
+            tags_html = " ".join(
+                f'<a href="/blog/tag/{slugify(tag)}.html" class="tags-cloud__tag">{tag} <span class="tags-cloud__count">({count})</span></a>'
+                for tag, count in existing_tags
+            )
+            html_parts.append(f'''
+        <div class="tags-cloud__category">
+          <h3 class="tags-cloud__category-title">{category}</h3>
+          <div class="tags-cloud__tags">{tags_html}</div>
+        </div>''')
+
+    # Add any remaining uncategorized tags
+    remaining_tags = [(tag, len(posts)) for tag, posts in tags.items() if tag not in used_tags]
+    if remaining_tags:
+        remaining_tags.sort(key=lambda x: x[1], reverse=True)
+        tags_html = " ".join(
+            f'<a href="/blog/tag/{slugify(tag)}.html" class="tags-cloud__tag">{tag} <span class="tags-cloud__count">({count})</span></a>'
+            for tag, count in remaining_tags
+        )
+        html_parts.append(f'''
+        <div class="tags-cloud__category">
+          <h3 class="tags-cloud__category-title">Pozostałe</h3>
+          <div class="tags-cloud__tags">{tags_html}</div>
+        </div>''')
+
+    return "\n".join(html_parts)
 
 
 def build():
@@ -293,6 +381,9 @@ def build():
         output_path.write_text(html, encoding="utf-8")
         print(f"  Generated: {post.url}")
 
+    # Collect tags first (needed for index and tag pages)
+    tags = collect_tags(posts)
+
     # Generate index page
     print("\nGenerating index page...")
     try:
@@ -301,14 +392,13 @@ def build():
         # Use a default index template if none exists
         index_template = create_default_index_template()
 
-    index_html = render_index(posts, index_template)
+    index_html = render_index(posts, index_template, tags)
     index_path = OUTPUT_DIR / "index.html"
     index_path.write_text(index_html, encoding="utf-8")
     print(f"  Generated: index.html")
 
     # Generate tag pages
     print("\nGenerating tag pages...")
-    tags = collect_tags(posts)
 
     # Create tags directory if it doesn't exist
     TAGS_DIR.mkdir(exist_ok=True)

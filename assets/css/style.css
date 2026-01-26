@@ -702,6 +702,66 @@ p:last-child {
   font-size: 0.9rem;
 }
 
+/* Tags Cloud */
+.tags-cloud {
+  margin-bottom: var(--space-2xl);
+  padding: var(--space-lg);
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.tags-cloud__title {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-md);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.tags-cloud__category {
+  margin-bottom: var(--space-md);
+}
+
+.tags-cloud__category:last-child {
+  margin-bottom: 0;
+}
+
+.tags-cloud__category-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tags-cloud__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.tags-cloud__tag {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background-color: var(--bg-tertiary);
+  padding: 0.25em 0.6em;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.tags-cloud__tag:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+.tags-cloud__count {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
 /* Blog List */
 .blog-list {
   max-width: 800px;
