@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Systemy Informacji Geograficznej (GIS) to potężne narzędzia do analizy przestrzennej, stosowane w codziennym życiu.">
+  <meta name="author" content="Piotr de Bever">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Wprowadzenie do GIS | Piotr de Bever">
+  <meta property="og:description" content="Systemy Informacji Geograficznej (GIS) to potężne narzędzia do analizy przestrzennej, stosowane w codziennym życiu.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://debever.pl/blog/2024-10-07-wprowadzenie-do-gis.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="Piotr de Bever">
+  <meta property="article:published_time" content="2024-10-07">
+  <meta property="article:author" content="Piotr de Bever">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Wprowadzenie do GIS">
+  <meta name="twitter:description" content="Systemy Informacji Geograficznej (GIS) to potężne narzędzia do analizy przestrzennej, stosowane w codziennym życiu.">
+
+  <title>Wprowadzenie do GIS | Piotr de Bever</title>
+  <link rel="canonical" href="https://debever.pl/blog/2024-10-07-wprowadzenie-do-gis.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#0d1117">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Wprowadzenie do GIS",
+    "description": "Systemy Informacji Geograficznej (GIS) to potężne narzędzia do analizy przestrzennej, stosowane w codziennym życiu.",
+    "datePublished": "2024-10-07",
+    "author": {
+      "@type": "Person",
+      "name": "Piotr de Bever",
+      "url": "https://debever.pl/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Piotr de Bever"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://debever.pl/blog/2024-10-07-wprowadzenie-do-gis.html"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">Piotr de Bever</a>
+      <nav class="nav">
+        <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+          <span class="nav__hamburger"></span>
+        </button>
+        <ul class="nav__list">
+          <li><a href="/#uslugi" class="nav__link">Usługi</a></li>
+          <li><a href="/#portfolio" class="nav__link">Portfolio</a></li>
+          <li><a href="/#o-mnie" class="nav__link">O mnie</a></li>
+          <li><a href="/#kontakt" class="nav__link">Kontakt</a></li>
+          <li><a href="/blog/" class="nav__link nav__link--active">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="blog-post">
+      <div class="container">
+        <!-- Post Header -->
+        <header class="blog-post__header">
+          <div class="blog-post__meta">
+            <time datetime="2024-10-07">7 października 2024</time>
+            <span class="blog-post__category">GIS</span>
+          </div>
+          <h1 class="blog-post__title">Wprowadzenie do GIS</h1>
+          <div class="blog-post__tags"><span class="blog-post__tag">gis</span>, <span class="blog-post__tag">dane-przestrzenne</span>, <span class="blog-post__tag">qgis</span>, <span class="blog-post__tag">arcgis</span></div>
+        </header>
+
+        <!-- Post Content -->
+        <div class="blog-post__content">
+          <p>Systemy Informacji Geograficznej (GIS) to potężne narzędzia do analizy przestrzennej, stosowane w codziennym życiu — od nawigacji mapowej po analizy zagrożeń naturalnych.</p>
+
+<h2 id="co-to-jest-gis">Co to jest GIS?</h2>
+
+<p>GIS to system do gromadzenia, przetwarzania, analizy i wizualizacji danych przestrzennych. Łączy dane dotyczące lokalizacji (współrzędnych geograficznych) z informacjami opisowymi. Popularne aplikacje to Google Maps, QGIS i ArcGIS.</p>
+
+<h2 id="gis-w-codziennym-zyciu">GIS w codziennym życiu</h2>
+
+<p>GIS jest wszechobecny — nawigacja w smartfonach, analiza terenu dla bezpieczeństwa, poszukiwanie optymalnych punktów widokowych. Numeryczne modele terenu (DEM) i analiza widoczności to praktyczne zastosowania.</p>
+
+<h2 id="dane-wektorowe-i-rastrowe-w-gis">Dane wektorowe i rastrowe w GIS</h2>
+
+<h3 id="dane-wektorowe">Dane wektorowe</h3>
+
+<ul>
+<li><strong>Punkty</strong>: lokalizacje w przestrzeni (x, y)</li>
+<li><strong>Linie</strong>: obiekty z długością (rzeki, drogi, ścieżki)</li>
+<li><strong>Poligony</strong>: obszary zamknięte (parki, jeziora, działki)</li>
+</ul>
+
+<p>Idealne do obiektów o wyraźnych granicach.</p>
+
+<h3 id="dane-rastrowe">Dane rastrowe</h3>
+
+<p>Siatka pikseli reprezentująca zjawiska ciągłe:</p>
+
+<ul>
+<li>Modele wysokościowe terenu (DEM)</li>
+<li>Pokrywa roślinna</li>
+<li>Dane atmosferyczne</li>
+</ul>
+
+<h2 id="formaty-danych-w-gis">Formaty danych w GIS</h2>
+
+<h3 id="shapefile">Shapefile</h3>
+
+<p>Klasyczny format (.shp) od lat 90., przechowuje dane wektorowe. Ograniczenia: maksymalnie 2 GB, limit 255 kolumn, brak wsparcia dla topologii.</p>
+
+<h3 id="geopackage">GeoPackage</h3>
+
+<p>Nowoczesna alternatywa (.gpkg) bez limitów wielkości pliku. Obsługuje zarówno dane wektorowe, jak i rastrowe w jednym pliku. Bazuje na SQLite, zapewniając wydajność.</p>
+
+<h3 id="geobazy-w-arcgis">Geobazy w ArcGIS</h3>
+
+<ul>
+<li><strong>File Geodatabase (GDB)</strong>: do 1 TB, idealna dla dużych projektów</li>
+<li><strong>Enterprise Geodatabase</strong>: dostęp wieloużytkownikowy</li>
+<li><strong>Personal Geodatabase</strong>: przestarzała, limit 2 GB</li>
+</ul>
+
+<h3 id="inne-formaty">Inne formaty</h3>
+
+<ul>
+<li><strong>CSV/TXT</strong>: pliki tekstowe z danymi atrybutowymi</li>
+<li><strong>KML/KMZ</strong>: wizualizacja w Google Earth</li>
+<li><strong>GeoJSON</strong>: format webowy oparty na JSON</li>
+<li><strong>PostGIS</strong>: rozszerzenie PostgreSQL</li>
+<li><strong>GeoTIFF</strong>: dane rastrowe z georeferencją</li>
+</ul>
+
+<h2 id="usługi-wms-wmts-i-wfs">Usługi WMS, WMTS i WFS</h2>
+
+<h3 id="wms-web-map-service">WMS (Web Map Service)</h3>
+
+<p>Dostarcza mapy jako obrazy rastrowe (PNG, JPEG). Brak możliwości edycji danych, automatyczne skalowanie.</p>
+
+<h3 id="wmts-web-map-tile-service">WMTS (Web Map Tile Service)</h3>
+
+<p>Mapa w postaci predefiniowanych kafelków. Szybsze ładowanie niż WMS, ale ograniczone do ustalonych skal.</p>
+
+<h3 id="wfs-web-feature-service">WFS (Web Feature Service)</h3>
+
+<p>Udostępnia rzeczywiste dane wektorowe z możliwością edycji. Obsługuje filtry przestrzenne i atrybutowe. Idealny do zaawansowanych analiz.</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>GIS to wszechstronne narzędzie do analizy danych geograficznych. Wybór formatu danych (Shapefile, GeoPackage, geobazy) zależy od wymagań projektu. Usługi WMS/WMTS są idealne do podglądów map, WFS umożliwia pełną pracę z danymi wektorowymi.</p>
+
+        </div>
+
+        <!-- Post Navigation -->
+        <nav class="blog-nav" aria-label="Nawigacja między wpisami">
+          <a href="2024-10-03-zupelnie-nowy-hec-ras-2025.html" class="blog-nav__link blog-nav__link--prev">&larr; Zupełnie nowy HEC-RAS 2025</a>
+          <a href="2024-10-17-automatyzacja-pobierania-danych-imgw.html" class="blog-nav__link blog-nav__link--next">O tym jak próbowałem zautomatyzować pobieranie danych z IMGW &rarr;</a>
+        </nav>
+
+        <!-- Back to Blog -->
+        <div class="blog-post__back">
+          <a href="/blog/" class="btn btn--secondary">&larr; Wszystkie wpisy</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Piotr de Bever. Wszelkie prawa zastrzeżone.</p>
+      <nav class="footer__nav">
+        <a href="/">Strona główna</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

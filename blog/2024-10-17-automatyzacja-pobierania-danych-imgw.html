@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Historia prób stworzenia narzędzia Python do automatyzacji pobierania publicznych danych z IMGW i napotkanych przy tym wyzwań.">
+  <meta name="author" content="Piotr de Bever">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="O tym jak próbowałem zautomatyzować pobieranie danych z IMGW | Piotr de Bever">
+  <meta property="og:description" content="Historia prób stworzenia narzędzia Python do automatyzacji pobierania publicznych danych z IMGW i napotkanych przy tym wyzwań.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://debever.pl/blog/2024-10-17-automatyzacja-pobierania-danych-imgw.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="Piotr de Bever">
+  <meta property="article:published_time" content="2024-10-17">
+  <meta property="article:author" content="Piotr de Bever">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="O tym jak próbowałem zautomatyzować pobieranie danych z IMGW">
+  <meta name="twitter:description" content="Historia prób stworzenia narzędzia Python do automatyzacji pobierania publicznych danych z IMGW i napotkanych przy tym wyzwań.">
+
+  <title>O tym jak próbowałem zautomatyzować pobieranie danych z IMGW | Piotr de Bever</title>
+  <link rel="canonical" href="https://debever.pl/blog/2024-10-17-automatyzacja-pobierania-danych-imgw.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#0d1117">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "O tym jak próbowałem zautomatyzować pobieranie danych z IMGW",
+    "description": "Historia prób stworzenia narzędzia Python do automatyzacji pobierania publicznych danych z IMGW i napotkanych przy tym wyzwań.",
+    "datePublished": "2024-10-17",
+    "author": {
+      "@type": "Person",
+      "name": "Piotr de Bever",
+      "url": "https://debever.pl/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Piotr de Bever"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://debever.pl/blog/2024-10-17-automatyzacja-pobierania-danych-imgw.html"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">Piotr de Bever</a>
+      <nav class="nav">
+        <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+          <span class="nav__hamburger"></span>
+        </button>
+        <ul class="nav__list">
+          <li><a href="/#uslugi" class="nav__link">Usługi</a></li>
+          <li><a href="/#portfolio" class="nav__link">Portfolio</a></li>
+          <li><a href="/#o-mnie" class="nav__link">O mnie</a></li>
+          <li><a href="/#kontakt" class="nav__link">Kontakt</a></li>
+          <li><a href="/blog/" class="nav__link nav__link--active">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="blog-post">
+      <div class="container">
+        <!-- Post Header -->
+        <header class="blog-post__header">
+          <div class="blog-post__meta">
+            <time datetime="2024-10-17">17 października 2024</time>
+            <span class="blog-post__category">Programming</span>
+          </div>
+          <h1 class="blog-post__title">O tym jak próbowałem zautomatyzować pobieranie danych z IMGW</h1>
+          <div class="blog-post__tags"><span class="blog-post__tag">api</span>, <span class="blog-post__tag">hydrology</span>, <span class="blog-post__tag">imgw</span>, <span class="blog-post__tag">meteorology</span>, <span class="blog-post__tag">opendata</span>, <span class="blog-post__tag">python</span></div>
+        </header>
+
+        <!-- Post Content -->
+        <div class="blog-post__content">
+          <p>Artykuł opisuje wyzwania napotkane podczas tworzenia narzędzia Python do automatyzacji pobierania publicznych danych z IMGW (Instytut Meteorologii i Gospodarki Wodnej).</p>
+
+<h2 id="ograniczenia-api">Ograniczenia API</h2>
+
+<p>API pozwala jedynie na pobieranie bieżących pomiarów bez dostępu do danych historycznych. System jest pełen niespójności:</p>
+
+<ul>
+<li>Niektóre endpointy akceptują nazwy stacji, inne wymagają wyłącznie ID</li>
+<li>Formaty odpowiedzi różnią się nieprzewidywalnie między słownikami a listami jednoelementowymi</li>
+</ul>
+
+<h2 id="problemy-z-danymi-hydrologicznymi">Problemy z danymi hydrologicznymi</h2>
+
+<p>Pliki historyczne dostarczane są jako CSV w archiwach ZIP, podzielone na formaty:</p>
+
+<ul>
+<li>Dobowe</li>
+<li>Miesięczne</li>
+<li>Połączone półroczne/roczne</li>
+</ul>
+
+<p>Dane obejmują lata 1951-2023. Przed 2022 rokiem konwencje nazewnictwa były spójne. W 2023 usunięto numery miesięcy z nazw plików.</p>
+
+<h3 id="problemy-z-jakoscia-danych">Problemy z jakością danych</h3>
+
+<ul>
+<li>Identyfikatory numeryczne zakodowane jako tekst</li>
+<li>Wiele reprezentacji brakujących wartości (puste komórki, 99.9, 9999, 99999.999)</li>
+<li>Spacje wiodące przed ID stacji</li>
+<li>Zmiana separatora z przecinka na średnik w 2023 roku</li>
+</ul>
+
+<h2 id="chaos-danych-meteorologicznych">Chaos danych meteorologicznych</h2>
+
+<p>Dane meteorologiczne są znacznie gorsze. Pliki używają niespójnych wielopoziomowych podziałów:</p>
+
+<ul>
+<li>Klimatologiczne</li>
+<li>Opadowe</li>
+<li>Synoptyczne</li>
+</ul>
+
+<p>Konwencje nazewnictwa plików wydają się losowe, z komponentami pojawiającymi się na różnych pozycjach. Zawartość plików ZIP zmienia nazwy po ekstrakcji.</p>
+
+<h2 id="status-projektu">Status projektu</h2>
+
+<p>Projekt rozwijam od września 2023 roku. Repozytorium dostępne jest na GitHub jako IMGWTools. Ostatnia motywacja pochodziła z powodzi na Odrze w 2023 roku oraz studiów podyplomowych z hydrologii na URK.</p>
+
+<p>Jak mawiał Boromir: "Nie wchodzi się po prostu do Mordoru" - to pozornie proste zadanie okazało się nieoczekiwanie skomplikowane.</p>
+
+        </div>
+
+        <!-- Post Navigation -->
+        <nav class="blog-nav" aria-label="Nawigacja między wpisami">
+          <a href="2024-10-07-wprowadzenie-do-gis.html" class="blog-nav__link blog-nav__link--prev">&larr; Wprowadzenie do GIS</a>
+          <a href="2025-03-20-transfer-plikow-w-sieci-domowej.html" class="blog-nav__link blog-nav__link--next">Transfer plików w sieci domowej &rarr;</a>
+        </nav>
+
+        <!-- Back to Blog -->
+        <div class="blog-post__back">
+          <a href="/blog/" class="btn btn--secondary">&larr; Wszystkie wpisy</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Piotr de Bever. Wszelkie prawa zastrzeżone.</p>
+      <nav class="footer__nav">
+        <a href="/">Strona główna</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

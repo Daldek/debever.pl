@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Praktyczny przewodnik jak szybko przesyłać pliki między komputerami w sieci domowej za pomocą wbudowanego serwera HTTP w Pythonie.">
+  <meta name="author" content="Piotr de Bever">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Transfer plików w sieci domowej | Piotr de Bever">
+  <meta property="og:description" content="Praktyczny przewodnik jak szybko przesyłać pliki między komputerami w sieci domowej za pomocą wbudowanego serwera HTTP w Pythonie.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://debever.pl/blog/2025-03-20-transfer-plikow-w-sieci-domowej.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="Piotr de Bever">
+  <meta property="article:published_time" content="2025-03-20">
+  <meta property="article:author" content="Piotr de Bever">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Transfer plików w sieci domowej">
+  <meta name="twitter:description" content="Praktyczny przewodnik jak szybko przesyłać pliki między komputerami w sieci domowej za pomocą wbudowanego serwera HTTP w Pythonie.">
+
+  <title>Transfer plików w sieci domowej | Piotr de Bever</title>
+  <link rel="canonical" href="https://debever.pl/blog/2025-03-20-transfer-plikow-w-sieci-domowej.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#0d1117">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Transfer plików w sieci domowej",
+    "description": "Praktyczny przewodnik jak szybko przesyłać pliki między komputerami w sieci domowej za pomocą wbudowanego serwera HTTP w Pythonie.",
+    "datePublished": "2025-03-20",
+    "author": {
+      "@type": "Person",
+      "name": "Piotr de Bever",
+      "url": "https://debever.pl/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Piotr de Bever"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://debever.pl/blog/2025-03-20-transfer-plikow-w-sieci-domowej.html"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">Piotr de Bever</a>
+      <nav class="nav">
+        <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+          <span class="nav__hamburger"></span>
+        </button>
+        <ul class="nav__list">
+          <li><a href="/#uslugi" class="nav__link">Usługi</a></li>
+          <li><a href="/#portfolio" class="nav__link">Portfolio</a></li>
+          <li><a href="/#o-mnie" class="nav__link">O mnie</a></li>
+          <li><a href="/#kontakt" class="nav__link">Kontakt</a></li>
+          <li><a href="/blog/" class="nav__link nav__link--active">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="blog-post">
+      <div class="container">
+        <!-- Post Header -->
+        <header class="blog-post__header">
+          <div class="blog-post__meta">
+            <time datetime="2025-03-20">20 marca 2025</time>
+            <span class="blog-post__category">Programming</span>
+          </div>
+          <h1 class="blog-post__title">Transfer plików w sieci domowej</h1>
+          <div class="blog-post__tags"><span class="blog-post__tag">python</span>, <span class="blog-post__tag">http-server</span>, <span class="blog-post__tag">sieć</span>, <span class="blog-post__tag">transfer</span></div>
+        </header>
+
+        <!-- Post Content -->
+        <div class="blog-post__content">
+          <p>Nietypowo, ale muszę sobie gdzieś zapisać jak szybko przesyłać pliki między komputerami w sieci domowej.</p>
+
+<h2 id="instrukcja-krok-po-kroku">Instrukcja krok po kroku</h2>
+
+<h3 id="krok-1-otworz-wiersz-polecen">Krok 1: Otwórz wiersz poleceń</h3>
+
+<p>Otwórz Wiersz poleceń w folderze, który chcesz udostępnić. Najprościej wpisać "cmd" w pasku adresu eksploratora plików.</p>
+
+<h3 id="krok-2-sprawdz-adres-ip-komputera">Krok 2: Sprawdź adres IP komputera</h3>
+
+<p>Użyj polecenia:</p>
+
+<pre><code>ipconfig
+</code></pre>
+
+<p>Znajdź adres IPv4 (np. 192.168.1.2).</p>
+
+<h3 id="krok-3-uruchom-serwer-http-pythona">Krok 3: Uruchom serwer HTTP Pythona</h3>
+
+<pre><code>python -m http.server 8000
+</code></pre>
+
+<p>Domyślny port to 8000.</p>
+
+<h3 id="krok-4-pobierz-pliki-z-innego-komputera">Krok 4: Pobierz pliki z innego komputera</h3>
+
+<p>Na drugim komputerze otwórz przeglądarkę i wpisz adres:</p>
+
+<pre><code>192.168.1.2:8000
+</code></pre>
+
+<p>(zastąp adresem IP z kroku 2)</p>
+
+<h2 id="podsumowanie">Podsumowanie</h2>
+
+<p>Et voila! Nie trzeba szukać pendrive lub dysku zewnętrznego. Szybki i prosty sposób na transfer plików w sieci lokalnej.</p>
+
+        </div>
+
+        <!-- Post Navigation -->
+        <nav class="blog-nav" aria-label="Nawigacja między wpisami">
+          <a href="2024-10-17-automatyzacja-pobierania-danych-imgw.html" class="blog-nav__link blog-nav__link--prev">&larr; O tym jak próbowałem zautomatyzować pobieranie danych z IMGW</a>
+          <a href="2025-03-29-skad-brac-dane-do-projektow.html" class="blog-nav__link blog-nav__link--next">Skąd brać dane do projektów? &rarr;</a>
+        </nav>
+
+        <!-- Back to Blog -->
+        <div class="blog-post__back">
+          <a href="/blog/" class="btn btn--secondary">&larr; Wszystkie wpisy</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Piotr de Bever. Wszelkie prawa zastrzeżone.</p>
+      <nav class="footer__nav">
+        <a href="/">Strona główna</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

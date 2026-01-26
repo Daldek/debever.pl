@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Artykuł otwierający serię HEC-RAS od zera wyjaśnia klasyfikację modeli przepływu wody.">
+  <meta name="author" content="Piotr de Bever">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="HEC-RAS od zera – podstawy modelowania ruchu wody | Piotr de Bever">
+  <meta property="og:description" content="Artykuł otwierający serię HEC-RAS od zera wyjaśnia klasyfikację modeli przepływu wody.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://debever.pl/blog/2025-09-05-hec-ras-od-zera-podstawy-modelowania.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="Piotr de Bever">
+  <meta property="article:published_time" content="2025-09-05">
+  <meta property="article:author" content="Piotr de Bever">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HEC-RAS od zera – podstawy modelowania ruchu wody">
+  <meta name="twitter:description" content="Artykuł otwierający serię HEC-RAS od zera wyjaśnia klasyfikację modeli przepływu wody.">
+
+  <title>HEC-RAS od zera – podstawy modelowania ruchu wody | Piotr de Bever</title>
+  <link rel="canonical" href="https://debever.pl/blog/2025-09-05-hec-ras-od-zera-podstawy-modelowania.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#0d1117">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "HEC-RAS od zera – podstawy modelowania ruchu wody",
+    "description": "Artykuł otwierający serię HEC-RAS od zera wyjaśnia klasyfikację modeli przepływu wody.",
+    "datePublished": "2025-09-05",
+    "author": {
+      "@type": "Person",
+      "name": "Piotr de Bever",
+      "url": "https://debever.pl/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Piotr de Bever"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://debever.pl/blog/2025-09-05-hec-ras-od-zera-podstawy-modelowania.html"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">Piotr de Bever</a>
+      <nav class="nav">
+        <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+          <span class="nav__hamburger"></span>
+        </button>
+        <ul class="nav__list">
+          <li><a href="/#uslugi" class="nav__link">Usługi</a></li>
+          <li><a href="/#portfolio" class="nav__link">Portfolio</a></li>
+          <li><a href="/#o-mnie" class="nav__link">O mnie</a></li>
+          <li><a href="/#kontakt" class="nav__link">Kontakt</a></li>
+          <li><a href="/blog/" class="nav__link nav__link--active">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="blog-post">
+      <div class="container">
+        <!-- Post Header -->
+        <header class="blog-post__header">
+          <div class="blog-post__meta">
+            <time datetime="2025-09-05">5 września 2025</time>
+            <span class="blog-post__category">HEC-RAS</span>
+          </div>
+          <h1 class="blog-post__title">HEC-RAS od zera – podstawy modelowania ruchu wody</h1>
+          <div class="blog-post__tags"><span class="blog-post__tag">hec-ras</span>, <span class="blog-post__tag">tutorial</span>, <span class="blog-post__tag">modelowanie</span>, <span class="blog-post__tag">hydraulika</span>, <span class="blog-post__tag">teoria</span></div>
+        </header>
+
+        <!-- Post Content -->
+        <div class="blog-post__content">
+          <h2 id="wprowadzenie">Wprowadzenie</h2>
+
+<p>Ten artykuł otwierający serię "HEC-RAS od zera" wyjaśnia klasyfikację modeli przepływu wody. HEC-RAS służy jako narzędzie wśród wielu innych do obliczania ruchu wody, a zrozumienie różnych typów modeli, ich ograniczeń i prawidłowej interpretacji wyników jest niezbędne.</p>
+
+<h2 id="modele-matematyczne">Modele matematyczne</h2>
+
+<p>Modele matematyczne, takie jak te w HEC-RAS, MIKE by DHI i TELEMAC, stanowią znaczne uproszczenie rzeczywistości. Równoważą dokładność obliczeniową z kosztami rozwoju modelu i wymaganiami dotyczącymi zbierania danych.</p>
+
+<p>Ta seria koncentruje się na przepływie w kanałach otwartych napędzanym siłami grawitacyjnymi, charakteryzującym się swobodną powierzchnią wody. Takie warunki występują w rzekach, kanałach i częściowo wypełnionych przewodach.</p>
+
+<h2 id="rodzaje-ruchu-wody">Rodzaje ruchu wody</h2>
+
+<p>Przepływ w kanałach otwartych dzieli się na dwie główne kategorie:</p>
+
+<ul>
+<li><strong>Przepływ ustalony</strong> – wszystkie parametry pozostają stałe w czasie</li>
+<li><strong>Przepływ nieustalony</strong> – przepływ, prędkość i głębokość zmieniają się w czasie</li>
+</ul>
+
+<p>Każda kategoria dzieli się dalej na:</p>
+
+<h3 id="1-przepływ-ustalony-rownomierny">1. Przepływ ustalony równomierny</h3>
+
+<p>Parametry stałe w czasie i przestrzeni. Wyobraź sobie długi kanał ze stałym dopływem, gdzie warunki hydrauliczne całkowicie się stabilizują.</p>
+
+<h3 id="2-przepływ-ustalony-nierownomierny">2. Przepływ ustalony nierównomierny</h3>
+
+<p>Parametry stałe w czasie, ale zmienne przestrzennie. Na przykład kanał z jazem powodującym spiętrzenie wody — stały dopływ, ale zmieniające się warunki hydrauliczne wzdłuż kanału.</p>
+
+<h3 id="3-przepływ-nieustalony-rownomierny">3. Przepływ nieustalony równomierny</h3>
+
+<p>Przepływ zmienia się w czasie, podczas gdy parametry przestrzenne pozostają stałe — rzadko obserwowany praktycznie, ale teoretycznie ważny.</p>
+
+<h3 id="4-przepływ-nieustalony-nierownomierny">4. Przepływ nieustalony nierównomierny</h3>
+
+<p>Parametry zmieniają się zarówno w czasie, jak i przestrzennie — najbardziej "naturalny" scenariusz ze zmieniającym się przepływem i warunkami hydraulicznymi.</p>
+
+<h2 id="głebokosc-krytyczna">Głębokość krytyczna</h2>
+
+<p>Ruch nierównomierny dzieli się dalej na łagodnie zmienny, gwałtownie zmienny, spokojny i rwący. Rozróżnienie między przepływem spokojnym a rwącym zależy od <strong>głębokości krytycznej</strong>:</p>
+
+<blockquote>
+  <p>"Głębokość krytyczna reprezentuje głębokość, przy której energia osiąga minimum dla danego przepływu, lub odwrotnie, przepływ osiąga maksimum dla danej energii."</p>
+</blockquote>
+
+<p>Ten punkt równowagi między energią potencjalną a kinetyczną określa, czy przepływ jest <strong>spokojny (podkrytyczny)</strong> czy <strong>rwący (nadkrytyczny)</strong>.</p>
+
+<p><em>Uwaga: Literatura anglojęzyczna odwraca terminologię — subcritical odnosi się do przepływu spokojnego, supercritical do rwącego.</em></p>
+
+<h2 id="klasyfikacja-modeli">Klasyfikacja modeli</h2>
+
+<h3 id="podejscia-obliczeniowe">Podejścia obliczeniowe</h3>
+
+<p><strong>Modele CFD</strong> (Computational Fluid Dynamics) oparte na równaniach Naviera-Stokesa produkują imponujące wizualizacje 3D. Jednak ich złożoność obliczeniowa zazwyczaj ogranicza zastosowanie do pojedynczych budowli podczas faz projektowych.</p>
+
+<p><strong>Modele równań Saint-Venanta</strong>, choć prostsze, skutecznie opisują przepływ łagodnie zmienny w kanałach otwartych. HEC-RAS i większość modeli 1D wykorzystuje to podejście.</p>
+
+<h3 id="praktyczne-typy-modeli">Praktyczne typy modeli</h3>
+
+<p>Z praktycznej perspektywy inżynierskiej:</p>
+
+<ul>
+<li><strong>1D (jednowymiarowy)</strong> – Prędkość uśredniona w całym przekroju; przepływ opisany tylko wzdłuż osi kanału.</li>
+<li><strong>2DH (dwuwymiarowy horyzontalny)</strong> – Składowe prędkości poziomej (u,v) z parametrami uśrednionymi po głębokości.</li>
+<li><strong>2DV (dwuwymiarowy pionowy)</strong> – Rozkład prędkości z głębokością i wzdłuż kanału; uśrednianie poprzeczne.</li>
+<li><strong>3D (trójwymiarowy)</strong> – Pełny opis prędkości (u,v,w) przy użyciu hydrostatycznych równań Naviera-Stokesa.</li>
+</ul>
+
+<h3 id="porownanie-charakterystyk-modeli">Porównanie charakterystyk modeli</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Typ modelu</th>
+  <th>Założenia</th>
+  <th>Zalety</th>
+  <th>Ograniczenia</th>
+  <th>Zastosowania</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>1D</strong></td>
+  <td>Prędkość uśredniona w przekroju; przepływ tylko wzdłuż osi</td>
+  <td>Szybkie obliczenia; minimalne wymagania danych; prosta interpretacja</td>
+  <td>Brak informacji o rozkładzie prędkości; zakłada przepływ wzdłuż osi</td>
+  <td>Profile zwierciadła wody; zasięg powodzi; projektowanie mostów/przepustów</td>
+</tr>
+<tr>
+  <td><strong>2DH</strong></td>
+  <td>Składowe prędkości poziomej; uśrednienie po głębokości</td>
+  <td>Realistyczne mapy zalewowe; dobra reprezentacja terenów zalewowych</td>
+  <td>Wyższe wymagania obliczeniowe; potrzeba rozległych danych terenowych</td>
+  <td>Mapy zalewowe; analiza awarii zapór; estuaria</td>
+</tr>
+<tr>
+  <td><strong>2DV</strong></td>
+  <td>Rozkład prędkości po głębokości i wzdłuż kanału</td>
+  <td>Analizuje zjawiska pionowe (stratyfikacja, efekty dna)</td>
+  <td>Trudne zastosowanie praktyczne; ograniczona dostępność oprogramowania</td>
+  <td>Badania laboratoryjne</td>
+</tr>
+<tr>
+  <td><strong>3D</strong></td>
+  <td>Pełny opis prędkości w przestrzeni; hydrostatyczne równania N-S</td>
+  <td>Najdokładniejszy opis zjawisk; możliwa analiza cyrkulacji i mieszania</td>
+  <td>Ekstremalne wymagania obliczeniowe; rozległe dane wejściowe</td>
+  <td>Zbiorniki; estuaria; jakość wody; transport zanieczyszczeń</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+
+        <!-- Post Navigation -->
+        <nav class="blog-nav" aria-label="Nawigacja między wpisami">
+          <a href="2025-09-03-hec-ras-od-zera-wstep.html" class="blog-nav__link blog-nav__link--prev">&larr; HEC-RAS od zera – wstęp do serii artykułów</a>
+          <a href="2025-09-08-hec-ras-od-zera-interfejs-uzytkownika.html" class="blog-nav__link blog-nav__link--next">HEC-RAS od zera – interfejs użytkownika w programie HEC-RAS &rarr;</a>
+        </nav>
+
+        <!-- Back to Blog -->
+        <div class="blog-post__back">
+          <a href="/blog/" class="btn btn--secondary">&larr; Wszystkie wpisy</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Piotr de Bever. Wszelkie prawa zastrzeżone.</p>
+      <nav class="footer__nav">
+        <a href="/">Strona główna</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

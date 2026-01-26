@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ten poradnik kontynuuje serię HEC-RAS od zera, budując na poprzednim omówieniu interfejsu użytkownika.">
+  <meta name="author" content="Piotr de Bever">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="HEC-RAS od zera – tworzenie geometrii modelu | Piotr de Bever">
+  <meta property="og:description" content="Ten poradnik kontynuuje serię HEC-RAS od zera, budując na poprzednim omówieniu interfejsu użytkownika.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://debever.pl/blog/2025-09-28-hec-ras-od-zera-tworzenie-geometrii-modelu.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="Piotr de Bever">
+  <meta property="article:published_time" content="2025-09-28">
+  <meta property="article:author" content="Piotr de Bever">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HEC-RAS od zera – tworzenie geometrii modelu">
+  <meta name="twitter:description" content="Ten poradnik kontynuuje serię HEC-RAS od zera, budując na poprzednim omówieniu interfejsu użytkownika.">
+
+  <title>HEC-RAS od zera – tworzenie geometrii modelu | Piotr de Bever</title>
+  <link rel="canonical" href="https://debever.pl/blog/2025-09-28-hec-ras-od-zera-tworzenie-geometrii-modelu.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#0d1117">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "HEC-RAS od zera – tworzenie geometrii modelu",
+    "description": "Ten poradnik kontynuuje serię HEC-RAS od zera, budując na poprzednim omówieniu interfejsu użytkownika.",
+    "datePublished": "2025-09-28",
+    "author": {
+      "@type": "Person",
+      "name": "Piotr de Bever",
+      "url": "https://debever.pl/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Piotr de Bever"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://debever.pl/blog/2025-09-28-hec-ras-od-zera-tworzenie-geometrii-modelu.html"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">Piotr de Bever</a>
+      <nav class="nav">
+        <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+          <span class="nav__hamburger"></span>
+        </button>
+        <ul class="nav__list">
+          <li><a href="/#uslugi" class="nav__link">Usługi</a></li>
+          <li><a href="/#portfolio" class="nav__link">Portfolio</a></li>
+          <li><a href="/#o-mnie" class="nav__link">O mnie</a></li>
+          <li><a href="/#kontakt" class="nav__link">Kontakt</a></li>
+          <li><a href="/blog/" class="nav__link nav__link--active">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="blog-post">
+      <div class="container">
+        <!-- Post Header -->
+        <header class="blog-post__header">
+          <div class="blog-post__meta">
+            <time datetime="2025-09-28">28 września 2025</time>
+            <span class="blog-post__category">HEC-RAS</span>
+          </div>
+          <h1 class="blog-post__title">HEC-RAS od zera – tworzenie geometrii modelu</h1>
+          <div class="blog-post__tags"><span class="blog-post__tag">hec-ras</span>, <span class="blog-post__tag">tutorial</span>, <span class="blog-post__tag">modelowanie</span>, <span class="blog-post__tag">geometria</span>, <span class="blog-post__tag">hydraulika</span></div>
+        </header>
+
+        <!-- Post Content -->
+        <div class="blog-post__content">
+          <h2 id="wprowadzenie">Wprowadzenie</h2>
+
+<p>Ten poradnik kontynuuje serię "HEC-RAS od zera", budując na poprzednim omówieniu interfejsu użytkownika. Choć RAS Mapper oferuje zaawansowane możliwości modelowania geometrii, ten przewodnik skupia się na podstawowym edytorze do tworzenia sieci hydrograficznej i przekrojów poprzecznych.</p>
+
+<h2 id="tworzenie-nowego-projektu">Tworzenie nowego projektu</h2>
+
+<p>Uruchom HEC-RAS i przejdź do <strong>File &gt; New Project</strong>. Wybierz katalog bez polskich znaków (ą, ę, itd.) w ścieżce. Wprowadź tytuł projektu i potwierdź. System wyświetli nazwę projektu, ścieżkę pliku i system jednostek — zalecane jest ustawienie <strong>jednostek SI</strong> jako domyślnych natychmiast po instalacji.</p>
+
+<h2 id="praca-w-edytorze-geometrii">Praca w edytorze geometrii</h2>
+
+<p>Wejdź do modułu geometrii klikając <strong>View/Edit geometric data</strong> z głównego okna.</p>
+
+<h3 id="siec-hydrograficzna">Sieć hydrograficzna</h3>
+
+<p>HEC-RAS pozwala na tworzenie złożonych sieci rzecznych, ale to ćwiczenie wykorzystuje pojedynczy odcinek. Narysowany kształt reprezentuje tylko schemat; rzeczywiste dane lokalizacji pochodzą z RAS Mapper. Aby dodać odcinek, wybierz <strong>River Reach</strong> z paska narzędzi i narysuj dwupunktową linię reprezentującą kierunek przepływu wody. Kliknij dwukrotnie, aby zakończyć, następnie nazwij rzekę i odcinek w wyświetlonym oknie dialogowym.</p>
+
+<h3 id="przekroje-poprzeczne">Przekroje poprzeczne</h3>
+
+<p>Dodaj przekroje poprzeczne przez opcję <strong>Cross Section</strong> w lewym menu. Ten poradnik tworzy przekroje trapezoidalne z parametrami:</p>
+
+<ul>
+<li>Szerokość dna koryta: 8 m</li>
+<li>Głębokość: 2 m</li>
+<li>Nachylenie brzegu: 1:2.5</li>
+<li>Spadek zwierciadła wody: 0.0005</li>
+<li>Współczynnik Manninga n: 0.034</li>
+</ul>
+
+<p>Użyj <strong>Options &gt; Add a New Cross Section</strong>, aby określić lokalizację. Wprowadź współrzędne w tabeli <strong>Cross Section Coordinates</strong> (kolumny Station i Elevation). Utwórz profil czteropunktowy: 0;2, 5;0, 13;0, 18;2. Ustaw współczynnik Manninga n tylko w polu Channel. Zdefiniuj stacje lewego i prawego brzegu odpowiednio jako 0 i 18. Skopiuj przekroje do dodatkowych stacji rzecznych (100, 300, 400), dostosowując rzędne na podstawie spadku 5 cm na 100 m.</p>
+
+<h3 id="interpolacja-przekrojow">Interpolacja przekrojów</h3>
+
+<p>Wróć do głównego edytora geometrii. Wybierz <strong>Tools &gt; XS Interpolation &gt; Between 2 XS's</strong>. Ustaw maksymalną odległość między przekrojami na 100 m, aby automatycznie wygenerować brakujące przekroje.</p>
+
+<h3 id="mosty">Mosty</h3>
+
+<p>Mosty wymagają gęsto rozmieszczonych przekrojów. Dokumentacja zaleca cztery przekroje: dwa bezpośrednio powyżej i poniżej konstrukcji, plus dwa w strefach niezakłóconego przepływu powyżej i poniżej.</p>
+
+<p>Interpoluj przekroje między stacjami 300–400 w odstępach 20 m dla mostu na stacji 350. W <strong>Brdg/Culv</strong> wybierz <strong>Add a Bridge and/or Culvert</strong>. W <strong>Deck/Roadway</strong> określ odległość do najbliższego przekroju powyżej i szerokość pomostu. Podaj współrzędne dla krawędzi górnej i dolnej, następnie skopiuj dane z góry na dół używając <strong>Copy US to DS</strong>.</p>
+
+<p>Dodaj dwa filary w zakładce <strong>Pier</strong>, każdy o szerokości 1 m. Określ stację osi i podaj współrzędne dolnej i górnej rzędnej dla każdego.</p>
+
+<h3 id="budowle-poprzeczne-jazy">Budowle poprzeczne (jazy)</h3>
+
+<p>Interpoluj przekroje między stacjami 1–100 przed dodaniem budowli. Budowla poprzeczna wymaga odległości od poprzedniego przekroju, szerokości i współrzędnych rzędnych.</p>
+
+<h3 id="przepusty">Przepusty</h3>
+
+<p>Przepusty mogą towarzyszyć mostom lub być samodzielnymi budowlami. Parametry konfiguracji obejmują:</p>
+
+<ul>
+<li>Średnica: 0.5 m</li>
+<li>Odległość do przekroju powyżej: 7 m</li>
+<li>Długość: 6 m</li>
+<li>Współczynnik strat wlotowych: 0.5</li>
+<li>Współczynnik Manninga n (góra przepustu): 0.013</li>
+<li>Współczynnik Manninga n (dno przepustu): 0.03</li>
+<li>Zamulenie (od dna): 0.2 m</li>
+<li>Rzędna wlotu/wylotu: -0.15 m</li>
+<li>Stacja osi: 9 m</li>
+</ul>
+
+<h2 id="dopracowanie-modelu">Dopracowanie modelu</h2>
+
+<p>Ustandaryzuj odległości między wszystkimi przekrojami w równych odstępach. Dostosuj współczynniki kontrakcji i ekspansji w pobliżu budowli z 0.1 do 0.3 (i z 0.3 do 0.5) używając <strong>Tables &gt; Contraction/Expansion Coefficients (Steady Flow)</strong>. Regularnie zapisuj pracę.</p>
+
+        </div>
+
+        <!-- Post Navigation -->
+        <nav class="blog-nav" aria-label="Nawigacja między wpisami">
+          <a href="2025-09-08-hec-ras-od-zera-interfejs-uzytkownika.html" class="blog-nav__link blog-nav__link--prev">&larr; HEC-RAS od zera – interfejs użytkownika w programie HEC-RAS</a>
+          <a href="2026-01-12-windows-debian-macos.html" class="blog-nav__link blog-nav__link--next">Windows – Debian – macOS &rarr;</a>
+        </nav>
+
+        <!-- Back to Blog -->
+        <div class="blog-post__back">
+          <a href="/blog/" class="btn btn--secondary">&larr; Wszystkie wpisy</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Piotr de Bever. Wszelkie prawa zastrzeżone.</p>
+      <nav class="footer__nav">
+        <a href="/">Strona główna</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

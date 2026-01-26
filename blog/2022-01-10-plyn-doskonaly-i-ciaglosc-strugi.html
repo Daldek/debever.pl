@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Artykuł wprowadza zasadę ciągłości przepływu oraz założenia leżące u jej podstaw, przechodząc od hydrostatyki do hydrodynamiki.">
+  <meta name="author" content="Piotr de Bever">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Płyn doskonały i ciągłość strugi | Piotr de Bever">
+  <meta property="og:description" content="Artykuł wprowadza zasadę ciągłości przepływu oraz założenia leżące u jej podstaw, przechodząc od hydrostatyki do hydrodynamiki.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://debever.pl/blog/2022-01-10-plyn-doskonaly-i-ciaglosc-strugi.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="Piotr de Bever">
+  <meta property="article:published_time" content="2022-01-10">
+  <meta property="article:author" content="Piotr de Bever">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Płyn doskonały i ciągłość strugi">
+  <meta name="twitter:description" content="Artykuł wprowadza zasadę ciągłości przepływu oraz założenia leżące u jej podstaw, przechodząc od hydrostatyki do hydrodynamiki.">
+
+  <title>Płyn doskonały i ciągłość strugi | Piotr de Bever</title>
+  <link rel="canonical" href="https://debever.pl/blog/2022-01-10-plyn-doskonaly-i-ciaglosc-strugi.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#0d1117">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Płyn doskonały i ciągłość strugi",
+    "description": "Artykuł wprowadza zasadę ciągłości przepływu oraz założenia leżące u jej podstaw, przechodząc od hydrostatyki do hydrodynamiki.",
+    "datePublished": "2022-01-10",
+    "author": {
+      "@type": "Person",
+      "name": "Piotr de Bever",
+      "url": "https://debever.pl/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Piotr de Bever"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://debever.pl/blog/2022-01-10-plyn-doskonaly-i-ciaglosc-strugi.html"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">Piotr de Bever</a>
+      <nav class="nav">
+        <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+          <span class="nav__hamburger"></span>
+        </button>
+        <ul class="nav__list">
+          <li><a href="/#uslugi" class="nav__link">Usługi</a></li>
+          <li><a href="/#portfolio" class="nav__link">Portfolio</a></li>
+          <li><a href="/#o-mnie" class="nav__link">O mnie</a></li>
+          <li><a href="/#kontakt" class="nav__link">Kontakt</a></li>
+          <li><a href="/blog/" class="nav__link nav__link--active">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="blog-post">
+      <div class="container">
+        <!-- Post Header -->
+        <header class="blog-post__header">
+          <div class="blog-post__meta">
+            <time datetime="2022-01-10">10 stycznia 2022</time>
+            <span class="blog-post__category">Hydraulics</span>
+          </div>
+          <h1 class="blog-post__title">Płyn doskonały i ciągłość strugi</h1>
+          <div class="blog-post__tags"><span class="blog-post__tag">rownanie-ciaglosci</span>, <span class="blog-post__tag">dynamika-plynow</span>, <span class="blog-post__tag">hydraulika</span>, <span class="blog-post__tag">plyn-doskonaly</span></div>
+        </header>
+
+        <!-- Post Content -->
+        <div class="blog-post__content">
+          <h2 id="wprowadzenie">Wprowadzenie</h2>
+
+<p>Artykuł stanowi przejście od hydrostatyki do hydrodynamiki, wprowadzając zasadę ciągłości oraz założenia leżące u jej podstaw.</p>
+
+<h2 id="rownanie-ciagłosci">Równanie ciągłości</h2>
+
+<p>Równanie ciągłości mówi, że "objętość płynu wpływającego i wypływającego z dowolnego przekroju rury jest taka sama w jednostce czasu". Ilustruję to na przykładzie rury o zmiennym przekroju, podkreślając, że w naturze nic się nie traci — ta sama objętość, która wpływa, musi wypłynąć.</p>
+
+<h2 id="definicja-płynu-doskonałego">Definicja płynu doskonałego</h2>
+
+<p>Płyn doskonały posiada cztery kluczowe cechy:</p>
+
+<ol>
+<li><strong>Nielepki</strong> — brak tarcia wewnętrznego między warstwami płynu</li>
+<li><strong>Nieściśliwy</strong> — nie może zmienić objętości pod wpływem sił zewnętrznych</li>
+<li><strong>Przepływ ustalony</strong> — prędkość, gęstość i ciśnienie pozostają stałe w czasie</li>
+<li><strong>Brak wirowości</strong> — cząstki poruszają się równolegle do osi rury (przepływ laminarny)</li>
+</ol>
+
+<h2 id="linie-pradu-i-rurki-pradu">Linie prądu i rurki prądu</h2>
+
+<p>Rozróżniam linie prądu (styczne do wektorów prędkości) od rurek prądu (ograniczone wiązki linii prądu), wyjaśniając ich relację w przepływie ustalonym.</p>
+
+<h2 id="wyprowadzenie-matematyczne">Wyprowadzenie matematyczne</h2>
+
+<h3 id="definicje-kluczowe">Definicje kluczowe</h3>
+
+<ul>
+<li>Ciężar właściwy: γ = G/V [N·m⁻³]</li>
+<li>Gęstość: ρ = m/V [kg·m⁻³]</li>
+</ul>
+
+<h3 id="zaleznosc-podstawowa">Zależność podstawowa</h3>
+
+<p>ρ = γ/g oraz γ = ρg</p>
+
+<h3 id="wyprowadzenie-rownania-ciagłosci">Wyprowadzenie równania ciągłości</h3>
+
+<p>Wychodząc od zasady zachowania masy (Δm₁ = Δm₂):</p>
+
+<pre><code>Δm₁ = ρS₁v₁Δt = Δm₂ = ρS₂v₂Δt
+</code></pre>
+
+<h3 id="wynik-uproszczony">Wynik uproszczony</h3>
+
+<p><strong>S₁v₁ = S₂v₂</strong></p>
+
+<p>Pokazuje to, że zmiany pola przekroju korelują ze zmianami prędkości — mniejsze przekroje powodują szybszy przepływ.</p>
+
+        </div>
+
+        <!-- Post Navigation -->
+        <nav class="blog-nav" aria-label="Nawigacja między wpisami">
+          <a href="2022-01-02-co-sie-dzieje-z-jeziorem-biezdruchowo.html" class="blog-nav__link blog-nav__link--prev">&larr; Co się dzieje z jeziorem Biezdruchowo?</a>
+          <a href="2022-02-05-hotstart-mike21.html" class="blog-nav__link blog-nav__link--next">Hotstart, czyli jak uratować przerwaną symulację w Mike21? &rarr;</a>
+        </nav>
+
+        <!-- Back to Blog -->
+        <div class="blog-post__back">
+          <a href="/blog/" class="btn btn--secondary">&larr; Wszystkie wpisy</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Piotr de Bever. Wszelkie prawa zastrzeżone.</p>
+      <nav class="footer__nav">
+        <a href="/">Strona główna</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

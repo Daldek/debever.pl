@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pierwsza część przyspieszonego kursu modelowania HEC-RAS obejmowała podstawy modelowania 2D. Ten artykuł pokazuje jak analizować wyniki.">
+  <meta name="author" content="Piotr de Bever">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="HEC-RAS crash course #2, czyli o tym jak wyciągnąć cyferki z kolorowej mapy | Piotr de Bever">
+  <meta property="og:description" content="Pierwsza część przyspieszonego kursu modelowania HEC-RAS obejmowała podstawy modelowania 2D. Ten artykuł pokazuje jak analizować wyniki.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://debever.pl/blog/2022-12-08-hec-ras-crash-course-2.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="Piotr de Bever">
+  <meta property="article:published_time" content="2022-12-08">
+  <meta property="article:author" content="Piotr de Bever">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HEC-RAS crash course #2, czyli o tym jak wyciągnąć cyferki z kolorowej mapy">
+  <meta name="twitter:description" content="Pierwsza część przyspieszonego kursu modelowania HEC-RAS obejmowała podstawy modelowania 2D. Ten artykuł pokazuje jak analizować wyniki.">
+
+  <title>HEC-RAS crash course #2, czyli o tym jak wyciągnąć cyferki z kolorowej mapy | Piotr de Bever</title>
+  <link rel="canonical" href="https://debever.pl/blog/2022-12-08-hec-ras-crash-course-2.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#0d1117">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "HEC-RAS crash course #2, czyli o tym jak wyciągnąć cyferki z kolorowej mapy",
+    "description": "Pierwsza część przyspieszonego kursu modelowania HEC-RAS obejmowała podstawy modelowania 2D. Ten artykuł pokazuje jak analizować wyniki.",
+    "datePublished": "2022-12-08",
+    "author": {
+      "@type": "Person",
+      "name": "Piotr de Bever",
+      "url": "https://debever.pl/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Piotr de Bever"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://debever.pl/blog/2022-12-08-hec-ras-crash-course-2.html"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">Piotr de Bever</a>
+      <nav class="nav">
+        <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+          <span class="nav__hamburger"></span>
+        </button>
+        <ul class="nav__list">
+          <li><a href="/#uslugi" class="nav__link">Usługi</a></li>
+          <li><a href="/#portfolio" class="nav__link">Portfolio</a></li>
+          <li><a href="/#o-mnie" class="nav__link">O mnie</a></li>
+          <li><a href="/#kontakt" class="nav__link">Kontakt</a></li>
+          <li><a href="/blog/" class="nav__link nav__link--active">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="blog-post">
+      <div class="container">
+        <!-- Post Header -->
+        <header class="blog-post__header">
+          <div class="blog-post__meta">
+            <time datetime="2022-12-08">8 grudnia 2022</time>
+            <span class="blog-post__category">HEC-RAS</span>
+          </div>
+          <h1 class="blog-post__title">HEC-RAS crash course #2, czyli o tym jak wyciągnąć cyferki z kolorowej mapy</h1>
+          <div class="blog-post__tags"><span class="blog-post__tag">hec-ras</span>, <span class="blog-post__tag">qgis</span>, <span class="blog-post__tag">gis</span>, <span class="blog-post__tag">modelowanie-hydrauliczne</span>, <span class="blog-post__tag">tutorial</span></div>
+        </header>
+
+        <!-- Post Content -->
+        <div class="blog-post__content">
+          <h2 id="hec-ras-2d-i-qgis">HEC-RAS 2D i QGIS</h2>
+
+<p>Pierwsza część przyspieszonego kursu modelowania HEC-RAS obejmowała podstawy modelowania 2D. Analiza wytworzyła dane o głębokościach wody, rzędnych zwierciadła wody i prędkościach przepływu — trzy podstawowe domyślne warstwy wynikowe.</p>
+
+<p>HEC-RAS umożliwia tworzenie dodatkowych warstw, takich jak iloczyn prędkości i głębokości (DV), który pomaga identyfikować szczególnie niebezpieczne obszary dla ludzi, lub warstwy przydatne hydraulicznie jak liczby Froude'a czy Couranta.</p>
+
+<h2 id="hec-ras-na-poczatek">HEC-RAS na początek</h2>
+
+<p>Aby utworzyć dodatkowe warstwy map wynikowych:</p>
+
+<ol>
+<li>Otwórz <strong>Ras Mapper</strong></li>
+<li>Rozwiń zakładkę <strong>Results</strong></li>
+<li>Kliknij prawym przyciskiem na nazwę planu i wybierz <strong>Create a New Results Map Layer</strong></li>
+<li>Rozwiń interesujący typ mapy</li>
+<li>Wybierz wartości minimalne, maksymalne lub dla konkretnego kroku czasowego</li>
+<li>Potwierdź klikając <strong>Add map</strong></li>
+<li>Oblicz/zaktualizuj zapisaną mapę klikając <strong>Compute/Update Stored Map</strong></li>
+</ol>
+
+<p>Dla wizualizacji DV zmodyfikuj ustawienia legendy w <strong>Layer Properties</strong>, ustawiając górny zakres na 2. Wartości powyżej 0,5 wskazują poważne ryzyko dla dorosłych.</p>
+
+<h2 id="przechodzimy-do-qgisa">Przechodzimy do QGISa</h2>
+
+<p>Ras Mapper ma ograniczoną funkcjonalność GIS, więc eksportuj wyniki do formatu TIFF do dalszej pracy w QGIS.</p>
+
+<p>Dla danych głębokości, rzędnych i prędkości kliknij prawym przyciskiem na warstwę, rozwiń <strong>Export Layer</strong> i wybierz <strong>Export Raster</strong>. Inne utworzone warstwy automatycznie zapisują się w odpowiednich formatach.</p>
+
+<h3 id="zrodła-danych-o-budynkach">Źródła danych o budynkach</h3>
+
+<ul>
+<li><strong>OpenStreetMap</strong> (pobierz z Geofabrik.de)</li>
+<li><strong>BDOT10k</strong> (polska baza danych topograficznych, dostępna na Geoportal)</li>
+</ul>
+
+<p>Zwróć uwagę na różnice w układach współrzędnych.</p>
+
+<h3 id="usuwamy-to-co-zbedne">Usuwamy to co zbędne</h3>
+
+<p>Ogranicz dane budynków do zasięgu modelu. Użyj <strong>Extract by Location</strong> z Processing Toolbox:</p>
+
+<ul>
+<li><strong>Extract features from:</strong> warstwa budynków</li>
+<li><strong>Condition:</strong> Intersect</li>
+<li><strong>By comparing to:</strong> granica modelu 2D</li>
+</ul>
+
+<h3 id="analiza-wynikow">Analiza wyników</h3>
+
+<p>Przeanalizuj cztery parametry dla każdego budynku używając <strong>Zonal Statistics</strong>:</p>
+
+<ul>
+<li>Zalana powierzchnia (liczba komórek)</li>
+<li>Średnia, maksymalna i minimalna głębokość wody</li>
+</ul>
+
+<h3 id="wizualizacja-wynikow">Wizualizacja wyników</h3>
+
+<p>Zmień symbolikę w <strong>Properties → Symbology</strong> z <strong>Single Symbol</strong> na <strong>Rule-based</strong>. Klasyfikuj na trzy kategorie:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Kategoria</th>
+  <th>Warunek</th>
+  <th>Poziom ryzyka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Wysoce zagrożone</td>
+  <td>"MAX" &gt;= 0.3 m</td>
+  <td>Czerwony</td>
+</tr>
+<tr>
+  <td>Umiarkowanie zagrożone</td>
+  <td>"MAX" &gt; 0.1 AND "MAX" &lt; 0.3 m</td>
+  <td>Żółty</td>
+</tr>
+<tr>
+  <td>Bezpieczne</td>
+  <td>"MAX" &lt;= 0.1 m</td>
+  <td>Zielony</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="dodajemy-etykiety">Dodajemy etykiety</h3>
+
+<p>Dodaj etykiety w <strong>Properties → Labels</strong> z odpowiednim wyrażeniem dla zalanej powierzchni budynku.</p>
+
+<p><strong>Uwaga dotycząca warstwy DV:</strong> Tam gdzie są budynki, prędkość wody powinna być zerowa, więc wyświetlanie tam DV nie dodaje wartości.</p>
+
+        </div>
+
+        <!-- Post Navigation -->
+        <nav class="blog-nav" aria-label="Nawigacja między wpisami">
+          <a href="2022-11-21-hec-ras-crash-course-1.html" class="blog-nav__link blog-nav__link--prev">&larr; HEC-RAS crash course #1, czyli o supremacji modeli 2D nad 1D</a>
+          <a href="2023-08-07-problem-niezrozumienia.html" class="blog-nav__link blog-nav__link--next">Problem niezrozumienia, ignorancji czy umyślne działania? &rarr;</a>
+        </nav>
+
+        <!-- Back to Blog -->
+        <div class="blog-post__back">
+          <a href="/blog/" class="btn btn--secondary">&larr; Wszystkie wpisy</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Piotr de Bever. Wszelkie prawa zastrzeżone.</p>
+      <nav class="footer__nav">
+        <a href="/">Strona główna</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

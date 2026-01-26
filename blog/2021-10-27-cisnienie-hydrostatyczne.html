@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hydrostatyka to dział mechaniki płynów zajmujący się prawami rządzącymi cieczami w spoczynku. Artykuł wyprowadza podstawowe równanie ciśnienia.">
+  <meta name="author" content="Piotr de Bever">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ciśnienie hydrostatyczne | Piotr de Bever">
+  <meta property="og:description" content="Hydrostatyka to dział mechaniki płynów zajmujący się prawami rządzącymi cieczami w spoczynku. Artykuł wyprowadza podstawowe równanie ciśnienia.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://debever.pl/blog/2021-10-27-cisnienie-hydrostatyczne.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="Piotr de Bever">
+  <meta property="article:published_time" content="2021-10-27">
+  <meta property="article:author" content="Piotr de Bever">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ciśnienie hydrostatyczne">
+  <meta name="twitter:description" content="Hydrostatyka to dział mechaniki płynów zajmujący się prawami rządzącymi cieczami w spoczynku. Artykuł wyprowadza podstawowe równanie ciśnienia.">
+
+  <title>Ciśnienie hydrostatyczne | Piotr de Bever</title>
+  <link rel="canonical" href="https://debever.pl/blog/2021-10-27-cisnienie-hydrostatyczne.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#0d1117">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Ciśnienie hydrostatyczne",
+    "description": "Hydrostatyka to dział mechaniki płynów zajmujący się prawami rządzącymi cieczami w spoczynku. Artykuł wyprowadza podstawowe równanie ciśnienia.",
+    "datePublished": "2021-10-27",
+    "author": {
+      "@type": "Person",
+      "name": "Piotr de Bever",
+      "url": "https://debever.pl/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Piotr de Bever"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://debever.pl/blog/2021-10-27-cisnienie-hydrostatyczne.html"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">Piotr de Bever</a>
+      <nav class="nav">
+        <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+          <span class="nav__hamburger"></span>
+        </button>
+        <ul class="nav__list">
+          <li><a href="/#uslugi" class="nav__link">Usługi</a></li>
+          <li><a href="/#portfolio" class="nav__link">Portfolio</a></li>
+          <li><a href="/#o-mnie" class="nav__link">O mnie</a></li>
+          <li><a href="/#kontakt" class="nav__link">Kontakt</a></li>
+          <li><a href="/blog/" class="nav__link nav__link--active">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="blog-post">
+      <div class="container">
+        <!-- Post Header -->
+        <header class="blog-post__header">
+          <div class="blog-post__meta">
+            <time datetime="2021-10-27">27 października 2021</time>
+            <span class="blog-post__category">Hydraulics</span>
+          </div>
+          <h1 class="blog-post__title">Ciśnienie hydrostatyczne</h1>
+          <div class="blog-post__tags"><span class="blog-post__tag">hydraulika</span>, <span class="blog-post__tag">cisnienie-hydrostatyczne</span>, <span class="blog-post__tag">hydrostatyka</span></div>
+        </header>
+
+        <!-- Post Content -->
+        <div class="blog-post__content">
+          <h2 id="wprowadzenie">Wprowadzenie</h2>
+
+<p><strong>Hydrostatyka</strong> to dział mechaniki płynów zajmujący się prawami rządzącymi cieczami w spoczynku.</p>
+
+<h2 id="co-to-jest">Co to jest?</h2>
+
+<p>Hydrostatyka bada warunki, gdy płyn jest w równowadze — gdy wypadkowa wszystkich sił jest równa zeru.</p>
+
+<h2 id="siły-działajace-na-ciecze">Siły działające na ciecze</h2>
+
+<p>Opisano dwie kategorie sił:</p>
+
+<h3 id="1-siły-masowe">1. Siły masowe</h3>
+
+<p>Proporcjonalne do masy, obejmują:</p>
+
+<ul>
+<li>siłę ciężkości</li>
+<li>siłę bezwładności</li>
+<li>siłę odśrodkową</li>
+</ul>
+
+<h3 id="2-siły-powierzchniowe">2. Siły powierzchniowe</h3>
+
+<p>Proporcjonalne do pola powierzchni, działające prostopadle do powierzchni, skierowane do wewnątrz.</p>
+
+<h2 id="definicje-kluczowe">Definicje kluczowe</h2>
+
+<ul>
+<li>Gęstość: ρ = m/V [kg·m⁻³]</li>
+<li>Ciśnienie: p = F/S [N·m⁻² = Pa]</li>
+</ul>
+
+<h2 id="cisnienie-hydrostatyczne">Ciśnienie hydrostatyczne</h2>
+
+<p>Wyprowadzenie podstawowego równania następuje poprzez równoległościan zanurzony w cieczy, ustalając warunki równowagi. Wyprowadzenie pokazuje:</p>
+
+<blockquote>
+  <p>"wartość ciśnienia hydrostatycznego w dowolnym punkcie cieczy zależy liniowo od głębokości zanurzenia tego punktu."</p>
+</blockquote>
+
+<h2 id="wzor-koncowy">Wzór końcowy</h2>
+
+<p><strong>p = p_a + γh</strong></p>
+
+<p>Gdzie ciśnienie równa się ciśnieniu atmosferycznemu plus iloczyn ciężaru właściwego i głębokości.</p>
+
+        </div>
+
+        <!-- Post Navigation -->
+        <nav class="blog-nav" aria-label="Nawigacja między wpisami">
+          <a href="2021-09-06-its-alive.html" class="blog-nav__link blog-nav__link--prev">&larr; It's alive!</a>
+          <a href="2022-01-02-co-sie-dzieje-z-jeziorem-biezdruchowo.html" class="blog-nav__link blog-nav__link--next">Co się dzieje z jeziorem Biezdruchowo? &rarr;</a>
+        </nav>
+
+        <!-- Back to Blog -->
+        <div class="blog-post__back">
+          <a href="/blog/" class="btn btn--secondary">&larr; Wszystkie wpisy</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Piotr de Bever. Wszelkie prawa zastrzeżone.</p>
+      <nav class="footer__nav">
+        <a href="/">Strona główna</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>
