@@ -99,55 +99,44 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <h2 id="wprowadzenie">Wprowadzenie</h2>
-
-<p>Artykuł stanowi przejście od hydrostatyki do hydrodynamiki, wprowadzając zasadę ciągłości oraz założenia leżące u jej podstaw.</p>
-
-<h2 id="rownanie-ciagłosci">Równanie ciągłości</h2>
-
-<p>Równanie ciągłości mówi, że "objętość płynu wpływającego i wypływającego z dowolnego przekroju rury jest taka sama w jednostce czasu". Ilustruję to na przykładzie rury o zmiennym przekroju, podkreślając, że w naturze nic się nie traci — ta sama objętość, która wpływa, musi wypłynąć.</p>
-
-<h2 id="definicja-płynu-doskonałego">Definicja płynu doskonałego</h2>
-
-<p>Płyn doskonały posiada cztery kluczowe cechy:</p>
-
-<ol>
-<li><strong>Nielepki</strong> — brak tarcia wewnętrznego między warstwami płynu</li>
-<li><strong>Nieściśliwy</strong> — nie może zmienić objętości pod wpływem sił zewnętrznych</li>
-<li><strong>Przepływ ustalony</strong> — prędkość, gęstość i ciśnienie pozostają stałe w czasie</li>
-<li><strong>Brak wirowości</strong> — cząstki poruszają się równolegle do osi rury (przepływ laminarny)</li>
-</ol>
-
-<h2 id="linie-pradu-i-rurki-pradu">Linie prądu i rurki prądu</h2>
-
-<p>Rozróżniam linie prądu (styczne do wektorów prędkości) od rurek prądu (ograniczone wiązki linii prądu), wyjaśniając ich relację w przepływie ustalonym.</p>
-
-<h2 id="wyprowadzenie-matematyczne">Wyprowadzenie matematyczne</h2>
-
-<h3 id="definicje-kluczowe">Definicje kluczowe</h3>
-
+          <h2>Płyn doskonały i ciągłość strugi</h2>
+<p>Hydrostatykę mamy już za sobą, przejdźmy więc do hydrodynamiki. Dziś w menu zasada ciągłości strugi i omówienie założeń dla których jest ona prawdziwa.</p>
+<h3>Równanie ciągłości strugi</h3>
+<p>Równanie ciągłości strugi mówi nam o tym, że w objętość płynu wpływającego i wypływającego z dowolnego przekroju przewodu jest taka sama w jednostce czasu. Najłatwiej jest to zrozumieć wyobrażając sobie rurkę o dowolnym – może być o stałym, może być o zmienny – przekroju, do której dopływa pewna ilość wody i wypływa dokładnie tyle samo. Pamiętajcie, w przyrodzie nic nie ginie! Jednak to nie wszystko, musimy pamiętać, że powyższe rozważanie dotyczy płynu doskonałego.</p>
+<h3>Płyn doskonały</h3>
+<p>Czymże jest ten płyn doskonały? <del>Jest to alkohol metylowy! Boże jaki żal, patrzcie jak foka płacze</del> Jest to taki płyn, które jest nielepki, nieściśliwy, a przepływ jest stacjonarny i nie występują zawirowania.</p>
 <ul>
-<li>Ciężar właściwy: γ = G/V [N·m⁻³]</li>
-<li>Gęstość: ρ = m/V [kg·m⁻³]</li>
+<li>Nielepkość odnosi się do tarcia wewnętrznego powodowanego wzajemnym oddziaływaniem na siebie warstw (cząstek) płynu w czasie trwania przepływu, jednak nie dotyczy to oporu związanego z tarciem o ścianki naczynia. Jest co cecha związana z dynamiką płynu</li>
+<li>Nieściśliwość oznacza niezdolności do zmiany objętości pod wpływem sił zewnętrznych</li>
+<li>Przepływ stacjonarny (ustalony) zachodzi wówczas gdy prędkość, gęstość oraz ciśnienie w każdym punkcie są stałe i niezmienne w czasie</li>
+<li>Przy braku zawirowań wszystkie cząstki płynu poruszają się po torach równoległych do osi przewodu, co nazywamy także przepływem laminarnym lub warstwowym.</li>
 </ul>
-
-<h3 id="zaleznosc-podstawowa">Zależność podstawowa</h3>
-
-<p>ρ = γ/g oraz γ = ρg</p>
-
-<h3 id="wyprowadzenie-rownania-ciagłosci">Wyprowadzenie równania ciągłości</h3>
-
-<p>Wychodząc od zasady zachowania masy (Δm₁ = Δm₂):</p>
-
-<pre><code>Δm₁ = ρS₁v₁Δt = Δm₂ = ρS₂v₂Δt
-</code></pre>
-
-<h3 id="wynik-uproszczony">Wynik uproszczony</h3>
-
-<p><strong>S₁v₁ = S₂v₂</strong></p>
-
-<p>Pokazuje to, że zmiany pola przekroju korelują ze zmianami prędkości — mniejsze przekroje powodują szybszy przepływ.</p>
-
+<h3>Linie prądu i struga</h3>
+<p>Należy wprowadzić jeszcze dwa pojęcia, a mianowicie linie prądu oraz strugę. Linie prądu są styczne do wektorów prędkości poruszających się cząstek, a struga jest skończoną wiązką tych linii. W przepływie stacjonarnym linie prądu pokrywają się z torami ruchu cząstek wody.</p>
+<p>Przejdźmy do kolejnego etapu, w którym zmierzymy się z równaniem ciągłości strugi. Narysujmy fragment przewodu zamkniętego o zmiennej geometrii, z którego wydzielimy jedną strugę.</p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-317 size-full" src="/blog/assets/images/2021-09-Projekt.png" alt="" width="2160" height="1620"></p>
+<h3 style="text-align: left;">Wyprowadzenie równania</h3>
+<p style="text-align: left;">Jak widać, przekrój <span class="katex-eq" data-katex-display="false">S_{1}</span>, przez który wpływa nasz płyn ma większą powierzchnię niż przekrój zamykający <span class="katex-eq" data-katex-display="false">S_{2}</span>. Uważny obserwator dostrzeże również, że wektory prędkości <span class="katex-eq" data-katex-display="false">v_{1}</span> i <span class="katex-eq" data-katex-display="false">v_{2}</span> mają różne długości. Pamiętając o tym, że rozpatrujemy płyn idealny, wiemy że masa wpływająca jest równa masie wypływającej w jednostce czasu Zacznijmy jednak nie od masy, lecz od ciężaru właściwego naszego płynu i wyprowadzenia innych ważnych zależności. Czym jest ciężar właściwy? Jest to stosunek ciężaru do jego objętości:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">γ = \frac{G}{V} [N\times m^{-3}]</span></p>
+<p>Drugą ważną jednostką jest gęstość, czyli stosunek masy do objętości:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">ρ = \frac{m}{V} [kg\times m^{-3}]</span></p>
+<p>Masę możemy zapisać również jako stosunek ciężaru do przyspieszenia ziemskiego:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">m = \frac{G}{g}</span></p>
+<p>Dzięki poniższemu przekształceniu:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">ρ = \frac{m}{V} = \frac{G}{gV} = \frac{γ}{g}</span></p>
+<p>otrzymujemy poniższe zależności między gęstością i ciężarem właściwym płynu:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">ρ = \frac{γ}{g}</span></p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">γ = ρg</span></p>
+<p>Z tą wiedzą możemy wrócić do równania ciągłości. Tak jak już wspomniano, masa płynu dopływającej jest równa masie płynu wypływającej, czyli:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">Δm_{1} = Δm_{2}</span></p>
+<p>zapiszmy to jednak w inny sposób:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">Δm_{1} = ρΔV_{1} = ρS_{1}v_{1}Δt</span></p>
+<p>Z definicji wiemy, że masa jest iloczynem gęstości i elementarnej objętości, czyli tym samy co gęstość pomnożona przez objętość walca, który jest wycinkiem strugi. Objętość walca zależna jest od pola podstawy, czyli pola powierzchni przekroju przewodu oraz wysokości, która w tym przypadku może być traktowana jako droga pokonana przez cząstkę płynu. Analogicznie możemy zapisać równanie dla przekroju zamykającego:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">Δm_{2} = ρΔV_{2} = ρS_{2}v_{2}Δt</span></p>
+<p>a po uproszczeniu:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">S_{1}v_{1} = S_{2}v_{2}</span></p>
+<p>Oznacza to, że wraz ze zmianą powierzchni przekroju, następuje zmiana prędkości. W naszym przypadku pole powierzchni przekroju maleje na długości, wiec prędkość wzrasta.</p>
+<p>W tym miejscu odsyłam do kolejnego filmy PWr, w odcinku 58 został omówiony temat ciągłości strugi. <a href="https://www.youtube.com/watch?v=x3oBTvBr0Ko">Klik!</a></p>
         </div>
 
         <!-- Post Navigation -->

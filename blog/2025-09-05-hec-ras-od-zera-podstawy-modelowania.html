@@ -99,118 +99,76 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <h2 id="wprowadzenie">Wprowadzenie</h2>
-
-<p>Ten artykuł otwierający serię "HEC-RAS od zera" wyjaśnia klasyfikację modeli przepływu wody. HEC-RAS służy jako narzędzie wśród wielu innych do obliczania ruchu wody, a zrozumienie różnych typów modeli, ich ograniczeń i prawidłowej interpretacji wyników jest niezbędne.</p>
-
-<h2 id="modele-matematyczne">Modele matematyczne</h2>
-
-<p>Modele matematyczne, takie jak te w HEC-RAS, MIKE by DHI i TELEMAC, stanowią znaczne uproszczenie rzeczywistości. Równoważą dokładność obliczeniową z kosztami rozwoju modelu i wymaganiami dotyczącymi zbierania danych.</p>
-
-<p>Ta seria koncentruje się na przepływie w kanałach otwartych napędzanym siłami grawitacyjnymi, charakteryzującym się swobodną powierzchnią wody. Takie warunki występują w rzekach, kanałach i częściowo wypełnionych przewodach.</p>
-
-<h2 id="rodzaje-ruchu-wody">Rodzaje ruchu wody</h2>
-
-<p>Przepływ w kanałach otwartych dzieli się na dwie główne kategorie:</p>
-
-<ul>
-<li><strong>Przepływ ustalony</strong> – wszystkie parametry pozostają stałe w czasie</li>
-<li><strong>Przepływ nieustalony</strong> – przepływ, prędkość i głębokość zmieniają się w czasie</li>
-</ul>
-
-<p>Każda kategoria dzieli się dalej na:</p>
-
-<h3 id="1-przepływ-ustalony-rownomierny">1. Przepływ ustalony równomierny</h3>
-
-<p>Parametry stałe w czasie i przestrzeni. Wyobraź sobie długi kanał ze stałym dopływem, gdzie warunki hydrauliczne całkowicie się stabilizują.</p>
-
-<h3 id="2-przepływ-ustalony-nierownomierny">2. Przepływ ustalony nierównomierny</h3>
-
-<p>Parametry stałe w czasie, ale zmienne przestrzennie. Na przykład kanał z jazem powodującym spiętrzenie wody — stały dopływ, ale zmieniające się warunki hydrauliczne wzdłuż kanału.</p>
-
-<h3 id="3-przepływ-nieustalony-rownomierny">3. Przepływ nieustalony równomierny</h3>
-
-<p>Przepływ zmienia się w czasie, podczas gdy parametry przestrzenne pozostają stałe — rzadko obserwowany praktycznie, ale teoretycznie ważny.</p>
-
-<h3 id="4-przepływ-nieustalony-nierownomierny">4. Przepływ nieustalony nierównomierny</h3>
-
-<p>Parametry zmieniają się zarówno w czasie, jak i przestrzennie — najbardziej "naturalny" scenariusz ze zmieniającym się przepływem i warunkami hydraulicznymi.</p>
-
-<h2 id="głebokosc-krytyczna">Głębokość krytyczna</h2>
-
-<p>Ruch nierównomierny dzieli się dalej na łagodnie zmienny, gwałtownie zmienny, spokojny i rwący. Rozróżnienie między przepływem spokojnym a rwącym zależy od <strong>głębokości krytycznej</strong>:</p>
-
-<blockquote>
-  <p>"Głębokość krytyczna reprezentuje głębokość, przy której energia osiąga minimum dla danego przepływu, lub odwrotnie, przepływ osiąga maksimum dla danej energii."</p>
-</blockquote>
-
-<p>Ten punkt równowagi między energią potencjalną a kinetyczną określa, czy przepływ jest <strong>spokojny (podkrytyczny)</strong> czy <strong>rwący (nadkrytyczny)</strong>.</p>
-
-<p><em>Uwaga: Literatura anglojęzyczna odwraca terminologię — subcritical odnosi się do przepływu spokojnego, supercritical do rwącego.</em></p>
-
-<h2 id="klasyfikacja-modeli">Klasyfikacja modeli</h2>
-
-<h3 id="podejscia-obliczeniowe">Podejścia obliczeniowe</h3>
-
-<p><strong>Modele CFD</strong> (Computational Fluid Dynamics) oparte na równaniach Naviera-Stokesa produkują imponujące wizualizacje 3D. Jednak ich złożoność obliczeniowa zazwyczaj ogranicza zastosowanie do pojedynczych budowli podczas faz projektowych.</p>
-
-<p><strong>Modele równań Saint-Venanta</strong>, choć prostsze, skutecznie opisują przepływ łagodnie zmienny w kanałach otwartych. HEC-RAS i większość modeli 1D wykorzystuje to podejście.</p>
-
-<h3 id="praktyczne-typy-modeli">Praktyczne typy modeli</h3>
-
-<p>Z praktycznej perspektywy inżynierskiej:</p>
-
-<ul>
-<li><strong>1D (jednowymiarowy)</strong> – Prędkość uśredniona w całym przekroju; przepływ opisany tylko wzdłuż osi kanału.</li>
-<li><strong>2DH (dwuwymiarowy horyzontalny)</strong> – Składowe prędkości poziomej (u,v) z parametrami uśrednionymi po głębokości.</li>
-<li><strong>2DV (dwuwymiarowy pionowy)</strong> – Rozkład prędkości z głębokością i wzdłuż kanału; uśrednianie poprzeczne.</li>
-<li><strong>3D (trójwymiarowy)</strong> – Pełny opis prędkości (u,v,w) przy użyciu hydrostatycznych równań Naviera-Stokesa.</li>
-</ul>
-
-<h3 id="porownanie-charakterystyk-modeli">Porównanie charakterystyk modeli</h3>
-
+          <h2>Podstawy modelowania ruchu wody</h2>
+<p>Pierwszym wpisem z serii „HEC-RAS od zera” chciałbym wyjaśnić podział modeli opisujących przepływ wody. HEC-RAS jest wyłącznie narzędziem, jednym z wielu, które pozwalają wykonywać obliczenia związane z ruchem wody. Bez wiedzy o tym, jakie typy modeli w ogóle istnieją, trudno będzie zrozumieć sposób ich działania, ograniczenia i prawidłowo interpretować wyniki.</p>
+<h3>Modele matematyczne</h3>
+<p>Modele matematyczne, takie jak te budowane w HEC-RAS, MIKE od DHI czy TELEMAC, są daleko idącymi uproszczeniami rzeczywistości. Stanowią one kompromis pomiędzy dokładnością obliczeń a kosztami związanymi z budową modelu oraz zebraniem wystarczającej ilości parametrów.</p>
+<p>W tej serii wpisów skupimy się na ruchu wody w korytach otwartych, w których przepływ wywołany jest siłą ciężkości. Charakteryzują się one swobodną powierzchnią zwierciadła, nieograniczoną od góry. Z taką sytuacją mamy do czynienia w rzekach, kanałach, ale też w niewypełnionych całkowicie przewodach.</p>
+<h4>Rodzaje ruchu wody</h4>
+<p>Przepływ wody w korytach otwartych możemy podzielić na dwa przypadki: <strong>przepływ ustalony</strong>, w którym wszystkie parametry przepływu <strong>są stałe w czasie</strong>, oraz <strong>przepływ nieustalony</strong>, w którym obserwujemy zmianę natężenia przepływu, prędkości, napełnienia itp.</p>
+<p>Oba te przypadki możemy podzielić dalej na dwa kolejne typy: <strong>jednostajny</strong> i <strong>niejednostajny (zmienny)</strong>. Omówmy teraz te cztery kombinacje:</p>
+<ol>
+<li><strong>Przepływ ustalony jednostajny</strong>: parametry przepływu są stałe w czasie i przestrzeni. Możemy to sobie wyobrazić jako bardzo długi kanał, do którego dopływa stała ilość wody i którego parametry nie zmieniają się na długości. Po pewnym czasie warunki hydrauliczne w takim kanale ulegną stabilizacji – i wtedy mówimy o przepływie ustalonym jednostajnym.</li>
+<li><strong>Przepływ ustalony niejednostajny (zmienny)</strong>: parametry przepływu są stałe w czasie, ale zmieniają się na długości modelu. Ilość dopływającej wody do modelu jest stała, lecz parametry przepływu różnią się wzdłuż koryta. Przykład: kanał z pkt 1, w którym pojawia się przelew przegradzający koryto i podpiętrzający wodę. Dopływ jest stały, ale w miarę zbliżania się do budowli zmieniają się warunki hydrauliczne.</li>
+<li><strong>Przepływ nieustalony jednostajny</strong>: wielkość przepływu jest funkcją czasu (zmienia się), ale parametry w przestrzeni pozostają stałe. W praktyce niemal niespotykany, ale warto o nim wspomnieć jako o teoretycznej kombinacji.</li>
+<li><strong>Przepływ nieustalony niejednostajny (zmienny)</strong>: parametry przepływu są zmienne zarówno w czasie, jak i w przestrzeni. To najbardziej „naturalny” przypadek, w którym zmienia się wielkość przepływu oraz warunki hydrauliczne w korycie.</li>
+</ol>
+<p>Warto dodać, że ruch niejednostajny (zmienny) można rozbić na kolejne cztery przypadki: <strong>wolnozmienny</strong> i <strong>szybkozmienny</strong> oraz <strong>rwący</strong> i <strong>spokojny</strong>. Aby jednak nie mnożyć kombinacji, posłużmy się grafiką:</p>
+<p><a href="/blog/assets/images/2025-09-Przeplyw-ustalony.png"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-710 size-large" src="/blog/assets/images/2025-09-Przeplyw-ustalony-1024x643.png" alt="Schemat przepływu ustalonego" width="1024" height="643" srcset="/blog/assets/images/2025-09-Przeplyw-ustalony-1024x643.png 1024w, /blog/assets/images/2025-09-Przeplyw-ustalony-300x188.png 300w, /blog/assets/images/2025-09-Przeplyw-ustalony-768x482.png 768w, /blog/assets/images/2025-09-Przeplyw-ustalony.png 1304w" sizes="(max-width: 1024px) 100vw, 1024px"></a></p>
+<p>Podział na ruch wolno- i szybkozmienny jest intuicyjny. Co z ruchem rwącym i spokojnym? Tutaj należy wprowadzić pojęcie <strong>głębokości krytycznej</strong>. Nie wchodząc w trudne szczegóły, posłużmy się definicją z książki „Mechanika płynów” Jerzego Soboty:</p>
+<p><strong>Głębokość krytyczna strumienia to taka głębokość, przy której – przy danym przepływie – energia osiąga minimum lub też przy danej energii przepływ osiąga maksimum.</strong></p>
+<p>Oznacza to, że głębokość krytyczna jest punktem równowagi między energią potencjalną a kinetyczną, który decyduje o charakterze przepływu wody – czy będzie on <strong>spokojny (podkrytyczny)</strong>, czy <strong>rwący (nadkrytyczny</strong>).</p>
+<p><strong>Uwaga! W literaturze anglosaskiej nazewnictwo jest odwrócone: przepływ subcritical odnosi się do ruchu spokojnego, a supercritical do rwącego.</strong></p>
+<h4>Podział modeli</h4>
+<p>Na wizualizacjach często prezentowane są efektowne modele 3D, przedstawiające przepływ wody przez różne budowle. Są to modele <strong>CFD (Computational Fluid Dynamics)</strong>, oparte na równaniach <strong>Naviera–Stokesa</strong>. Ze względu na złożoność obliczeniową, obejmują one zwykle pojedyncze konstrukcje i służą inżynierom na etapie projektowania. Możliwe jest jednak wprowadzenie do modeli pewnych uproszczeń, jak w TELEMAC-3D, co zmienia charakter obliczeń.</p>
+<p>Innym typem są modele oparte na równaniach <strong>Saint-Venanta</strong>. Choć prostsze, doskonale radzą sobie z opisem przepływu wolnozmiennego w korytach otwartych. Na tym podejściu bazuje m.in. HEC-RAS i większość modeli 1D.</p>
+<p>Z praktycznego punktu widzenia interesuje nas jednak inny podział:</p>
+<ol>
+<li><strong>Modele jednowymiarowe (1D)</strong> – prędkość uśredniana jest w całym przekroju, a przepływ opisywany wyłącznie wzdłuż osi kanału.</li>
+<li><strong>Modele dwuwymiarowe (2D)</strong> – wyróżnia się modele horyzontalne (najczęściej stosowane), w których parametry są uśredniane po głębokości (klasyczne modele powodziowe), oraz modele wertykalne, w których parametry uśrednia się w kierunku poprzecznym do koryta.</li>
+<li><strong>Modele trójwymiarowe (3D)</strong> – dają pełny opis przepływu we wszystkich trzech kierunkach (u, v, w).</li>
+</ol>
 <table>
 <thead>
 <tr>
-  <th>Typ modelu</th>
-  <th>Założenia</th>
-  <th>Zalety</th>
-  <th>Ograniczenia</th>
-  <th>Zastosowania</th>
+<th>Typ modelu</th>
+<th>Założenia</th>
+<th>Zalety</th>
+<th>Ograniczenia</th>
+<th>Typowe zastosowania</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-  <td><strong>1D</strong></td>
-  <td>Prędkość uśredniona w przekroju; przepływ tylko wzdłuż osi</td>
-  <td>Szybkie obliczenia; minimalne wymagania danych; prosta interpretacja</td>
-  <td>Brak informacji o rozkładzie prędkości; zakłada przepływ wzdłuż osi</td>
-  <td>Profile zwierciadła wody; zasięg powodzi; projektowanie mostów/przepustów</td>
+<td><b>1D</b> (jednowymiarowy)</td>
+<td>Prędkość uśredniona po całym przekroju; przepływ opisany tylko wzdłuż osi koryta</td>
+<td>Szybkie obliczenia, niewielkie wymagania danych, łatwa interpretacja</td>
+<td>Brak informacji o rozkładzie prędkości, założenie że przepływ zawsze odbywa się wzdłuż osi modelu</td>
+<td>Profil zwierciadła wody, zasięg zalewu wzdłuż, projekt mostów/przepustów</td>
 </tr>
 <tr>
-  <td><strong>2DH</strong></td>
-  <td>Składowe prędkości poziomej; uśrednienie po głębokości</td>
-  <td>Realistyczne mapy zalewowe; dobra reprezentacja terenów zalewowych</td>
-  <td>Wyższe wymagania obliczeniowe; potrzeba rozległych danych terenowych</td>
-  <td>Mapy zalewowe; analiza awarii zapór; estuaria</td>
+<td><b>2DH</b> (dwuwymiarowy horyzontalny)</td>
+<td>Prędkości w płaszczyźnie poziomej (u,v); głębokość uśredniona</td>
+<td>Realistyczne mapy zalewów, dobre odwzorowanie rozlewisk i cofek</td>
+<td>Większe zapotrzebowanie obliczeniowe i na dane terenowe</td>
+<td>Mapy powodziowe, ocena skutków przerwania wału, estuaria</td>
 </tr>
 <tr>
-  <td><strong>2DV</strong></td>
-  <td>Rozkład prędkości po głębokości i wzdłuż kanału</td>
-  <td>Analizuje zjawiska pionowe (stratyfikacja, efekty dna)</td>
-  <td>Trudne zastosowanie praktyczne; ograniczona dostępność oprogramowania</td>
-  <td>Badania laboratoryjne</td>
+<td><b>2DV</b> (dwuwymiarowy wertykalny)</td>
+<td>Rozkład prędkości po głębokości i wzdłuż koryta; uśrednienie w kierunku poprzecznym</td>
+<td>Analiza zjawisk pionowych (np. stratyfikacji, efektów przydennych)</td>
+<td>Trudniejsze do zastosowania w praktyce, rzadziej dostępne w programach</td>
+<td>Badania laboratoryjne</td>
 </tr>
 <tr>
-  <td><strong>3D</strong></td>
-  <td>Pełny opis prędkości w przestrzeni; hydrostatyczne równania N-S</td>
-  <td>Najdokładniejszy opis zjawisk; możliwa analiza cyrkulacji i mieszania</td>
-  <td>Ekstremalne wymagania obliczeniowe; rozległe dane wejściowe</td>
-  <td>Zbiorniki; estuaria; jakość wody; transport zanieczyszczeń</td>
+<td><b>3D</b> (trójwymiarowy)</td>
+<td>Pełny opis prędkości (u,v,w) w przestrzeni; rozwiązanie Naviera–Stokesa w wersji hydrostatycznej</td>
+<td>Najdokładniejszy opis zjawisk, możliwość analizy cyrkulacji i mieszania</td>
+<td>Bardzo duże wymagania obliczeniowe i danych wejściowych</td>
+<td>Zbiorniki retencyjne, estuaria, jakość wody, transport zanieczyszczeń</td>
 </tr>
 </tbody>
 </table>
-
         </div>
 
         <!-- Post Navigation -->

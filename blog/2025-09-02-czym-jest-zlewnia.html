@@ -99,64 +99,36 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <h2 id="tldr">TL;DR</h2>
-
-<p>Zlewnia to obszar, z którego woda spływa do jednego miejsca. Dzielą się na naturalne i zurbanizowane oraz kontrolowane i niekontrolowane.</p>
-
-<h2 id="wprowadzenie">Wprowadzenie</h2>
-
-<p>Granice państw, województw, powiatów - to sztuczne podziały administracyjne stworzone przez człowieka. W gospodarce wodnej stosuje się jednak zupełnie inne podejście - naturalne systemy zarządzania wodą oparte na koncepcji zlewni.</p>
-
-<h2 id="panta-rhei-wszystko-płynie">Panta Rhei - wszystko płynie</h2>
-
-<p>Zlewnia to obszar, z którego woda spływa do jednego miejsca w wyniku opadów atmosferycznych. Woda koncentruje się w strumieniach, potokach, rzekach i jeziorach, podążając za naturalną topografią terenu.</p>
-
-<h2 id="wododział">Wododział</h2>
-
-<p>Granicą wyznaczającą zlewnię jest wododział - najlepiej określany przy użyciu narzędzi GIS lub tradycyjnych map topograficznych. Kluczowe cechy wododziału:</p>
-
+          <p><em>tl;dr</em></p>
+<p><em>Zlewnia to obszar, z którego woda spływa w jedno miejsce. Dzielimy je na naturalne i zurbanizowane, kontrolowane i niekontrolowane. Granica zlewni to dział wodny, który może być powierzchniowy (topograficzny) lub podziemny (hydrogeologiczny). Zespół zlewni to dorzecze, a zespół dorzeczy to zlewisko.<br>
+</em></p>
+<p>&nbsp;</p>
+<p>Jedną z najważniejszych, i chyba wciąż nierozwiązanych zagadek ludzkość jest pytanie dokąd nocą tupta jeż. W moim życiu jest jeszcze jedno pytanie tego kalibru, a mianowicie skąd (i dokąd) płynie woda?</p>
+<h2>Czym jest zlewnia?</h2>
+<p>Jesteśmy przyzwyczajeni do różnych sztucznych podziałów w naszym życiu, które pozwalają funkcjonować nam w społeczeństwie. Świat podzielony jest na kraje, kraje na mniejsze jednostki, takie jak województwa, one zaś w przypadku Polski na powiaty i dalej gminy. We wszystkich typowo ludzkich sprawach działa to całkiem nieźle, ale przyroda funkcjonuje po swojemu i nie chce dać się zaszufladkować w ten sposób. Dlatego na potrzeby <strong>gospodarki wodnej</strong> stworzono i wprowadzono w życie <strong>koncepcję zlewni</strong>.</p>
+<h3>Panta rhei, czyli wszystko płynie</h3>
+<p>Niewielu pewnie pamięta czym jest <strong>cykl hydrologiczny</strong> i jakie są jego składowe, ale mam przeczucie graniczące z pewnością, że każdy intuicyjnie czuje, że woda w rzekach bierze się z <strong>opadów atmosferycznych</strong>. W dużym uproszczeniu, możemy przyjąć, że krople deszczu, po tym jak już spadną na ziemię, spływają w dół. Jeżeli tych kropli będzie wystarczająco dużo, to zaczną się one koncentrować tworząc strumienie, potoki, w końcu rzeki lub jeziora. <strong>Obszar, z którego woda spływa w jedno miejsce, to właśnie zlewnia</strong>.</p>
+<p><a href="/blog/assets/images/2025-01-Zlewnia.png"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-680 size-large" src="/blog/assets/images/2025-01-Zlewnia-1024x512.png" alt="Zlewnia rzeki Główny" width="1024" height="512" srcset="/blog/assets/images/2025-01-Zlewnia-1024x512.png 1024w, /blog/assets/images/2025-01-Zlewnia-300x150.png 300w, /blog/assets/images/2025-01-Zlewnia-768x384.png 768w, /blog/assets/images/2025-01-Zlewnia-1536x768.png 1536w, /blog/assets/images/2025-01-Zlewnia-2048x1024.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px"></a></p>
+<p>No dobrze, ale skąd mamy wiedzieć, w którym kierunku ta woda płynie, zapytacie. <strong>Wododział</strong>, czyli granicę obszaru zlewni najłatwiej jest wytyczyć z pomocą narzędzi <strong>GIS</strong>. Nie są to bardzo zaawansowane analizy, ale osoby bez doświadczenia raczej nie dadzą sobie z tym rady, chyba że korzystają z takich narzędzi jak Scalgo. Na szczęście da się to również zrobić z wykorzystaniem zwykłej mapy topograficznej. Poniżej zamieszczam kilka przydatnych informacji i wskazówek o tym czym jest i jak wyznaczyć <strong>topograficzny dział wodny</strong>:</p>
 <ul>
-<li>Przebiega grzbietami wzdłuż najwyższych wzniesień</li>
-<li>Biegnie prostopadle do poziomic</li>
-<li>Nie może przecinać den dolin ani cieków wodnych</li>
+<li>topograficzny dział wodny przebiega wzdłuż grzbietów najwyższych wzniesień,</li>
+<li>przecina wierzchołki i przełęcze.</li>
+<li>zawsze biegnie prostopadle do warstwic,</li>
+<li>zdarza się, że pojedyncza kulminacja terenu o znacznej wysokości (np. szczyt wzniesienia) nie leży na dziale wodnym,</li>
+<li>na obszarach o słabo urozmaiconej rzeźbie terenu mamy do czynienia z tzw. niepewnym działem wodnym (oznaczamy to wówczas linią przerywaną), którego przebieg wyznacza się badaniami terenowymi,</li>
+<li>nie wolno prowadzić działu wodnego dnem doliny,</li>
+<li>nie wolno przecinać skośnie warstwic,</li>
+<li>nie wolno przecinaj cieków,</li>
+<li>nie wolno przecinać lub odcinać suchej doliny od głównej linii spływu wód</li>
 </ul>
-
-<h3 id="zasady-wyznaczania-wododziału-topograficznego">Zasady wyznaczania wododziału topograficznego</h3>
-
-<p>Przy wyznaczaniu wododziału należy unikać:</p>
-
-<ul>
-<li>Nieprawidłowego umieszczenia w poprzek suchych dolin</li>
-<li>Prostopadłego przecinania poziomic</li>
-<li>Przecięcia z ciekami wodnymi</li>
-</ul>
-
-<h2 id="bifurkacja">Bifurkacja</h2>
-
-<p>Bifurkacja to podział wody na wiele dopływów płynących do różnych systemów rzecznych. Wyróżniamy bifurkację punktową i powierzchniową.</p>
-
-<h2 id="wododział-powierzchniowy-a-podziemny">Wododział powierzchniowy a podziemny</h2>
-
-<p>"Kierunki przepływu wód podziemnych nie zawsze pokrywają się z przepływem wód powierzchniowych" - jest to szczególnie istotne na obszarach o płaskiej rzeźbie terenu.</p>
-
-<h2 id="klasyfikacja-zlewni">Klasyfikacja zlewni</h2>
-
-<h3 id="zlewnie-naturalne-vs-zurbanizowane">Zlewnie naturalne vs. zurbanizowane</h3>
-
-<p>Powierzchnie utwardzone (asfalt, beton, dachy) znacząco zmieniają charakterystykę przepływu wody - zwiększają spływ powierzchniowy i skracają czas koncentracji.</p>
-
-<h3 id="zlewnie-kontrolowane-vs-niekontrolowane">Zlewnie kontrolowane vs. niekontrolowane</h3>
-
-<p>Podział zależy od obecności lub braku stacji monitoringowych (wodowskazów, posterunków opadowych).</p>
-
-<h2 id="hierarchia-hydrologiczna">Hierarchia hydrologiczna</h2>
-
-<ul>
-<li><strong>Zlewnia</strong> - obszar, z którego woda spływa do określonego punktu (np. przekroju rzeki)</li>
-<li><strong>Dorzecze</strong> - system głównej rzeki z dopływami (np. dorzecze Odry)</li>
-<li><strong>Zlewisko</strong> - wiele systemów rzecznych odprowadzających wodę do wspólnego morza/oceanu (np. zlewisko Morza Bałtyckiego)</li>
-</ul>
-
+<h4>Bifurkacja</h4>
+<p>Szczególnie trudno jest wyznaczyć przebieg działu wodnego w miejscach, gdzie woda kieruje się do różnych dorzeczy. Mamy wówczas do czynienia z <strong>bifurkacją</strong>. Może mieć ona charakter punktowy, gdy ciek rozdziela się na 2 lub więcej ramion prowadząc wodę do różnych rzek oraz powierzchniowy, gdy mamy 2 lub więcej odpływów powierzchniowych z jeziora lub bagna. Istnieje również pojęcie <strong>pseudobifurkacji</strong>, gdy ciek płynie w różnych kierunkach przecinając dział wodny.</p>
+<h4>Zlewnia zlewni nierówna</h4>
+<p>Należy również pamiętać o tym, że kierunki przepływu <strong>wód gruntowych</strong> nie muszą pokrywać się z kierunkami spływu <strong>wód powierzchniowych</strong>. Jest to szczególnie ważne na wspomnianych już obszarach o monotonnej i płaskiej rzeźbie terenu. Dlatego <strong>topograficzny (powierzchniowy) dział wodny</strong> nie zawsze będzie się pokrywać z <strong>hydrogeologicznym (podziemnym) działem wodnym</strong>.</p>
+<p>Ważny jest również sposób zagospodarowania terenu zlewni. Najprostszy, ale też najbardziej przydany, podział dzieli je na <strong>naturalne</strong> i <strong>zurbanizowane</strong>. Wysoki poziom przekształcenia terenu i jego uszczelnienie w znacznym stopniu zmienia charakter spływu wód co musi być uwzględnione w <strong>obliczeniach hydrologicznych</strong>.</p>
+<p>Kolejnym istotnym rozróżnieniem jest to czy nasza zlewnia jest kontrolowana czy niekontrolowana. <strong>Zlewnie kontrolowane</strong> to takie, w których znajduje się stacja wodowskazowa umożliwiająca nam zbieranie danych hydrologicznych (stany wód i przepływy). <strong>Zlewnie niekontrolowane</strong> to takie, w których takich stacji nie ma i przez to są trudniejsze w zagospodarowaniu.</p>
+<p>Należy pamiętać o tym, że zlewnie można wyznaczyć dla dowolnego miejsca. Nie musimy wyznaczać zlewni dla całych rzek, równie dobrze można to zrobić dla wybranego na niej przekroju, obiektu, obiektów powierzchniowych (jeziora) lub punktowych (studzienka kanalizacyjna). Cały <strong>system rzeczny</strong>, czyli główna rzeka uchodząca do morza lub oceanu oraz jej dopływu to <strong>dorzecze</strong> (np. dorzecza Wisły i Odry). <strong>Zespół dorzeczy</strong>, z których wody odprowadzane są do wspólnego morza lub oceanu to <strong>zlewisko</strong> (np. zlewisko Bałtyku).</p>
+<p><a title="NordNordWest, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dorzecze_Odry_mapa.png"><img decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Dorzecze_Odry_mapa.png/512px-Dorzecze_Odry_mapa.png?20100104101232" alt="Dorzecze Odry mapa" width="512"></a></p>
         </div>
 
         <!-- Post Navigation -->

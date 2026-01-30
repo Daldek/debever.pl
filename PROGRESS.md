@@ -1,6 +1,6 @@
 # Progress projektu debever.pl
 
-## Ostatnia aktualizacja: 2026-01-26 (sesja 5 — grafiki portfolio + tło hero)
+## Ostatnia aktualizacja: 2026-01-30 (sesja 6 — migracja tresci bloga z WordPress)
 
 ## Aktualny status
 - [x] Phase 1: Wizytówka — UKONCZONE
@@ -52,16 +52,23 @@
 - [x] 2026-01-26: Portfolio — 6 grafik (Modelowanie_2D.png, Telemac.jpeg, Hydrologia.jpg, GIS.jpg, Ortofotomapa.jpg, Analiza_danych.png)
 - [x] 2026-01-26: Hero — tlo ze zdjeciem fiordu (Norwegia.jpg) z przyciemnieniem i parallax
 - [x] 2026-01-26: CSS — style dla obrazkow portfolio (object-fit, hover zoom)
+- [x] 2026-01-30: Migracja tresci bloga — scraping 26 wpisow z WordPress (scrape_blog.js, cheerio)
+- [x] 2026-01-30: Weryfikacja tresci — porownanie 4 plikow z oryginalami na stronie
+- [x] 2026-01-30: Naprawa naglowkow — przesuniecie h1->h2, h2->h3, h3->h4 w 18 plikach (fix_headings.js)
+- [x] 2026-01-30: Naprawa kodowania — uszkodzony UTF-8 w hec-ras-od-zera-tworzenie-geometrii-modelu.html (sie?? -> siec)
+- [x] 2026-01-30: Pobranie 271 obrazkow z WordPress do blog/assets/images/ (download_images.js)
+- [x] 2026-01-30: Podmiana sciezek obrazkow w 17 plikach HTML (wp-content/uploads -> /blog/assets/images/)
 
 ## Nastepne kroki (TODO)
 1. Wygenerowac apple-touch-icon.png (180x180) z favicon.svg
 2. Skonwertowac og-image.svg na PNG (1200x630)
 3. Deploy produkcyjny (SSL + domena debever.pl)
-4. (Opcjonalnie) Pobrac obrazki z WordPress do blog/assets/images/
+4. ~~(Opcjonalnie) Pobrac obrazki z WordPress do blog/assets/images/~~ — ZROBIONE
 
 ## Znane problemy / Blokery
 - Brak apple-touch-icon.png (wygenerowac z favicon.svg na realfavicongenerator.net)
 - Brak og-image.png (skonwertowac og-image.svg na PNG 1200x630)
+- ~~Obrazki w postach blogowych nadal wskazuja na WordPress~~ — ROZWIAZANE (271 obrazkow pobranych lokalnie)
 
 ## Decyzje projektowe
 - 2026-01-26: Fonty — Google Fonts (Merriweather + Inter)
@@ -69,6 +76,9 @@
 - 2026-01-26: BEM dla CSS (block__element--modifier)
 - 2026-01-26: GitHub remote: https://github.com/Daldek/debever.pl
 - 2026-01-26: Tlo hero — Norwegia.jpg z 70-80% overlay i parallax
+- 2026-01-30: Migracja tresci bloga — Node.js + cheerio (Python niedostepny w srodowisku)
+- 2026-01-30: Selektor WordPress — .entry-content.clr (zawartosc artykulu)
+- 2026-01-30: Naglowki — h1 w tresci zamienione na h2 (zachowanie jednego h1 na strone)
 
 ## Notatki dla przyszlej sesji
 > Strona testowa dziala na Mikrusie: http://srv08.mikr.us:40693/
@@ -95,6 +105,15 @@
 > - Ortofotomapa.jpg — zbiornik wodny z drona
 > - Analiza_danych.png — kod Python (biblioteka hydrologiczna)
 > - Norwegia.jpg — tlo hero (fiord)
+>
+> **Migracja tresci bloga (2026-01-30):**
+> - Skrypt scrape_blog.js pobral tresc 26 wpisow z WordPress i wstawil do lokalnych plikow HTML
+> - Tresc wstawiana do <div class="blog-post__content">
+> - Naglowki przesuniete o 1 poziom (h1->h2 itd.) w 18 plikach
+> - Naprawiony 1 blad kodowania UTF-8
+> - Obrazki pobrane lokalnie do blog/assets/images/ (271 plikow, prefiks YYYY-MM-)
+> - Sciezki w HTML podmienione z debever.pl/wp-content/uploads/YYYY/MM/file na /blog/assets/images/YYYY-MM-file
+> - Skrypt scrape_blog.js zachowany w /workspace/DeBever/blog/ na wypadek ponownego uruchomienia
 >
 > Do deploymentu produkcyjnego:
 > - Wlaczyc GA4

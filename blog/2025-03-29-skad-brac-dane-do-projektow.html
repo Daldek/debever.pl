@@ -99,48 +99,23 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <p>Artykuł omawia źródła danych hydrometeorologicznych dla projektów w Europie. W Polsce IMGW ma monopol na dane hydrometeo, co stwarza wyzwania dla badaczy ze względu na restrykcyjne licencje i niezweryfikowane surowe informacje.</p>
-
-<p>W Danii i Szwecji instytucje takie jak SMHI i DMI zapewniają znacznie swobodniejszy dostęp do danych przez API. Niezależnie od źródła, zawsze należy weryfikować pozyskane dane.</p>
-
-<h2 id="głowne-zrodła-danych">Główne źródła danych</h2>
-
-<h3 id="1-dmi-dunski-instytut-meteorologiczny">1. DMI (Duński Instytut Meteorologiczny)</h3>
-
-<p>Wymaga bezpłatnej rejestracji konta i wygenerowania klucza API do dostępu do danych.</p>
-
-<h3 id="2-smhi-szwedzki-instytut-meteorologiczny-i-hydrologiczny">2. SMHI (Szwedzki Instytut Meteorologiczny i Hydrologiczny)</h3>
-
-<p>Oferuje dane pomiarowe i obserwacyjne przez API bez wymogu logowania.</p>
-
-<h3 id="3-imgw-instytut-meteorologii-i-gospodarki-wodnej">3. IMGW (Instytut Meteorologii i Gospodarki Wodnej)</h3>
-
-<p>Udostępnia aktualne dane przez API. Dane historyczne przechowywane są w plikach tekstowych o różnych formatach.</p>
-
-<h3 id="4-program-copernicus-unia-europejska">4. Program Copernicus (Unia Europejska)</h3>
-
-<ul>
-<li><strong>Marine Service</strong> - dane oceanograficzne</li>
-<li><strong>Data Store</strong> - hydrologia, meteorologia, oceanografia</li>
-<li><strong>SeaDataNet (CDI)</strong> - indywidualne pomiary z różnych instytucji</li>
-</ul>
-
-<h3 id="5-emodnet">5. EMODnet</h3>
-
-<p>European Marine Observation and Data Network - dostarcza dane batymetryczne.</p>
-
-<h3 id="6-new-european-wind-atlas">6. New European Wind Atlas</h3>
-
-<p>Specjalistyczne narzędzie do analizy danych wiatrowych w Europie.</p>
-
-<h3 id="7-cembs">7. CEMBS</h3>
-
-<p>Coupled Ecosystem Model of the Baltic Sea - opracowany przez Instytut Oceanologii PAN. Oferuje prognozy i dane historyczne dla Morza Bałtyckiego.</p>
-
-<h2 id="podsumowanie">Podsumowanie</h2>
-
-<p>W krajach takich jak Dania i Szwecja istnieje większa swoboda korzystania z danych SMHI i DMI. Niezależnie od lokalizacji, użytkownicy danych powinni zawsze dokładnie weryfikować źródła.</p>
-
+          <p><strong>W Polsce, jak wiadomo, monopol na dane hydrometeo posiada IMGW</strong>, a wszyscy obawiają się brać odpowiedzialność za ich wykorzystanie. Dane te są surowe, niezweryfikowane i obwarowane ograniczeniami licencyjnymi. Na szczęście w krajach takich jak Dania (gdzie obecnie pracuję) i Szwecja (gdzie realizuję bieżące projekty) istnieje większa swoboda korzystania z danych udostępnianych przez <button type="button">SMHI (Sveriges meteorologiska och hydrologiska institut)</button> oraz <button type="button">DMI (Danmarks Meteorologiske Institut)</button>. Co prawda, tutaj również należy zachować ostrożność i dokładnie weryfikować wykorzystywane źródła – mogą pojawić się błędy (np. wiatr o prędkości 350 m/s), jednak takie rozwiązania są jak najbardziej możliwe. Warto także korzystać z danych udostępnianych przez instytucje Unii Europejskiej, między innymi w ramach programu Copernicus. Poniżej wrzucam listę źródeł z linkami, z których ostatnio korzystałem:</p>
+<ol start="1">
+<li><strong>DMI </strong>udostępnia dane przez interfejs API. Wystarczy założyć darmowe konto, wygenerować klucz, aby swobodnie korzystać z danych oferowanych przez Duńczyków. Link: <button type="button">https://opendatadocs.dmi.govcloud.dk/DMIOpenData</button></li>
+<li><strong>SMHI </strong>umożliwia pobieranie danych pomiarowo-obserwacyjnych przez API, które nie wymaga logowania się. Link: <button type="button">https://opendata.smhi.se/</button></li>
+<li><strong>IMGW.</strong> Aby pobrać dane dotyczące Polski, najpierw trzeba zapoznać się z długim regulaminem, aby przypadkowo nie wykorzystać danych IMGW do celów komercyjnych. Przez API dostępne są wyłącznie najnowsze dane, natomiast dane historyczne zapisane są w plikach tekstowych. Żeby nie było użytkownikowi zbyt łatwo, IMGW stosuje różne metody ich zapisu. Pisałem o tym <button type="button">tutaj</button>. Link: <button type="button">https://danepubliczne.imgw.pl/</button></li>
+<li><strong>Program Copernicus</strong> – cudowne dzieło Unii Europejskiej. Podobnie jak w przypadku DMI, wymagane jest posiadanie konta w serwisie:
+<ol start="1">
+<li><strong>Copernicus Marine Service</strong> – chyba najlepsze miejsce do poszukiwania danych o morzach i oceanach. Link: <button type="button">https://marineinsitu.eu/dashboard/</button></li>
+<li><strong>Copernicus Data Store</strong> – dane hydrologiczne, meteorologiczne oraz oceanologiczne. Oferuje pomiary bezpośrednie, obserwacje satelitarne oraz reanalizy – wszystko w jednym miejscu. Kombajn do zbierania danych. Dodatkowo oferując wsparcie w postaci webinarów i generatora zapytań do API. Link: <button type="button">https://marineinsitu.eu/dashboard/</button></li>
+<li><strong>SeaDataNet (CDI)</strong> – doskonałe uzupełnienie CMS, umożliwiające znalezienie nawet pojedynczych pomiarów przeprowadzanych przez różne instytucje. Choć jeszcze nie korzystałem z tego źródła, wygląda na to, że dostęp do danych przez API nie powinien sprawiać problemów. Link: <button type="button">https://cdi.seadatanet.org</button></li>
+</ol>
+</li>
+<li><strong>European Marine Observation and Data Network (EMODnet)</strong> Komisja Europejska dorzuciła coś od siebie – ostatnio pobierałem stąd dane batymetryczne Bałtyku w bardzo dobrej rozdzielczości. Link: <button type="button">https://emodnet.ec.europa.eu/en</button></li>
+<li><strong>New European Wind Atlas</strong> Sama nazwa mówi wszystko – narzędzie dedykowane analizie danych wiatrowych na terenie Europy. Link: <button type="button">https://map.neweuropeanwindatlas.eu/</button></li>
+<li><strong>Copuled Ecosystem Model of the Baltic Sea (CEMBS)</strong> Produkt stworzony przez Instytut Oceanografii Polskiej Akademii Nauk, oferujący mnóstwo informacji o hydrodynamice i biogeochemii Bałtyku. Znajdziemy tutaj zarówno prognozy, jak i dane historyczne (reanalizy – choć nie jestem do końca pewien co do formy udostępniania). Na tę chwilę widziałem głównie mapy, więc nie wiem, jak dokładnie udostępniają pełne dane. Link: <button type="button">http://deep.iopan.gda.pl/CEMBaltic/new_lay/</button></li>
+</ol>
+<p>Trochę tego jest. W miarę możliwości lista będzie dalej aktualizowana.</p>
         </div>
 
         <!-- Post Navigation -->

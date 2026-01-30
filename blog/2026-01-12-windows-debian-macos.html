@@ -99,41 +99,54 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <p>Po przejściu z Windows na macOS potrzebowałem dostępu do aplikacji niedostępnych na Macu. Rozwiązaniem było zainstalowanie Debiana na starszym komputerze i uruchomienie Windows 10 jako maszyny wirtualnej.</p>
+          <p>Przesiadłem się z Windowsa na macOS. Nie wszystkie aplikacje działają na Macu, więc musiałem znaleźć sposób, żeby móc nadal z nich korzystać. Na stary komputer wrzuciłem Debiana i na nim uruchamiam Windows 10 jako maszynę wirtualną. Może kiedyś opiszę tutaj dokładną procedurę, bo nie było to super łatwe.</p>
+<p>Zostawiam tutaj kilka przydatnych komend do terminala, które będę często używać i i tak zapomnę po kilku minutach.</p>
+<ol>
+<li>Pulpit zdalny
+<ol>
+<li>Na Macu instalujemy klienta VNC przez Homebrew (zakładam, że jest już zainstalowany):<br>
+<code>brew install tiger-vnc</code></li>
+<li>SSH miałem już wcześniej skonfigurowane. Ważne, żeby łączyło się z hostem nie po nazwie, ale po IPv4. Tworzymy tunel SSH:<br>
+<code>ssh -N -L 5901:127.0.0.1:5900 user@host</code></li>
+<li>W drugim terminalu uruchamiamy VNC:<br>
+<code>vncviewer 127.0.0.1:5901</code></li>
+<li>Sesję kończymy Ctrl + C. Możemy sprawdzić, czy tunel został zamknięty:<br>
+<code>lsof -iTCP:5901 -sTCP:LISTEN</code></li>
+<li>Jeżeli coś zostanie zwrócone, możemy zakończyć proces:<br>
+<code>kill PID</code></li>
+</ol>
+</li>
+<li>Przesyłanie plików z Maca na Debiana
+<ol>
+<li>Używamy komendy:<br>
+<code>scp /ścieżka/do/pliku/na/macu.csv user@debianhost.local:/ścieżka/na/debianie</code><br>
+‘.local’ używam, bo wcześniej skonfigurowałem mDNS z wykorzystaniem <code>avahi-daemon</code></li>
+</ol>
+</li>
+<li>Przesyłanie plików z Debiana do Windowsa
+<ol>
+<li>Otwieramy wiersz poleceń w Windowsie</li>
+<li>Łączymy się z Debianem:<br>
+<code>sftp user@192.168.122.1</code> (domyślny adres)</li>
+<li>Pobieramy pliki:<br>
+<code>get /ścieżka/do/pliku/na/debianie /ścieżka/do/pliku/na/Win</code></li>
+</ol>
+</li>
+<li>Pyenv i tworzenie środowiska wirtualnego w odpowiedniej wersji pythona:
+<ol>
+<li>Przechodzimy do folderu, w którym chcemy utworzyć środowisko i definiujemy wersję, której chcemy używać:<br>
+<code>pyenv local 3.12.12</code></li>
+<li>Następnie tworzymy je:<br>
+<code>python -m venv .venv</code></li>
+<li>Aktywujemy (macOS):<br>
+<code> source .venv/bin/activate</code></li>
+<li>Upewniamy się, że mamy to czego chcemy:<br>
+<code>which python</code><br>
+<code>python --version</code></li>
 
-<h2 id="połaczenie-pulpitu-zdalnego">Połączenie pulpitu zdalnego</h2>
+</ol>
 
-<ul>
-<li>Instalacja klienta VNC na Macu przez Homebrew: <code>brew install tiger-vnc</code></li>
-<li>Konfiguracja tunelu SSH przez IPv4: <code>ssh -N -L 5901:127.0.0.1:5900 user@host</code></li>
-<li>Uruchomienie przeglądarki VNC: <code>vncviewer 127.0.0.1:5901</code></li>
-<li>Zakończenie sesji: Ctrl + C</li>
-<li>Sprawdzenie statusu tunelu: <code>lsof -iTCP:5901 -sTCP:LISTEN</code></li>
-<li>Zakończenie procesu w razie potrzeby: <code>kill PID</code></li>
-</ul>
-
-<h2 id="transfer-plikow-mac-do-debian">Transfer plików: Mac do Debian</h2>
-
-<pre><code>scp /ścieżka/do/pliku/na/macu.csv user@debianhost.local:/ścieżka/na/debianie
-</code></pre>
-
-<p><em>(Wykorzystuje mDNS skonfigurowane z <code>avahi-daemon</code>)</em></p>
-
-<h2 id="transfer-plikow-debian-do-windows">Transfer plików: Debian do Windows</h2>
-
-<pre><code>sftp user@192.168.122.1
-get /ścieżka/do/pliku/na/debianie /ścieżka/do/pliku/na/Win
-</code></pre>
-
-<h2 id="srodowisko-wirtualne-python-pyenv">Środowisko wirtualne Python (Pyenv)</h2>
-
-<ul>
-<li>Ustawienie wersji Pythona: <code>pyenv local 3.12.12</code></li>
-<li>Utworzenie środowiska: <code>python -m venv .venv</code></li>
-<li>Aktywacja na macOS: <code>source .venv/bin/activate</code></li>
-<li>Weryfikacja konfiguracji: <code>which python</code> i <code>python --version</code></li>
-</ul>
-
+</li></ol>
         </div>
 
         <!-- Post Navigation -->

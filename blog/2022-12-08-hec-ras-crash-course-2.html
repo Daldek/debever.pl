@@ -99,99 +99,46 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <h2 id="hec-ras-2d-i-qgis">HEC-RAS 2D i QGIS</h2>
-
-<p>Pierwsza część przyspieszonego kursu modelowania HEC-RAS obejmowała podstawy modelowania 2D. Analiza wytworzyła dane o głębokościach wody, rzędnych zwierciadła wody i prędkościach przepływu — trzy podstawowe domyślne warstwy wynikowe.</p>
-
-<p>HEC-RAS umożliwia tworzenie dodatkowych warstw, takich jak iloczyn prędkości i głębokości (DV), który pomaga identyfikować szczególnie niebezpieczne obszary dla ludzi, lub warstwy przydatne hydraulicznie jak liczby Froude'a czy Couranta.</p>
-
-<h2 id="hec-ras-na-poczatek">HEC-RAS na początek</h2>
-
-<p>Aby utworzyć dodatkowe warstwy map wynikowych:</p>
-
-<ol>
-<li>Otwórz <strong>Ras Mapper</strong></li>
-<li>Rozwiń zakładkę <strong>Results</strong></li>
-<li>Kliknij prawym przyciskiem na nazwę planu i wybierz <strong>Create a New Results Map Layer</strong></li>
-<li>Rozwiń interesujący typ mapy</li>
-<li>Wybierz wartości minimalne, maksymalne lub dla konkretnego kroku czasowego</li>
-<li>Potwierdź klikając <strong>Add map</strong></li>
-<li>Oblicz/zaktualizuj zapisaną mapę klikając <strong>Compute/Update Stored Map</strong></li>
-</ol>
-
-<p>Dla wizualizacji DV zmodyfikuj ustawienia legendy w <strong>Layer Properties</strong>, ustawiając górny zakres na 2. Wartości powyżej 0,5 wskazują poważne ryzyko dla dorosłych.</p>
-
-<h2 id="przechodzimy-do-qgisa">Przechodzimy do QGISa</h2>
-
-<p>Ras Mapper ma ograniczoną funkcjonalność GIS, więc eksportuj wyniki do formatu TIFF do dalszej pracy w QGIS.</p>
-
-<p>Dla danych głębokości, rzędnych i prędkości kliknij prawym przyciskiem na warstwę, rozwiń <strong>Export Layer</strong> i wybierz <strong>Export Raster</strong>. Inne utworzone warstwy automatycznie zapisują się w odpowiednich formatach.</p>
-
-<h3 id="zrodła-danych-o-budynkach">Źródła danych o budynkach</h3>
-
-<ul>
-<li><strong>OpenStreetMap</strong> (pobierz z Geofabrik.de)</li>
-<li><strong>BDOT10k</strong> (polska baza danych topograficznych, dostępna na Geoportal)</li>
-</ul>
-
-<p>Zwróć uwagę na różnice w układach współrzędnych.</p>
-
-<h3 id="usuwamy-to-co-zbedne">Usuwamy to co zbędne</h3>
-
-<p>Ogranicz dane budynków do zasięgu modelu. Użyj <strong>Extract by Location</strong> z Processing Toolbox:</p>
-
-<ul>
-<li><strong>Extract features from:</strong> warstwa budynków</li>
-<li><strong>Condition:</strong> Intersect</li>
-<li><strong>By comparing to:</strong> granica modelu 2D</li>
-</ul>
-
-<h3 id="analiza-wynikow">Analiza wyników</h3>
-
-<p>Przeanalizuj cztery parametry dla każdego budynku używając <strong>Zonal Statistics</strong>:</p>
-
-<ul>
-<li>Zalana powierzchnia (liczba komórek)</li>
-<li>Średnia, maksymalna i minimalna głębokość wody</li>
-</ul>
-
-<h3 id="wizualizacja-wynikow">Wizualizacja wyników</h3>
-
-<p>Zmień symbolikę w <strong>Properties → Symbology</strong> z <strong>Single Symbol</strong> na <strong>Rule-based</strong>. Klasyfikuj na trzy kategorie:</p>
-
-<table>
-<thead>
-<tr>
-  <th>Kategoria</th>
-  <th>Warunek</th>
-  <th>Poziom ryzyka</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>Wysoce zagrożone</td>
-  <td>"MAX" &gt;= 0.3 m</td>
-  <td>Czerwony</td>
-</tr>
-<tr>
-  <td>Umiarkowanie zagrożone</td>
-  <td>"MAX" &gt; 0.1 AND "MAX" &lt; 0.3 m</td>
-  <td>Żółty</td>
-</tr>
-<tr>
-  <td>Bezpieczne</td>
-  <td>"MAX" &lt;= 0.1 m</td>
-  <td>Zielony</td>
-</tr>
-</tbody>
-</table>
-
-<h3 id="dodajemy-etykiety">Dodajemy etykiety</h3>
-
-<p>Dodaj etykiety w <strong>Properties → Labels</strong> z odpowiednim wyrażeniem dla zalanej powierzchni budynku.</p>
-
-<p><strong>Uwaga dotycząca warstwy DV:</strong> Tam gdzie są budynki, prędkość wody powinna być zerowa, więc wyświetlanie tam DV nie dodaje wartości.</p>
-
+          <h2>HEC-RAS 2D i QGIS</h2>
+<p>Pierwsza część mojego przyspieszonego kursu modelowania w<strong> HEC-RAS</strong>, którą znajdziecie <a href="https://debever.pl/hydro/hec-ras-crash-course-1/">pod tym linkiem</a>, została poświęcona w całości modelowaniu 2D na poziomie (bardzo) podstawowym. W wyniku naszych analiz otrzymaliśmy dane mówiące nam o głębokościach zalewu, rzędnych zwierciadła wody oraz prędkościach przepływu. Są to 3 podstawowe i domyślnie tworzone warstwy wynikowe. HEC-RAS umożliwia utworzenie dodatkowych warstw, takich jak na przykład iloczyn prędkości i głębokości (<strong>DV</strong>), dający nam bardzo dobre rozeznanie o obszarach szczególnie niebezpiecznych dla ludzi, albo coś przydatne głównie z hydraulicznego punktu widzenia jak warstwy z wartościami liczb <a href="https://pl.wikipedia.org/wiki/Liczba_Froude%E2%80%99a">Frouda</a> lub <a href="https://pl.wikipedia.org/wiki/Warunek_Couranta-Friedrichsa-Lewy%E2%80%99ego">Couranta</a>.</p>
+<h3>HEC-RAS na początek</h3>
+<p>W tym celu, musimy otworzyć <strong>Ras Mappera</strong>, rozwinąć zakładkę<strong> Results</strong>, kliknąć prawym przyciskiem myszy (PPM) na nazwę naszego planu i wybrać<strong> Create a New Results Map Layer</strong>. Rozwijamy interesujący nas typ mapy, wybieramy czy chcemy uzyskać wartości minimalne, maksymalne czy dla konkretnego kroku czasowego i potwierdzamy <strong>Add map</strong>. Warstwa zostanie dodana, ale musimy ją jeszcze przeliczyć klikając na <strong>Compute/Update Stored Map</strong>. W nawiasie może się również pojawić krótka informacja taka jak <strong>Map not created</strong>, <strong>Map files up to date</strong> lub inna. Warto również zmienić w <strong>Layer Properties</strong> legendę i dla DV ustawić górny zakres na 2, przy czym warto wiedzieć, że już dla wartości 0,5 istnieje poważne ryzyko dla osób dorosłych.</p>
+<p><a href="/blog/assets/images/2022-12-HEC-RAS_DV.png"><img fetchpriority="high" decoding="async" class="alignnone size-large wp-image-470" src="/blog/assets/images/2022-12-HEC-RAS_DV-1024x443.png" alt="" width="1024" height="443" srcset="/blog/assets/images/2022-12-HEC-RAS_DV-1024x443.png 1024w, /blog/assets/images/2022-12-HEC-RAS_DV-300x130.png 300w, /blog/assets/images/2022-12-HEC-RAS_DV-768x332.png 768w, /blog/assets/images/2022-12-HEC-RAS_DV-1536x664.png 1536w, /blog/assets/images/2022-12-HEC-RAS_DV-2048x886.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px"></a></p>
+<p>Kiedyś wydrukuję sobie taką mapę i zawieszę na ścianie, bo jest piękna.</p>
+<h3>Przechodzimy do QGISa</h3>
+<p>Jak już zostało wcześniej wielokrotnie wspomniane, Ras Mapper, delikatnie mówiąc, nie jest najlepszym narzędziem gisowym, w jakim dane mi było pracować, więc zapiszemy nasze wyniki do pliku tiff i dalej będziemy pracować w QGIS. Twórcy oprogramowania chyba to przewidzieli i bardzo ułatwili nam eksport map. W przypadku głębokości, rzędnych i prędkości wystarczy kliknąć ppm na warstwę, rozwinąć <strong>Export Layer</strong> i wybrać <strong>Export Raster</strong>, a pozostałe stworzone przez nas warstwy od razu zapisują się do odpowiedniego formatu. Wszystkie te dane znajdziemy w folderze z naszym projektem, a jeszcze dokładniej – w folderze z nazwą naszego planu.</p>
+<h4>Warto korzystać z otwartych źródeł danych</h4>
+<p>Po dodaniu tychże rastrów do QGISa warto zmienić symbologię, coś niebieskiego dla głębokości, a coś z czerwienią dla DV. My w tym przykładzie ograniczymy się tylko do tych dwóch warstw, przyjrzymy się bowiem poziomem zalania zabudowy, ale rzucimy również okiem na obszary szczególnie niebezpieczne dla przebywających w pobliżu osób. Zapytacie, moi drodzy, skąd wziąć warstwę z budynkami. Śpieszę z odpowiedzią! Źródła są co najmniej 2, <strong>OpenStreetMap</strong> oraz <strong>Baza Danych Obiektów Topograficznych</strong> (<strong>BDOT10k</strong>). W pierwszym przypadku dane możemy pobrać ze strony <a href="https://download.geofabrik.de/"><strong>Geofabrik.de</strong></a>, a w drugim z <a href="https://mapy.geoportal.gov.pl/imap/Imgp_2.html"><strong>Geoportalu</strong></a>. Tylko zwróćcie uwagę na układy współrzędnych!</p>
+<p><a href="/blog/assets/images/2022-12-Geoportal_bdot10k.png"><img decoding="async" class="alignnone wp-image-469 size-large" src="/blog/assets/images/2022-12-Geoportal_bdot10k-1024x441.png" alt="" width="1024" height="441" srcset="/blog/assets/images/2022-12-Geoportal_bdot10k-1024x441.png 1024w, /blog/assets/images/2022-12-Geoportal_bdot10k-300x129.png 300w, /blog/assets/images/2022-12-Geoportal_bdot10k-768x331.png 768w, /blog/assets/images/2022-12-Geoportal_bdot10k.png 1136w" sizes="(max-width: 1024px) 100vw, 1024px"></a></p>
+<h4>Usuwamy to co zbędna</h4>
+<p>Nie potrzebujemy obiektów dla całego województwa czy powiatu, dlatego od razu po wczytaniu pliku <strong>shapefile</strong> do QGISa ograniczymy je wyłącznie do zakresu naszego modelu. Nie chcemy przecinać budynków, więc darujemy sobie narzędzie Clip i zamiast niego najpierw wybierzemy poprzez selekcję i dalej ekstrakcję te poligony, które przecinają się ze stworzony przez nas już wcześniej zasięgiem obszaru 2D. W <strong>Processing Toolbox</strong> wyszukujemy <strong>Extract by Location</strong>. <strong>Extract features from</strong> będzie naszą warstwą z budynkami, warunkiem, który musi zostać spełniony będzie <strong>Intersect</strong>, a <strong>By comparing to the feature from</strong> to nasz obszar 2D, po czym zapiszemy wyselekcjonowane poligony do nowego pliku.</p>
+<p><a href="/blog/assets/images/2022-12-QGIS_extract.png"><img decoding="async" class="alignnone size-medium wp-image-471" src="/blog/assets/images/2022-12-QGIS_extract-300x215.png" alt="" width="300" height="215" srcset="/blog/assets/images/2022-12-QGIS_extract-300x215.png 300w, /blog/assets/images/2022-12-QGIS_extract-768x551.png 768w, /blog/assets/images/2022-12-QGIS_extract.png 774w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<h4>Analiza wyników</h4>
+<p>Chcielibyśmy teraz sprawdzić dla każdego każdego budynku 4 rzeczy: jaka część jego powierzchni może być zalana (liczba komórek), jaka jest średnia, maksymalna oraz minimalna głębokość wody. Do tego celu wykorzystamy <strong>Zonal Statistics</strong>. Naszą <strong>Input layer</strong> jest właśnie stworzony nowy plik shp, <strong>Raster layer</strong> to raster z głębokościami wody i interesującymi nas <strong>Statistics to calculate</strong> są wspomniane <strong>Count</strong>, <strong>Mean</strong>, <strong>Minimum</strong> oraz <strong>Maximum</strong>. Po ich zaznaczeniu koniecznie potwierdzamy wybór przyciskiem <strong>OK</strong>, w innym przypadku nie zostanie to zapamiętane. Tym razem jednak darujemy sobie tworzenie nowego pliku i zapiszemy całość jako warstwę tymczasową.</p>
+<p><a href="/blog/assets/images/2022-12-QGIS_zonal_stat.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-476" src="/blog/assets/images/2022-12-QGIS_zonal_stat-300x215.png" alt="" width="300" height="215" srcset="/blog/assets/images/2022-12-QGIS_zonal_stat-300x215.png 300w, /blog/assets/images/2022-12-QGIS_zonal_stat-768x551.png 768w, /blog/assets/images/2022-12-QGIS_zonal_stat.png 774w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<h4>Łączenie danych</h4>
+<p>Po wyłączeniu programu stracilibyśmy efekt naszej pracy, więc żeby tego uniknąć posłużymy się funkcją <strong>Joins</strong>, do której dostajemy się wchodzą w <strong>Properties</strong> warstwy z analizowanymi budynkami. Zielonym krzyżykiem dodajemy nowe połączenie. <strong>Join layer</strong> to warstwa tymczasowa <strong>Zonal Statistics</strong>, <strong>Join field</strong> oraz <strong>Target field</strong> zostawimy <strong>fid</strong> i dołączymy tylko 4 obliczone pola zaznaczając najpierw <strong>Joined fields</strong>, a następnie to co stworzyliśmy. Nowe kolumny charakteryzują się tym, że mają podkreślenie jako prefix. Potwierdzamy <strong>OK</strong>, <strong>Apply</strong> i znowu <strong>OK</strong>.</p>
+<p><a href="/blog/assets/images/2022-12-QIGS_joins.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-477" src="/blog/assets/images/2022-12-QIGS_joins-250x300.png" alt="" width="250" height="300" srcset="/blog/assets/images/2022-12-QIGS_joins-250x300.png 250w, /blog/assets/images/2022-12-QIGS_joins.png 507w" sizes="(max-width: 250px) 100vw, 250px"></a></p>
+<h4>Modyfikujemy tabelę z wynikami</h4>
+<p>Nasza tabela atrybutów jest pełna niepotrzebnych informacji, usuniemy więc to co zbędne wchodząc w tryb edycji i wybierając <strong>Delete Fields</strong>. Wybieramy wszystko poza fid. Prawdopodobnie zauważyliście, że część jest wyszarzona – to te kolumny, które dołączamy. Będą one tam tak długo, do póki istniej warstwa, do której mogą się odnieść, a nasza jest tymczasowa. Jesteśmy więc zmuszeni jakoś sobie z tym poradzić, najlepiej więc będzie, jeżeli wykorzystamy kalkulator. Klikamy więc <strong>Open field calculator </strong>i dla każdej wartości obliczamy nowe pole na podstawie dołączenia. Zostawiamy domyślny wybór <strong>Create a new field</strong>,<strong> Output filed</strong> <strong>name</strong> to nazwa naszej nowej kolumny, <strong>Output field type</strong> będzie liczną zmiennoprzecinkową <strong>Decimal number (real)</strong>, z dokładnością (<strong>Precision</strong>) do 2 miejsc. W środkowym okienku rozwijamy <strong>Fields and Values</strong> i wyszukujemy aktualnie interesującą nas rzecz.</p>
+<p><a href="/blog/assets/images/2022-12-QGIS_field_calc.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-472" src="/blog/assets/images/2022-12-QGIS_field_calc-300x193.png" alt="" width="300" height="193" srcset="/blog/assets/images/2022-12-QGIS_field_calc-300x193.png 300w, /blog/assets/images/2022-12-QGIS_field_calc-768x493.png 768w, /blog/assets/images/2022-12-QGIS_field_calc.png 1022w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p>Pojawia się jednak problem, w momencie, w którym mamy zalaną tylko jedną komórkę na obszarze budynku, możliwe jest, że kalkulator zaokrągli naszą wartość w dół do 0. Możemy temu zapobiec zmieniając nasze wyrażenie. Wracamy więc do kalkulatora, ale tym razem wybieramy <strong>Update existing field</strong>, którym jest w moim przypadku <strong>Count</strong>. W wyrażeniu nie dodajemy zwyczajnie naszej warstwy, lecz wpiszemy coś odrobinę bardziej skomplikowanego.</p>
+<p>CASE<br>
+WHEN “Zonal Statistics__count” &gt; 0 AND “Zonal Statistics__count” &lt; 1 THEN 1<br>
+ELSE “Zonal Statistics__count”<br>
+END</p>
+<p><a href="/blog/assets/images/2022-12-QGIS_update_field.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-475" src="/blog/assets/images/2022-12-QGIS_update_field-300x164.png" alt="" width="300" height="164" srcset="/blog/assets/images/2022-12-QGIS_update_field-300x164.png 300w, /blog/assets/images/2022-12-QGIS_update_field-1024x560.png 1024w, /blog/assets/images/2022-12-QGIS_update_field-768x420.png 768w, /blog/assets/images/2022-12-QGIS_update_field.png 1199w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<h4>Wizualizacja wyników</h4>
+<p>Teraz powinno już wszystko grać. Kolejną rzeczą, którą warto zrobić, jest zmiana symbologii, żebyśmy od razu widzieli, które budynki są zagrożone. Wchodzimy więc we właściwości warstwy z budynkami poprzez <strong>Properties</strong>, następnie przechodzimy do <strong>Symbology</strong>, po czym zmieniamy z <strong>Single Symbol</strong> na <strong>Rule-based</strong>. Sklasyfikujemy budynki na 3 kategorie, silnie zagrożone, gdzie głębokość wody będzie wyższa niż 0,3 m (<strong>“MAX” &gt;= 0.3</strong>), mało zagrożone, dla których ten warunek będzie spełniony w przedziale pomiędzy 0,1 a 0,3 m (<strong>“MAX” &gt; 0.1 AND “MAX” &lt;0.3</strong>) oraz bezpieczne (<strong>ELSE</strong>)<strong>,</strong> czyli głębokość wody to nie więcej niż 10 cm.</p>
+<p><a href="/blog/assets/images/2022-12-QGIS_rule-based.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-474" src="/blog/assets/images/2022-12-QGIS_rule-based-300x243.png" alt="" width="300" height="243" srcset="/blog/assets/images/2022-12-QGIS_rule-based-300x243.png 300w, /blog/assets/images/2022-12-QGIS_rule-based-768x622.png 768w, /blog/assets/images/2022-12-QGIS_rule-based.png 941w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<h4>Warto dodać też opis</h4>
+<p>Analogicznie do symbologii formuły wykorzystanej przy aktualizacji pól, możemy również przygotować etykiety, czyli <strong>Labels</strong>. W <strong>Properties</strong> naszej warstwy wyszukujemy <strong>Labels</strong>, po czym wpisujemy poniższą formułę:</p>
+<p>CASE<br>
+WHEN “COUNT”&gt; 1 THEN’Zalana powierzchnia budynku: ‘|| “COUNT”||’ m. kw.’<br>
+END</p>
+<p><a href="/blog/assets/images/2022-12-QGIS_labels.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-473" src="/blog/assets/images/2022-12-QGIS_labels-300x151.png" alt="" width="300" height="151" srcset="/blog/assets/images/2022-12-QGIS_labels-300x151.png 300w, /blog/assets/images/2022-12-QGIS_labels-1024x516.png 1024w, /blog/assets/images/2022-12-QGIS_labels-768x387.png 768w, /blog/assets/images/2022-12-QGIS_labels.png 1072w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p>Dzięki czemu wszystkie zalane budynki zostaną opatrzone stosowną informacją. Żeby jednak to wyświetlić, musimy kliknąć ppm na naszą warstwę i wybrać <strong>Show labels</strong>. Ostatnią rzeczą jaką zrobimy jest usunięcie połączenia do warstwy tymczasowej ze statystykami głębokości i powierzchni zalewu.</p>
+<p>Zastanawiacie się pewnie co z warstwą DV? Ano nic. Przecież tam gdzie są budynki prędkość powinna wynosić 0, więc nie ma sensu pokazywać tam niczego poza samą mapą 🙂</p>
         </div>
 
         <!-- Post Navigation -->

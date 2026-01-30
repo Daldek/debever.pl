@@ -99,89 +99,54 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <blockquote>
-  <p>Druga zwrotka bo zawsze chciałem zacząć od środka ~Abradab</p>
-</blockquote>
-
-<h2 id="dlaczego-nie-lubie-modeli-1d">Dlaczego nie lubię modeli 1D?</h2>
-
-<p>Rozpoczynając pracę z modelowaniem hydraulicznym, preferowałem szybkie przejście do modeli dwuwymiarowych, postrzegając podejście jednowymiarowe jako uproszczone i przestarzałe.</p>
-
-<p>Jednak doświadczenie ujawniło, że "modele 1D mogą być zaskakująco wymagające, szczególnie gdy sieci rzeczne są złożone, rozgałęziające się, ponownie łączące, z przelewaniem przez wały lub nasypami drogowymi."</p>
-
-<h3 id="ale-czy-zawsze-jest-gorsze-niz-2d">Ale czy zawsze jest gorsze niż 2D?</h3>
-
-<p>Chociaż modele 1D mają ograniczenia, pozostają użyteczne w specyficznych scenariuszach — takich jak proponowanie wielu wariantów rozwiązań lub dostarczanie skalibrowanych wartości dla zaawansowanych modeli.</p>
-
-<p>"Zrozumienie podstaw hydrauliki jest niezbędne do kompetentnego modelowania zarówno w 1D jak i 2D."</p>
-
-<h2 id="budowanie-modelu">Budowanie modelu</h2>
-
-<p>Model koncentruje się na Białogardzie w północno-zachodniej Polsce, położonym na rzece Parsęcie w kilometrze 61, gdzie zbiega się dopływ Liśnica. Obszar badań rozciąga się od km 59 do km 61,5.</p>
-
-<h3 id="numeryczny-model-terenu">Numeryczny Model Terenu</h3>
-
-<p>Struktura organizacyjna jest niezbędna. Zalecam tworzenie folderów:</p>
-
-<pre><code>Parseta
-├─ GIS
-│  ├─ Input
-│  └─ Shp
-└─ HEC-RAS
-</code></pre>
-
-<h3 id="modelarz-to-tez-gisowiec">Modelarz to też GISowiec</h3>
-
-<p>Utwórz nowy projekt QGIS używając układu współrzędnych PUWG 1992 (EPSG:2180). Pobierz i zintegruj Numeryczny Model Terenu ze zmodyfikowaną symboliką i cieniowaniem.</p>
-
-<h3 id="wyznaczanie-granic-modelu">Wyznaczanie granic modelu</h3>
-
-<p>Narysuj granice poligonowe dla obszaru modelu 2D i polilinie osi rzeki. "Preferowane są proste kształty bez nadmiernych zakrętów, chociaż osie rzek powinny być dokładnie odwzorowane."</p>
-
-<p>Zapisz je jako Shapefiles — HEC-RAS nie akceptuje innych formatów wektorowych.</p>
-
-<h3 id="czas-na-hec-rasa">Czas na HEC-RASa</h3>
-
-<p>Przed kontynuacją zweryfikuj, że regionalne ustawienia systemu używają kropek (nie przecinków) jako separatorów dziesiętnych. Uruchom HEC-RAS i wybierz jednostki SI z menu Options.</p>
-
-<h3 id="czy-ras-mapper-to-alternatywa-dla-programow-gis">Czy RAS Mapper to alternatywa dla programów GIS?</h3>
-
-<p>"RAS Mapper to niedorozwinięte oprogramowanie GIS, którego nie należy traktować poważnie." Jednak ponieważ krytyczne przygotowanie danych odbyło się w QGIS, użycie RAS Mapper będzie ograniczone do generowania siatki, umieszczania warunków brzegowych, korygowania błędów i definiowania parametrów symulacji.</p>
-
-<h3 id="geometria">Geometria</h3>
-
-<p>W RAS Mapper utwórz nową geometrię i zaimportuj granice z shapefile. Skonfiguruj parametry obliczeniowe:</p>
-
-<ul>
-<li>Cell Size X i Y: 6 metrów</li>
-<li>Generate as Hexagon: zaznaczone</li>
-<li>Dla Breaklines ustaw Near Spacing na 3 metry</li>
-</ul>
-
-<h3 id="warunki-brzegowe-modelu">Warunki brzegowe modelu</h3>
-
-<p>Skonfiguruj dwa górne warunki brzegowe jako "Flow Hydrograph":</p>
-
-<ul>
-<li>Liśnica: 10 m³/s</li>
-<li>Parsęta: 60 m³/s</li>
-</ul>
-
-<p>Ustaw dolny warunek brzegowy jako "Normal depth" ze spadkiem 0.001.</p>
-
-<h3 id="obliczenia-przepływow-nieustalonych">Obliczenia przepływów nieustalonych</h3>
-
-<p>Wybierz wszystkie programy obliczeniowe oprócz "Sediment". W Computation Settings ustaw:</p>
-
-<ul>
-<li>Time steps: 5 minut</li>
-<li>Computation Interval: 5 sekund</li>
-</ul>
-
-<p>Kliknij "Compute" i czekaj na wyniki. Wyniki można wizualizować w RAS Mapper z możliwością animowanego odtwarzania.</p>
-
-<p><strong>Dalsze zasoby:</strong> <a href="https://www.hec.usace.army.mil/confluence/rasdocs/rastraining/latest/hec-ras-classes/2d-unsteady-flow-2021">HEC-RAS training. 2D Unsteady Flow (2021)</a></p>
-
+          <h2>HEC-RAS 2D</h2>
+<blockquote><p>Druga zwrotka bo zawsze chciałem zacząć od środka ~Abradab</p></blockquote>
+<h3>Dlaczego nie lubię modeli 1D?</h3>
+<p>Gdy zaczynałem pracę jako modelarz byłem bardzo zainteresowany jak najszybszym przejściem do modeli dwuwymiarowych. Te jednowymiarowe wydawały mi się proste, wręcz prymitywne, nieprzystające do dzisiejszych realiów i możliwości, które nam dają nowoczesne CPU, GPU, terabajty przestrzeni dyskowej oraz dziesiątki gigabajtów pamięci RAM. Przez tych kilka lat praktyki, które mam za sobą zrozumiałem, że… miałem tylko częściowo rację. W swojej naturze modele jednowymiarowe bywają wręcz absurdalnie wymagające, szczególnie jeżeli nasza sieć rzeczna jest ciut bardziej skomplikowana, rozgałęzia się, znów scala, mamy przelanie się wody przez koronę wału przeciwpowodziowego, nasyp drogowy… długo by wymieniać.</p>
+<h4>Ale czy zawsze jest gorsze niż 2D?</h4>
+<p>Nie można tym modelom jednak odmówić faktu, że w pewnych sytuacjach spisują się mimo wszystko bardzo dobrze, chociażby wtedy gdy musimy zaproponować zamawiającemu wiele wariantów pewnego rozwiązania jak na przykład przepust, albo wtedy gdy dużo bardziej zaawansowane modele muszą zostać zasilone obliczonymi przez nas w modelu 1D wartościami. Bez dobrego zrozumienia podstaw hydrauliki, nie będzie potrafić dobrze modelować ani z wykorzystaniem 1D, ani z 2D, więc niech niniejszy “kurs” będzie tylko wprowadzeniem do modelowania ogółem, ponieważ wynik, który uzyskamy, pozwoli nam lepiej zrozumieć pewne istotne elementy naszej pracy. Nie będę się nad tym rozwozić, gdyż zależy mi na tym, aby jak najszybciej przejść do praktyki i pokazać <strong>jak zbudować prosty model 2D w HEC-RAS 6.3.1</strong>.</p>
+<h3>Budowanie modelu</h3>
+<p>Nasz model zlokalizowany będzie w Białogardzie na północy Polski. Białogard leży w województwie Zachodniopomorskim, nieopodal Koszalina i Kołobrzegu, nad rzeką Parsętą, w jej 61. kilometrze, gdzie również znajduje się ujście innego cieku – Liśnicy. W modelu skupimy się na odcinku od km 59 do km 61,5, czyli zaczniemy tuż powyżej mostu kolejowego, a zakończymy tam, gdzie dolina cieku zostaje sztucznie zawężona przez wały przeciwpowodziowe. Z racji tego, że nie chcę wstawiać do modelu żadnych struktur, obwałowanie będzie stanowić również granicę modelu.</p>
+<h4>Numeryczny Model Terenu</h4>
+<p>Pierwszą rzeczą, którą należy zrobić jest zorganizowanie się. Dobra organizacja znacząco ułatwia pracę, unikamy dzięki temu marnowania czasu na szukanie plików, które przecież dopiero co pobraliśmy, wczytaliśmy, przenieśliśmy i… przestało działać? Oh, crap. W folderze <strong>GIS</strong> będziemy trzymać wszystkie rzeczy gisowe (czy to już pleonazm?), subfolder <strong>Input</strong> będzie zawierać dane, które pobierzemy z Geoportalu, czyli <strong>Numeryczny Model Terenu</strong>, zaś folder <strong>HEC-RAS</strong> będzie lokalizacją naszego modelu. Tam nawet nie będziemy zaglądać, bo będzie on żyć własnym życiem i rozrastać się w miarę tworzenia nowych rzeczy.<br>
+\—Parseta<br>
++—GIS<br>
+| &nbsp;&nbsp;&nbsp; +—Input<br>
+| &nbsp;&nbsp;&nbsp; \—Shp<br>
+\—HEC-RAS</p>
+<h4>Modelarz to też GISowiec</h4>
+<p>Drugim krokiem jest utworzenie nowego projektu w <strong>QGIS</strong> (<strong>3.22.13 LTR “Białowieża”</strong> here, żeby była jasność na czym pracuję), zmiany układu współrzędnych na <strong>PUWG 1992 (EPSG:2180)</strong> oraz pobraniu i dodaniu <strong>NMT</strong>. Pobierania i łączenia rastrów, a także dodawania <strong>WMS</strong> nie będę tutaj omawiać, może innym razem. Oto co powinniśmy ujrzeć w tym momencie.</p>
+<p><a href="/blog/assets/images/2022-11-Parseta_NMT_orto.png"><img fetchpriority="high" decoding="async" class="alignnone size-medium wp-image-437" src="/blog/assets/images/2022-11-Parseta_NMT_orto-300x246.png" alt="" width="300" height="246" srcset="/blog/assets/images/2022-11-Parseta_NMT_orto-300x246.png 300w, /blog/assets/images/2022-11-Parseta_NMT_orto-1024x839.png 1024w, /blog/assets/images/2022-11-Parseta_NMT_orto-768x630.png 768w, /blog/assets/images/2022-11-Parseta_NMT_orto-1536x1259.png 1536w, /blog/assets/images/2022-11-Parseta_NMT_orto.png 1720w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p>Mamy <strong>NMT</strong> ze zmienioną symbologią i cieniowaniem, które są ze sobą zgrupowane oraz <strong>WMS</strong>a z ortofotomapą w tle.</p>
+<h4>Wyznaczanie granic modelu</h4>
+<p>Trzeci krok to rysowanie <del>szlaczków</del> obszaru modelu 2D oraz osi cieków. <strong>Poligon</strong> oraz <strong>polilinie</strong> powinny cechować się w miarę możliwości prostym kształtem, tj. bez wielu załamań, ale jednocześnie oś rzeki powinna być dobrze odwzorowana. Nie warto w tym przypadku zapisywać tych danych ani do bazy danych, jeżeli korzystamy z <strong>PostgreSQL</strong> + <strong>PostGIS</strong>, ani do <strong>GeoPackage</strong>, gdyż HEC-RAS jest okrutnie ułomnym oprogramowaniem i przyjmuje tylko <strong>Shapefile</strong>. Nasze pliki nie muszą zawierać żadnych dodatkowych informacji, ale ja dodam – już na przyszłość – nazwę rzeki i nazwę odcinka, które przydadzą się gdy nadejdzie czas na model 1D.</p>
+<p><a href="/blog/assets/images/2022-11-Parseta_GIS.png"><img decoding="async" class="alignnone size-medium wp-image-436" src="/blog/assets/images/2022-11-Parseta_GIS-300x246.png" alt="" width="300" height="246" srcset="/blog/assets/images/2022-11-Parseta_GIS-300x246.png 300w, /blog/assets/images/2022-11-Parseta_GIS-1024x839.png 1024w, /blog/assets/images/2022-11-Parseta_GIS-768x630.png 768w, /blog/assets/images/2022-11-Parseta_GIS-1536x1259.png 1536w, /blog/assets/images/2022-11-Parseta_GIS.png 1720w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p>Etap gisowy jest prosty jak budowa cepa, dwa elementy to i tak więcej niż absolutne minimum, czyli sama granica obszaru, ale osie cieków będą stanowić <strong>breaklines</strong> w HEC-RAS, wokół których zagęścimy siatkę.</p>
+<h4>Czas na HEC-RASa</h4>
+<p>Teraz przechodzimy do gwiazdy dzisiejszego programu – HEC-RASa. Zanim cokolwiek zaczniemy, musimy sprawdzić w ustawieniach regionalnych naszego systemu separatorem dziesiątym jest kropka, a nie przecinek. Jeżeli wszystko gra, program uruchomił się bez żadnych błędów, możemy zmienić układ jednostek na jedyny słuszny, czyli <strong>SI Units</strong>, co jest ukryte w menu rozwijanym “<strong>Options</strong>” -&gt; “<strong>Unit system (US customary/SI)…</strong>” -&gt; “<strong>System International (Metric system)</strong>“. Warto ustawić to jako domyślny parametr, zaznaczając “<strong>Set as default for new projects</strong>“. Zapisujemy projekt i przechodzimy do RAS Mappera.</p>
+<p><a href="/blog/assets/images/2022-11-HEC-RAS.png"><img decoding="async" class="alignnone size-medium wp-image-433" src="/blog/assets/images/2022-11-HEC-RAS-300x76.png" alt="" width="300" height="76" srcset="/blog/assets/images/2022-11-HEC-RAS-300x76.png 300w, /blog/assets/images/2022-11-HEC-RAS-768x194.png 768w, /blog/assets/images/2022-11-HEC-RAS.png 846w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<h4>Czy RAS Mapper to alternatywa dla programów GIS?</h4>
+<p><strong>RAS Mapper</strong> to niedorobione oprogramowanie gisowe, którego nie da się brać na poważnie. My jesteśmy jednak cwani i najważniejsze rzeczy przygotowaliśmy przed chwilą, więc w tym okienku ograniczymy się tylko do wygenerowania siatki, dodania miejsc, gdzie będą zlokalizowane nasze warunki brzegowe, eliminacji ewentualnych drobnych błędów i zdefiniowaniu kilku innych elementów niezbędnych do uruchomienia symulacji. Dodajmy teraz układ odniesienia (<strong>plik prj</strong>, ale z folderu GIS, a nie HEC-RAS!) oraz NMT do RAS Mappera, żeby zasilić go danymi wysokościowymi.</p>
+<p><a href="/blog/assets/images/2022-11-RAS_Mapper.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-438" src="/blog/assets/images/2022-11-RAS_Mapper-300x246.png" alt="" width="300" height="246" srcset="/blog/assets/images/2022-11-RAS_Mapper-300x246.png 300w, /blog/assets/images/2022-11-RAS_Mapper-1024x839.png 1024w, /blog/assets/images/2022-11-RAS_Mapper-768x630.png 768w, /blog/assets/images/2022-11-RAS_Mapper-1536x1259.png 1536w, /blog/assets/images/2022-11-RAS_Mapper.png 1720w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<h4>Geometria</h4>
+<p>Po chwili powinien ukazać się teren. Teraz czas stworzyć nową geometrię, którą robimy klikając prawym przyciskiem myszy na “<strong>Geometries</strong>” w panelu po lewej stronie i “<strong>Add new geometry</strong>“. Nowy plik nazwę “Parseta_2D”. Klikając na <del>zaczarowany</del> żółty ołówek na górnej belce, przechodzimy w tryb edycji i wczytujemy nasz pierwszy plik shp, czyli obszar modelu. Żeby to zrobić, musimy rozwinąć “<strong>2D Flow Areas</strong>“, kliknąć ppm na “<strong>Perimeters</strong>” i wybrać “<strong>Import Features From Shapefile</strong>“. Powinien znajdować się tam jeden poligon, który dodajemy klikając “<strong>Import</strong>” w prawym dolny rogu okienka. Analogicznie dodajemy nasz ciek. Na razie zbyt wiele jeszcze nie widać, żeby to zmienić musimy wygenerować siatkę. Zanim jednak do tego dojdziemy, przejdziemy do “<strong>Attribute Table</strong>” klikając ppm na “<strong>Perimeters</strong>“, w której zmieniamy “<strong>Cell Size X</strong>” oraz “<strong>Cell Size Y</strong>” na np. 6 m i zaznaczamy “<strong>Generate as Hexagon</strong>“. Następnie klikamy ppm na “<strong>Breaklines</strong>“, żeby poprawić trochę jakość siatki w obszarach koryta i “<strong>Near Spacing</strong>” wpisujmy długość boku naszej komórki kwadratowej, w moim przypadku dam 3 m, a “<strong>Near Repeats</strong>” ile warstw takich komórek ma być wygenerowanych. U mnie będą to 3 warstwy dla Parsęty i 2 dla Liśnicy.</p>
+<p><a href="/blog/assets/images/2022-11-Ras_Mapper_Attribute_table.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-439" src="/blog/assets/images/2022-11-Ras_Mapper_Attribute_table-300x246.png" alt="" width="300" height="246" srcset="/blog/assets/images/2022-11-Ras_Mapper_Attribute_table-300x246.png 300w, /blog/assets/images/2022-11-Ras_Mapper_Attribute_table-1024x839.png 1024w, /blog/assets/images/2022-11-Ras_Mapper_Attribute_table-768x630.png 768w, /blog/assets/images/2022-11-Ras_Mapper_Attribute_table-1536x1259.png 1536w, /blog/assets/images/2022-11-Ras_Mapper_Attribute_table.png 1720w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<h4>Przygotowanie siatki obliczeniowej</h4>
+<p>Zamykamy okienko, ponownie klikamy ppm na “<strong>Perimeters</strong>” i wybierany “<strong>Edit 2D Area Properties</strong>“, po czym generujemy naszą siatkę przyciskiem “<strong>Generate Computation Points</strong>“. I wyskoczył mi błąd “<strong>Mesh Status = Total area from all cells does not match the perimeter area. Possible face errors on the perimeter of the mesh</strong>“. Po zamknięciu okna wracamy do głównego okna RAS Mappera i w moim przypadku okazałą się jedna duża czerwona kropka, wskazująca problematyczne miejsce. Taki problem to nie problem, rozwiązujemy go edytując warstwę “<strong>Computation Points</strong>” i dodając nowy punkt w pobliżu.</p>
+<p><a href="/blog/assets/images/2022-11-Ras_Mapper_error.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-441" src="/blog/assets/images/2022-11-Ras_Mapper_error-300x246.png" alt="" width="300" height="246" srcset="/blog/assets/images/2022-11-Ras_Mapper_error-300x246.png 300w, /blog/assets/images/2022-11-Ras_Mapper_error-1024x839.png 1024w, /blog/assets/images/2022-11-Ras_Mapper_error-768x630.png 768w, /blog/assets/images/2022-11-Ras_Mapper_error-1536x1259.png 1536w, /blog/assets/images/2022-11-Ras_Mapper_error.png 1720w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-11-Ras_Mapper_error_solved.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-442" src="/blog/assets/images/2022-11-Ras_Mapper_error_solved-300x246.png" alt="" width="300" height="246" srcset="/blog/assets/images/2022-11-Ras_Mapper_error_solved-300x246.png 300w, /blog/assets/images/2022-11-Ras_Mapper_error_solved-1024x839.png 1024w, /blog/assets/images/2022-11-Ras_Mapper_error_solved-768x630.png 768w, /blog/assets/images/2022-11-Ras_Mapper_error_solved-1536x1259.png 1536w, /blog/assets/images/2022-11-Ras_Mapper_error_solved.png 1720w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<h4>Rozwiązywanie błędów</h4>
+<p>Wracamy do “<strong>Edit 2D Area Properties</strong>” i przeliczamy siatkę klikając na “<strong>Force Mesh Recomputation</strong>“. Nowych błędów nie stwierdzono. Ostatnia rzecz to dodanie warunków brzegowych, sztuk 3. Robimy to edytując warstwę “<strong>Boundary Condition Lines</strong>“. Bardzo ważne jest aby rysować te linie <span style="text-decoration: underline;">POZA obszarem siatki</span>! Bardzo blisko jej, ale w taki sposób, aby się nie przecinały. Gdy już określiliśmy gdzie woda wpływa i gdzie wypływa, możemy zapisać zmiany, wyjść z trybu edycji i RAS Mappera oraz wrócić do głównego okienka HEC-RAS.</p>
+<p><a href="/blog/assets/images/2022-11-Ras_Mapper_BC.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-440" src="/blog/assets/images/2022-11-Ras_Mapper_BC-300x246.png" alt="" width="300" height="246" srcset="/blog/assets/images/2022-11-Ras_Mapper_BC-300x246.png 300w, /blog/assets/images/2022-11-Ras_Mapper_BC-1024x839.png 1024w, /blog/assets/images/2022-11-Ras_Mapper_BC-768x630.png 768w, /blog/assets/images/2022-11-Ras_Mapper_BC-1536x1259.png 1536w, /blog/assets/images/2022-11-Ras_Mapper_BC.png 1720w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<h4>Warunki brzegowe modelu</h4>
+<p>Geometria jest gotowa, czas na przepływy! Jeżeli nic nam nie pojawiło się w “<strong>Geometry</strong>“, należy przejść do klasycznego edytora geometrii i wczytać nasze dzieło. W “<strong>View/Edit Unsteady Flow Data</strong>” zdefiniujemy to jak bardzo chcemy uprzykrzyć życie mieszkańcom Białogardu, dodając dane dotyczące przepływu. Dwa górne warunki brzegowe będzie stanowić “<strong>Flow Hydrograph</strong>“, a dolny – “<strong>Normal depth</strong>“, czy przym w jednym jak i drugim przypadku spadek ustalimy na 0,001. Hydrogram przepływu będzie zaczynać się od 0 i przez pierwsze godziny będzie rosnąć, aż osiągnie w przypadku Liśnicy 10 cms, a w Parsęcie 60 cms, po czym ulegnie stabilizacji na resztę czasu trwania symulacji. Wszystko zapisujemy.</p>
+<p><a href="/blog/assets/images/2022-11-HEC-RAS_unsteady.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-434" src="/blog/assets/images/2022-11-HEC-RAS_unsteady-300x246.png" alt="" width="300" height="246" srcset="/blog/assets/images/2022-11-HEC-RAS_unsteady-300x246.png 300w, /blog/assets/images/2022-11-HEC-RAS_unsteady-1024x839.png 1024w, /blog/assets/images/2022-11-HEC-RAS_unsteady-768x630.png 768w, /blog/assets/images/2022-11-HEC-RAS_unsteady-1536x1259.png 1536w, /blog/assets/images/2022-11-HEC-RAS_unsteady.png 1720w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<h4>Obliczenia przepływów niestacjonarnych</h4>
+<p>Czas lać wodę. Klikamy na “<strong>Perform an unsteady flow simulation</strong>“, czyli tego śmiesznego typka biegnącego pod górkę. Automatycznie powinny nam się wczytać pliki geometrii i przepływów. Z “<strong>Programs to Run</strong>” wybieramy wszystko poza “<strong>Sediment</strong>“. “<strong>Simulation Time Window</strong>” określa nam ramy czasowe symulacji. Nasz Potop rozpocznie się 22NOV2022 o godzinie 0000, a zakończy 22NOV2022 o 0800. Zmieńmy jeszcze w “<strong>Computation Settings</strong>” kroki czasowe z “1 hour” na “5 minute”, a “<strong>Computation Interval</strong>” na “5 second”. Klikamy “<strong>Compute</strong>” i idziemy rozprostować nogi.</p>
+<p><a href="/blog/assets/images/2022-11-HEC-RAS_unsteady_run.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-444" src="/blog/assets/images/2022-11-HEC-RAS_unsteady_run-300x274.png" alt="" width="300" height="274" srcset="/blog/assets/images/2022-11-HEC-RAS_unsteady_run-300x274.png 300w, /blog/assets/images/2022-11-HEC-RAS_unsteady_run.png 513w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p>To by było na razie na tyle. Wyniki można obejrzeć w RAS Mapperze, co bardzo fajnie wygląda jeżeli puścimy sobie “nagranie”, bo nie wiem jak to inaczej nazwać.</p>
+<p><a href="/blog/assets/images/2022-11-RAS_Mapper_results.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-452" src="/blog/assets/images/2022-11-RAS_Mapper_results-1024x433.png" alt="" width="1024" height="433" srcset="/blog/assets/images/2022-11-RAS_Mapper_results-1024x433.png 1024w, /blog/assets/images/2022-11-RAS_Mapper_results-300x127.png 300w, /blog/assets/images/2022-11-RAS_Mapper_results-768x325.png 768w, /blog/assets/images/2022-11-RAS_Mapper_results-1536x649.png 1536w, /blog/assets/images/2022-11-RAS_Mapper_results-2048x866.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px"></a></p>
+<p>Więcej wiedzy w języku angielskim znajdziecie pod tym linkiem: <a href="https://www.hec.usace.army.mil/confluence/rasdocs/rastraining/latest/hec-ras-classes/2d-unsteady-flow-2021" target="_blank" rel="noopener">HEC-RAS training. 2D Unsteady Flow (2021).</a></p>
         </div>
 
         <!-- Post Navigation -->

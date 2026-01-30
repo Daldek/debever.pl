@@ -99,45 +99,45 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <h2 id="scenariusz">Scenariusz</h2>
-
-<p>Miesięczna symulacja spływu powierzchniowego modelująca opad Chicago Design Storm (CDS) z prawdopodobieństwem przekroczenia 1% przestała zapisywać wyniki do pliku Dfs2. Zamiast restartować całą symulację od początku, tworzymy plik hotstart, aby kontynuować od ostatniego obliczonego stanu.</p>
-
-<h2 id="kroki-do-wykonania">Kroki do wykonania</h2>
-
-<h3 id="1-modyfikacja-w-data-utility">1. Modyfikacja w Data Utility</h3>
-
-<p>Zmień parametr Data Type z 0 na 1 w narzędziu Data Utility w Mike Zero.</p>
-
-<h3 id="2-generowanie-pliku-hotstart">2. Generowanie pliku Hotstart</h3>
-
-<p>Użyj narzędzia "Hot start File Generator" w Mike21. Upewnij się, że uwzględnione są trzy parametry:</p>
-
+          <h2>Ratowanie obliczeń w Mike21 z wykorzystaniem pliku hotstart</h2>
+<p>Dzisiejszy wpis nieświadomie sponsoruje DHI i niezapisujące się wyniki z symulacji <strong>Mike21</strong>.</p>
+<h3>Wprowadzenie</h3>
+<p>Tło: Symulacja, która liczy się od dobrego miesiąca, nagle przestała zapisywać wyniki do pliku <em>Dfs2</em>. Modelujemy spływ powierzchniowy powstały w wyniku deszczu nawalnego CDS (Chicago Design Storm) o 1% prawdopodobieństwie przewyższenia, czasie trwania 6h (z czego 2h to pre-rain), uwzględniamy sieć kanalizacyjną, która odbierze część deszczu oraz wykorzystujemy moduł infiltracji. Powierzchnia modelu to około 100 km2, rozdzielczość rastra 2 m. Nie chcę tracić dotychczasowych wyników, więc zamiast puszczać symulację od początku, wykorzystuję to co mamy i tworzę plik <strong><em>Hotstart</em></strong>, którego użyję do przygotowania nowego pliku <em>m21</em>.</p>
+<h3>Czym jest hotstart?</h3>
+<p>Plik <em>hotstart</em> jest użyteczny, gdy chcemy rozpocząć obliczenia w momencie, w którym mamy już do czynienia z jakąś dynamiką przepływu wody. Klasycznie, w najprostszym podejściu, przygotowując symulację zadajemy warunki początkowe, które mają stałe wartości w całej domenie. Na przykład modelując spływ powierzchniowy, zakładamy że głębokość wody w każdej komórce jest równa 0 (w praktyce wygląd tak to, że <em>surface elevation</em> == <em>bathymetry</em>, tylko <em>item</em> w pliku <em>dfs2</em> jest inny), czyli jest sucho. Modelując zbiorniki na Skellefteälven przyjmowałem, że rzędna zwierciadła wody ma wszędzie stałą wartość, a prędkość przepływu jest zerowa i tak samo rozpoczynałem serię symulacji dla rzeki Klarälven. Plik hotstart wykorzystuje 3 parametry: głębokość wody*, P flux i Q flux. Głębokość jest oczywiście wyrażana w metrach, a flux to <span class="katex-eq" data-katex-display="false">m^{3} \times s^{-1} \times m^{-1}</span>. Te informacje wystarcza nam do wznowienia obliczeń. Do działa!</p>
+<h3>Przygotowanie pliku krok po kroku</h3>
+<p>Otwieramy <strong>Mike Zero</strong> i pierwszą rzeczą jaką robimy, to otwieramy <strong><em>Data Utility</em></strong>. Następnie w nowym oknie, które właśnie się pojawiło, wyszukujemy plik <em>Dfs2</em> z naszymi wynikami i przechodzimy do zakładki <em>Datatype and Delete</em> values. Tam zmieniamy wartość <strong><em>Data Type</em></strong> z 0 na 1 i zapisujemy.</p>
+<h4>Generowanie pliku z Dfs2</h4>
+<p>Otwieramy toolboxa Mike21, rozwijamy <em>Hydrodynamics </em>po czym wybieramy <strong><em>Hot start File Generator</em></strong>. Przeskakujemy pierwszą stronę, a na drugiej rozpoczynamy od wskazania w kolumnie&nbsp;<em>Results</em> źródłowego pliku <em>Dfs2</em>. W nowym oknie od razu rzuca się w oczy jego dolna część. Widzimy, że wybrany przez nas plik musi zawierać 3 już wspomniane elementy, tj. <em>Water Depth </em>oraz dwa <em>Flow Flux</em>. Pierwszy to P, drugi to Q. Zwróćcie na to szczególną uwagę, ponieważ domyślnie Mike wybiera dwa razy P. Nie używam zagnieżdżenia, więc <em>Number of areas</em> zostawiam 1, a <em>Time Step</em> ustawiam zgodnie z tym, co miałem w oryginalnej symulacji, czyli 0,2. <del>Jest to dobre miejsce, żeby zmienić tę wartość i zaoszczędzić w ten sposób czas obliczeń, ponieważ jesteśmy już w końcowej fazie deszczu i nie jest potrzebny aż tak krótki krok czasowy do zapewnienia stabilności obliczeń**.</del> W kolumnie <em>Output hot start files</em> wskazujemy nazwę i ścieżkę nowego pliku, który będziemy tworzyć oraz, jeżeli jest taka potrzeba, zmieniamy <em>Hot stat time</em>, czyli czas, w którym ma się rozpocząć nowa symulacja. Pomimo tego, że ostatni zapisany krok czasowy ma czas 3:22, to ja cofam się do 3:20, ponieważ chcę zmienić częstotliwość zapisywania niektórych wyników z 2 na 10 minut. <del>Po przejściu dalej ukazuje nam się bardzo ważne okienko, w którym definiujemy czy parametry <em>Flood and dry </em>będą uwzględnione w symulacji. Odpowiedź brzmi tak, więc zaznaczam tę opcję****.</del> Nie ma możliwości zmiany tych wielkości i nie wiem czy Mike pobiera je z pliku Dfs2, ale są one zbliżone do tego, co było w oryginalnym pliku m21, a różnica jest jedynie we <em>Flooding depth</em>, które ma nową wartość 0,0015 zamiast 0,002, którego używałem wcześniej. Wydaje mi się, że mogę to zaakceptować***. Następnie wykonujemy operację naduszając (hehe) <em>Execute</em> i po chwili mamy gotowy plik.</p>
+<p>Gdybyśmy teraz otworzyli ten plik w <em>Data Utility</em>, to zobaczylibyśmy, że utraciliśmy <em>Static items</em>, ale za to mamy aż 8 różnych <em>Dynamic items</em>. Dosyć zagadkowo wygląda <em>Misc scalars</em>. Zawiera on podstawowe informacje, które posłużą inicjalizacji nowych obliczeń.</p>
+<h4>Modyfikacja pliku symulacji</h4>
+<p>Pozostaje nam zmodyfikować plik m21, czyli samą symulację. Otwieramy ją, przechodzimy do <em>Bathymetry</em> i zmieniamy <em>Type</em> z <em>Cold start</em> na <em>Hot start </em>oraz plik na ten, który właśnie stworzyliśmy. W <em>Simulation Period </em>oraz&nbsp;<em>Results</em> musimy dostosować czas trwania symulacji i interwał zapisywania wyników. Ostatnią rzeczą do zmiany jest <em>Eddy Viscosity*****</em>, która jest zależna od rozdzielczości rastra, kroku czasowego i obliczamy ją według poniższego wzoru [<a href="https://doc.mikepoweredbydhi.help/webhelp/2022/M21Nested/M21Nested/m21hd_ref/Remarks_and_hints3.htm#XREF_Toc518878821">źródło</a>]:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">E = 0,02 \times \frac{Δx^{2}}{Δt}</span></p>
+<p>Jak widać – kilka minut i problem może być rozwiązany. Pozostaje jeszcze jednak kwestia, którą muszę rozwiązać, a mianowicie wartości <em>Volumetric Water Content</em>, w module infiltracji. Na razie nic więcej nie będę pisać, ale może kiedyś wpis doczeka się aktualizacji lub kontynuacji i odniosę się do tego.</p>
+<h4>Dokumentacja DHI</h4>
+<p>Pod tym <a href="https://doc.mikepoweredbydhi.help/webhelp/2022/MzDataUtility/MzDataUtility/MzDataUtility/Data_Type_and_Delete_Values.htm#XREF_16197_1_5_Data_Type_and">linkiem</a> znajduje się tabla z dokumentacji Mike 21 2022, która odnosi się do tego czym są poszczególne <em>Data Types</em>. Domyślnie każdy nowy plik <em>dfs2</em> przyjmuje wartość <em>Data Type</em> równą 0, zaś Mike21 HD tworząc pliki wynikowe uzależnia tę wartość od zawartości. Jest to istotne z punktu widzenia post-processingu wyników, kiedy np. wyświetlamy wyniki w Mike Zero.</p>
 <ul>
-<li>Water Depth</li>
-<li>Flow Flux P</li>
-<li>Flow Flux Q</li>
+<li>Jeżeli będą się znajdować w nim tylko podstawowe parametry czyli batymetria (<em>static items</em>) oraz H, P, Q (<em>dynamic</em> items), to <em>Data Type</em> przyjmie wartość 1 (<em>Plot Composer</em> będzie mógł na tej podstawie stworzyć i wyświetlić inne elementy, np. U i V)</li>
+<li>Jeżeli uwzględnimy dodatkowe elementy, np. <em>surface elevation</em>, to <em>Data Type = 0</em></li>
+<li>Jeżeli plik <em>dfs2</em> ma być plikiem <em>hotstart</em>, wtedy <em>Data Type = 11</em></li>
 </ul>
-
-<h3 id="3-aktualizacja-pliku-symulacji">3. Aktualizacja pliku symulacji</h3>
-
-<p>Zmodyfikuj oryginalny plik .m21:</p>
-
-<ul>
-<li>Przełącz z "Cold start" na "Hot start"</li>
-<li>Dostosuj okres symulacji i interwały zapisu wyników</li>
-<li>Przelicz Eddy Viscosity według wzoru:</li>
-</ul>
-
-<pre><code>E = 0.02 × (Δx²/Δt)
-</code></pre>
-
-<h2 id="uwagi-techniczne">Uwagi techniczne</h2>
-
-<p>Artykuł zawiera uwagi o praktykach niezalecanych przez DHI, niepewności parametrów (oznaczone gwiazdkami) oraz nierozwiązane pytania dotyczące zmiennych modułu infiltracji.</p>
-
-<p>Osiem zrzutów ekranu dokumentuje proces przez kroki interfejsu Mike Zero.</p>
-
+<p>DHI nie zaleca ręcznego tworzenia plików <em>Hotstart</em>, jednak w niektórych sytuacjach jest to bardzo pomocne. Jeżeli wiemy, że nasza symulacja będzie kontynuowana, wówczas najlepiej pozwolić programowi stworzyć ten plik samodzielnie, wybierając odpowiednią opcję w zakładce <em>Results</em>.</p>
+<p><a href="/blog/assets/images/2022-01-1-data-utility.png"><img fetchpriority="high" decoding="async" class="alignnone size-medium wp-image-394" src="/blog/assets/images/2022-01-1-data-utility-300x244.png" alt="" width="300" height="244" srcset="/blog/assets/images/2022-01-1-data-utility-300x244.png 300w, /blog/assets/images/2022-01-1-data-utility.png 702w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-01-2-data-type.png"><img decoding="async" class="alignnone size-medium wp-image-395" src="/blog/assets/images/2022-01-2-data-type-300x239.png" alt="" width="300" height="239" srcset="/blog/assets/images/2022-01-2-data-type-300x239.png 300w, /blog/assets/images/2022-01-2-data-type-768x613.png 768w, /blog/assets/images/2022-01-2-data-type.png 831w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-01-3-m21-toolbox.png"><img decoding="async" class="alignnone size-medium wp-image-396" src="/blog/assets/images/2022-01-3-m21-toolbox-300x166.png" alt="" width="300" height="166" srcset="/blog/assets/images/2022-01-3-m21-toolbox-300x166.png 300w, /blog/assets/images/2022-01-3-m21-toolbox-768x426.png 768w, /blog/assets/images/2022-01-3-m21-toolbox.png 804w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-01-4-results.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-397" src="/blog/assets/images/2022-01-4-results-300x272.png" alt="" width="300" height="272" srcset="/blog/assets/images/2022-01-4-results-300x272.png 300w, /blog/assets/images/2022-01-4-results-768x697.png 768w, /blog/assets/images/2022-01-4-results.png 772w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-01-5-hot-start-setup.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-398" src="/blog/assets/images/2022-01-5-hot-start-setup-300x240.png" alt="" width="300" height="240" srcset="/blog/assets/images/2022-01-5-hot-start-setup-300x240.png 300w, /blog/assets/images/2022-01-5-hot-start-setup.png 520w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-01-6-flood-and-dry.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-399" src="/blog/assets/images/2022-01-6-flood-and-dry-300x240.png" alt="" width="300" height="240" srcset="/blog/assets/images/2022-01-6-flood-and-dry-300x240.png 300w, /blog/assets/images/2022-01-6-flood-and-dry.png 520w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-01-7-bathymetry.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-404" src="/blog/assets/images/2022-01-7-bathymetry-300x257.png" alt="" width="300" height="257" srcset="/blog/assets/images/2022-01-7-bathymetry-300x257.png 300w, /blog/assets/images/2022-01-7-bathymetry-768x659.png 768w, /blog/assets/images/2022-01-7-bathymetry.png 914w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-01-8-sim-period.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-405" src="/blog/assets/images/2022-01-8-sim-period-300x257.png" alt="" width="300" height="257" srcset="/blog/assets/images/2022-01-8-sim-period-300x257.png 300w, /blog/assets/images/2022-01-8-sim-period-768x659.png 768w, /blog/assets/images/2022-01-8-sim-period.png 914w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-01-9-results.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-406" src="/blog/assets/images/2022-01-9-results-300x257.png" alt="" width="300" height="257" srcset="/blog/assets/images/2022-01-9-results-300x257.png 300w, /blog/assets/images/2022-01-9-results-768x659.png 768w, /blog/assets/images/2022-01-9-results.png 914w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-01-10-eddy.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-407" src="/blog/assets/images/2022-01-10-eddy-300x257.png" alt="" width="300" height="257" srcset="/blog/assets/images/2022-01-10-eddy-300x257.png 300w, /blog/assets/images/2022-01-10-eddy-768x659.png 768w, /blog/assets/images/2022-01-10-eddy.png 914w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p><a href="/blog/assets/images/2022-02-Hotstart.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-415" src="/blog/assets/images/2022-02-Hotstart-300x195.png" alt="" width="300" height="195" srcset="/blog/assets/images/2022-02-Hotstart-300x195.png 300w, /blog/assets/images/2022-02-Hotstart.png 762w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p>* nie jestem pewny czy nie powinna być to rzędna zwierciadła wody</p>
+<p>** Kolejna rzecz, której DHI nie zaleca, ale… gdyby to było złe, to DHI by inaczej Majka stworzyło #pdk. Na screenach widać 0,5 s, ale po wymianie mailu z DHI wycofałem się z tego, ale byłem już zbyt leniwy, żeby poprawić to we wpisie.</p>
+<p>*** Czekam na odpowiedź w tej sprawie</p>
+<p>**** Jednak tego nie zrobiłem. Pojawił się problem z symulacją, przy próbie uruchomienia pojawił się błąd: <em>Inundation Staticstics meaningless without flooding and drying</em>.</p>
+<p>***** <em>Eddy Viscosity</em> dostoswane do kroku 0,5 s.</p>
         </div>
 
         <!-- Post Navigation -->

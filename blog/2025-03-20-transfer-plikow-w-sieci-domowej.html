@@ -100,42 +100,13 @@
         <!-- Post Content -->
         <div class="blog-post__content">
           <p>Nietypowo, ale muszę sobie gdzieś zapisać jak szybko przesyłać pliki między komputerami w sieci domowej.</p>
-
-<h2 id="instrukcja-krok-po-kroku">Instrukcja krok po kroku</h2>
-
-<h3 id="krok-1-otworz-wiersz-polecen">Krok 1: Otwórz wiersz poleceń</h3>
-
-<p>Otwórz Wiersz poleceń w folderze, który chcesz udostępnić. Najprościej wpisać "cmd" w pasku adresu eksploratora plików.</p>
-
-<h3 id="krok-2-sprawdz-adres-ip-komputera">Krok 2: Sprawdź adres IP komputera</h3>
-
-<p>Użyj polecenia:</p>
-
-<pre><code>ipconfig
-</code></pre>
-
-<p>Znajdź adres IPv4 (np. 192.168.1.2).</p>
-
-<h3 id="krok-3-uruchom-serwer-http-pythona">Krok 3: Uruchom serwer HTTP Pythona</h3>
-
-<pre><code>python -m http.server 8000
-</code></pre>
-
-<p>Domyślny port to 8000.</p>
-
-<h3 id="krok-4-pobierz-pliki-z-innego-komputera">Krok 4: Pobierz pliki z innego komputera</h3>
-
-<p>Na drugim komputerze otwórz przeglądarkę i wpisz adres:</p>
-
-<pre><code>192.168.1.2:8000
-</code></pre>
-
-<p>(zastąp adresem IP z kroku 2)</p>
-
-<h2 id="podsumowanie">Podsumowanie</h2>
-
-<p>Et voila! Nie trzeba szukać pendrive lub dysku zewnętrznego. Szybki i prosty sposób na transfer plików w sieci lokalnej.</p>
-
+<ol>
+<li>Na komputerze, w folderze, który chcemy udostępnić odpalamy Wiersz Poleceń (“cdm” w pasku adresu)</li>
+<li>Jeżeli nie znamy adresu ip komputera, to wpisujemy “ipconfig” i dostajemy potrzebną konfigurację. Weźmy na przykład adres 192.168.1.2</li>
+<li>Następnie jest “python -m http.server 8000”. Czyli na naszym komputerze, na porcie 8000 uruchamiamy serwer, który będzie udostępniać zawartość folderu</li>
+<li>Na drugim komputerze, na który pobieramy pliki uruchamiamy przeglądarkę i wpisujemy w adres “192.168.1.2:8000” i mamy dostęp do zawartości</li>
+</ol>
+<p>Et voilà! Nie trzeba szukać pendrive lub dysku 🙂</p>
         </div>
 
         <!-- Post Navigation -->

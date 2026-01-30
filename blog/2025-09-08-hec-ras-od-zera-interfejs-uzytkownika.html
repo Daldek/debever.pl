@@ -99,99 +99,102 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <h2 id="wprowadzenie">Wprowadzenie</h2>
-
-<p>Autor omawia odświeżoną wersję HEC-RAS z października, zauważając że "najnowsza stabilna wersja to 6.6, która wciąż opiera się na dobrze znanym, dość archaicznym interfejsie użytkownika."</p>
-
-<h2 id="głowne-okno-programu">Główne okno programu</h2>
-
-<p>Podstawowy interfejs wyświetla pustą przestrzeń roboczą przy pierwszym uruchomieniu. Użytkownicy mogą skonfigurować, czy automatycznie ładować ostatni model. Prawy dolny róg pokazuje ustawienia jednostek, domyślnie jednostki SI zamiast amerykańskiego systemu imperialnego.</p>
-
-<h2 id="podstawowe-pliki-projektu">Podstawowe pliki projektu</h2>
-
-<p>Cztery podstawowe komponenty projektu są wymagane do symulacji:</p>
-
+          <h2>Interfejs użytkownika w programie HEC-RAS</h2>
+<h3>Wprowadzenie</h3>
+<p>W październiku zeszłego roku pojawił się na moim blogu wpis na temat <a href="https://debever.pl/hydro/hydraulics/hec-ras/zupelnie-nowy-hec-ras-2025/">nowej, odświeżonej wersji HEC-RASa</a>. Minęło trochę czasu, a ostatnią stabilną wersją jest 6.6, która wciąż opiera się na dobrze znanym, dość archaicznym interfejsie użytkownika pamiętającym chyba wciąż lata 90. Swoją kopię programu możecie pobrać <a href="https://www.hec.usace.army.mil/software/hec-ras/download.aspx">w tym miejscu</a>.</p>
+<h3>Główne okno programu</h3>
+<p><a href="/blog/assets/images/2025-09-Glowne-okno.png"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-723 size-full" src="/blog/assets/images/2025-09-Glowne-okno.png" alt="" width="846" height="214" srcset="/blog/assets/images/2025-09-Glowne-okno.png 846w, /blog/assets/images/2025-09-Glowne-okno-300x76.png 300w, /blog/assets/images/2025-09-Glowne-okno-768x194.png 768w" sizes="(max-width: 846px) 100vw, 846px"></a>Otwierając HEC-RASa po raz pierwszy, naszym oczom ukaże się puste główne okno programu. Prawdopodobnie przy kolejnych uruchomieniach będziecie chcieli zachować taki sposób uruchamiania, ale istnieje możliwość wczytywania ostatniego modelu przy otwieraniu programu. Wygodne, jeżeli wszystkie pliki trzymacie lokalnie, ale jeżeli korzystacie z lokalizacji sieciowych, to może być to problematyczne. Warto też zwrócić uwagę na to, że prawym dolnym rogu mamy ustawione jednostki z układu SI. Nie jest to domyślna opcja, ponieważ twórcy programu założyli, że powinien być nim system imperialny, w HEC-RASie opisany jako US Customary. W dalszej części artykułu wyjaśnię jak zmienić te ustawienia.</p>
+<h4>Podstawowe pliki projektu</h4>
+<p>W zależności od konfiguracji modelu, czy będzie to model przepływu stacjonarnego (ustalonego) czy niestacjonarnego (nieustalonego, zmiennego), będzie korzystać z innych elementów tego interfejsu i różne pola będą wypełnione.</p>
+<p>Podstawą są jednak 4 elementy, bez których nie przeprowadzimy żadnych symulacji. Są to:</p>
 <ul>
-<li><strong>Project (.prj)</strong>: Główny plik kontrolujący cały projekt</li>
-<li><strong>Plan (.pXX)</strong>: Zarządza konkretnymi symulacjami z kombinacjami przepływu/geometrii</li>
-<li><strong>Geometry (.gXX)</strong>: Zawiera dane sieci i przekrojów poprzecznych</li>
-<li><strong>Typy przepływu</strong>: Kategoryzowane jako ustalony, nieustalony lub quasi-nieustalony</li>
-</ul>
-
-<p>Elementy opcjonalne obejmują opisy projektu i dane osadów (.sXX).</p>
-
-<h2 id="ikony-paska-narzedzi-i-grupy-narzedzi">Ikony paska narzędzi i grupy narzędzi</h2>
-
-<p>Interfejs organizuje funkcje w kilka grup ikon:</p>
-
-<h3 id="zarzadzanie-projektem">Zarządzanie projektem</h3>
-
+<li><strong>Project</strong> – plik sterujący całym projektem, w którym zebrane są wszystkie pozostałe składowe. Plik projektu ma rozszerzenie “prj”.</li>
+<li><strong>Plan</strong> – plik sterujący konkretną symulacją. W ramach planu możemy tworzyć różne kombinacje przepływów i geometrii. Pliki planów mają rozszerzenie “pXX”, gdzie XX to numeracja kolejnych planów, np. 01, 02, 03, itd.</li>
+<li><strong>Geometry</strong> – plik zawierający informacje na temat aktualnie wczytanej do projektu geometrii modelu. Znajdują się w nim wszystkie informacje na temat sieci rzecznej oraz przekrojów poprzecznych, które mamy w modelu. Podobnie jak w planie, kolejne wersje geometrii mają własną numerację, a konwencja nazewnictwa to “gXX”.</li>
+<li>Przepływy są podzielone na 3 kategorie. O 2 z nich napisałem już wyżej, ale jest też trzeci typ, którego domyślnie nie widać w głównym oknie i nazywa się on “<strong>quasi unsteady</strong>“. Jest to forma pośrednia między przepływem stacjonarnym a niestacjonarnym. Można ją sobie wyobrazić jako zestaw następujących po sobie przepływów ustalonych i każdy krok czasowy jest traktowany jako osobne obliczenia przepływu ustalonego. Ta forma jest przydana na przykład do obliczeń transportu rumowiska. Rozszerzenie pliku ma formę “qXX”..Wracając jednak do 2 podstawowych typów, dzielą się one na:
 <ul>
-<li>Otwieranie istniejących projektów</li>
-<li>Zapisywanie zmian</li>
+<li><strong>Steady Flow</strong>, czyli przepływ stacjonarny. Możliwe jest dodanie kilku profili (wielkości) przepływu i porównywanie ich ze sobą. Pliki te mają rozszerzenie “fXX”.</li>
+<li><strong>Unsteady Flow</strong>, czyli przepływ niestacjonarny. W tym wypadku użytkownik wprowadza do modelu hydrogram, czyli funkcję zmiany przepływu w czasie. Na ten temat w przyszłości może pojawić się osoba seria dotycząca przygotowania modelu w bliźniaczym oprogramowaniu, HEC-HMS. Pliki te mają rozszerzenie “uXX”.</li>
 </ul>
-
-<h3 id="definicja-modelu-4-ikony">Definicja modelu (4 ikony)</h3>
-
+</li>
+</ul>
+<p>Opcjonalnie jest również możliwość wprowadzenia opisu projektu w polu “<strong>Description</strong>“. Wracając jeszcze do wspomnianego przy “quasi unsteady”, w głównym oknie programu może pojawić się dodatkowo wiersz “<strong>Sediment</strong>” z rozszerzeniem “sXX”, w którym użytkownik będzie mógł podać dane dotyczące składu granulometrycznego koryta.</p>
+<h4>Pasek ikon i grupy narzędzi</h4>
+<p>Powyżej wymienionych wyżej składowych GUI, znajduje się pasek z ikonami, pozwalającymi na zarządzanie projektem. Są one pogrupowane w grupy:</p>
 <ul>
-<li>Podgląd/edycja danych geometrycznych</li>
-<li>Podgląd/edycja danych przepływu ustalonego</li>
-<li>Podgląd/edycja danych przepływu quasi-nieustalonego</li>
-<li>Podgląd/edycja danych przepływu nieustalonego</li>
-</ul>
-
-<h3 id="sedymentacja-i-jakosc-wody">Sedymentacja i jakość wody</h3>
-
+<li>Zarządzanie projektem odbywa się przy pomocy dwóch pierwszych ikonek:
 <ul>
-<li>Warunki brzegowe sedymentacji</li>
-<li>Parametry jakości wody</li>
+<li><strong>Open an existing project</strong> – pozwala na otwieranie i przełączanie się między już istniejącymi projektami.</li>
+<li><strong>Save all new edits in existing project</strong> – zapisuje wszystkie zmiany w plikach projektu.</li>
 </ul>
-
-<h3 id="narzedzia-specjalistyczne">Narzędzia specjalistyczne</h3>
-
+</li>
+<li>Definicja modelu to kolejne 4 ikony:
 <ul>
-<li>RasMapper: Narzędzie GIS do przygotowania geometrii i wizualizacji wyników 2D</li>
-<li>Moduły analizy dla przekrojów, profili, krzywych konsumpcyjnych i hydrogramów</li>
+<li><strong>View/edit geometric data</strong> – to tutaj znajduje się cała geometria i związane z nią właściwości modelu. Znajdziemy w niej układ sieci, przekroje poprzeczne, budowle, parametry związane z hydrauliką modelu.</li>
+<li><strong>View/edit steady flow data</strong> – zawiera informacje dotyczące wielkości przepływów w warunkach stacjonarnych oraz definicje warunków brzegowych. Możliwe jest utworzenie wielu profili przepływów, np. dla wody 50%, 10%, 2%, 1%, itd. Bardzo przydatne na etapie kalibracji modelu jest wprowadzenie danych na temat obserwowanych poziomów wody w zmierzonych przekrojach.</li>
+<li><strong>View/edit quasi-unsteady flow data</strong> – podobnie jak wyżej, ale dotyczy pośredniego typu przepływu.</li>
+<li><strong>View/edit unsteady flow data</strong> – najbardziej rozbudowany komponent związany z przepływami z uwagi na fakt, że przepływu niestacjonarne mogą być wykorzystywane w modelach 1D, ale są wymagane w przypadku modeli 2D. Poza zdefiniowaniem typu warunku brzegowego, ewentualnym wprowadzeniem danych na jego temat, możliwe do wprowadzenia są również warunki początkowe (zakładka “<strong>Initial Conditions</strong>“), warunki meteorologiczne (“<strong>Meteorological Data</strong>“) oraz obserwacji (“<strong>Observed Data</strong>“). Szczególną uwagę warto zwrócić na warunki początkowe, ponieważ możliwe jest stworzenie pliki hot start, na którym może bazować docelowa symulacja. Takie podejście pozwala na stabilizację warunków w początkowej fazie obliczeń.</li>
 </ul>
-
-<h3 id="analiza-wynikow">Analiza wyników</h3>
-
+</li>
+<li>Trzecią grupę stanowią moduły związane z rumowiskiem i jakością wody:
 <ul>
-<li>Tabele właściwości hydraulicznych</li>
-<li>Szczegółowe wyniki obliczeń</li>
-<li>Tabele podsumowujące wyniki</li>
-<li>Przeglądarka danych DSS</li>
+<li><strong>View/edit sediment boundary conditions</strong> – aby modelować transport rumowiska, trzeba znać skład granulometryczny koryta. Możliwe jest wprowadzenie wielu krzywych przesiewu oraz dobranie odpowiednich metod obliczeniowych.</li>
+<li><strong>View/edit water quality Data</strong> – moduł pozwalający na definiowanie danych dotyczących parametrów jakościowych wody, np. temperatury, stężenia substancji lub innych parametrów fizykochemicznych.</li>
 </ul>
-
-<h2 id="moduł-viewedit-geometric-data">Moduł View/Edit Geometric Data</h2>
-
-<p>Ten najbardziej kompleksowy moduł zawiera kolumnę "Editors" ze specjalistycznymi narzędziami.</p>
-
-<h3 id="kluczowe-komponenty">Kluczowe komponenty</h3>
-
+</li>
+<li>Osobno funkcjonuje również stosunkowo nowe narzędzie, którym jest <strong>RasMapper</strong>. Co prawda jest on już dostępny od kilku lat, na pewno od wersji 6, ale początkowo dawał on powody do narzekania na stabilność jego działania. Jest to narzędzie typowo GISowe, pozwalające pracować z plikami wektorowymi i rastrowymi. Więcej na ten temat można znaleźć <a href="https://debever.pl/gis/wprowadzenie-do-gis/">w jednym z moich poprzednich artykułów</a>, w którym opisywałem podstawy GIS. Dzięki temu narzędziu przygotowanie geometrii modelu jest znacznie efektywniejsze. Bardzo proste jest również modyfikowanie terenu bezpośrednio w RasMapperze, co jest dużym uproszczeniem względem klasycznych programów GISowych. W przypadku modeli 2D, świetnie sprawdza się do przeglądania, analizowanie i ewentualnego post-processingu wyników, które mają formę przestrzenną.</li>
+<li>Przedostatnia grupa poświęcona jest całkowicie analizie wyników modelowania, przydana w obu typach modeli. Znajdziemy tam:
 <ul>
-<li><strong>Junct.</strong>: Węzły sieci umożliwiające złożone konfiguracje rzeczne</li>
-<li><strong>Cross Section</strong>: Definiowanie danych pomiarowych włącznie z rzędnymi, współczynnikami szorstkości i współczynnikami kontrakcji/ekspansji</li>
-<li><strong>Brdg/Culv</strong>: Konfiguracja mostów i przepustów z geometrią pomostu i filarów</li>
-<li><strong>Inline Structure</strong>: Modelowanie budowli blokujących przepływ</li>
-<li><strong>Lateral Structure</strong>: Definiowanie budowli wzdłuż koryt rzecznych</li>
-<li><strong>Storage Area</strong>: Definiowanie stref retencji</li>
-<li><strong>2D flow Area</strong>: Tworzenie domen obliczeniowych 2D</li>
-<li><strong>Pump Station</strong>: Modelowanie obiektów pompowych</li>
+<li><strong>View cross sections</strong> – czyli przeglądanie wyników w formie graficznej dla każdego przekroju z osobna.</li>
+<li><strong>View profiles</strong> – kolejna graficzna opcja przeglądania wyników. W tym wypadku możliwe jest przeglądanie profilów podłużnych modelu, czy widzimy jak zmienia się układ zwierciadła wody na długości.</li>
+<li><strong>View General Profile Plot</strong> – podobnie jak View Profiles, umożliwia przegląd wyników obliczeń i ich zmiany na długości modelu, ale w tym wypadku na osi pionowej mamy wartości tych zmiennych, a nie wysokość.</li>
+<li><strong>View computed Rating Curves</strong> – możemy tutaj podejrzeć krzywą natężenia przepływu. Szczególnie dobre w modelach o przepływie stacjonarnym, w przypadku zmienności przepływu interpretacja wyników może być większym wyzwaniem z uwagi na fakt, że dla jednego napełnienia koryta możemy mieć do czynienia z różnymi wielkościami przepływu</li>
+<li><strong>3D View of Results or Terrain</strong> – wizualizacja wyników w trójwymiarze. Na ten moment oznaczone jako wersja beta. Moim zdaniem mało przydatne, nie korzystam z tego.</li>
+<li><strong>Plot Stage and Flow Hydrographs</strong> – umożliwia wyświetlanie hydrogramu przepływu dla wybranych przekroi, czyli zmienności przepływu w czasie. Bardzo przydatne narzędzie, jeżeli mamy model o przepływie nieustalonym.</li>
+<li><strong>View Breach Time Series</strong> – chcąc modelować awarie zapór lub wałów przeciwpowodziowych, możemy skorzystać z tego modułu. Służy on do definiowania przebiegu przerwania konstrukcji, w tym zmiany wymiarów wyrwy.</li>
 </ul>
-
-<h3 id="menu-tools-głownie-dla-modeli-2d">Menu Tools (głównie dla modeli 2D)</h3>
-
+</li>
+<li>Ostatnia grupa również służy do analizy wyników oraz jego przebiegu, ale tym razem forma jest tabelaryczna:
 <ul>
-<li>Tworzenie River Reach</li>
-<li>Obszary retencji</li>
-<li>Obszary przepływu 2D</li>
-<li>Linie warunków brzegowych</li>
-<li>Linie łamania dla zgodności siatki</li>
-<li>Strefy szorstkości Manninga</li>
-<li>Warstwy map tła</li>
+<li><strong>Hydraulic property table plots</strong> – znajdują się tutaj dane dotyczące właściwości hydraulicznych przekrojów.</li>
+<li><strong>View detailed output at XS, Culverts, Bridges, Weirs, etc…</strong> – znajdują się tutaj szczegółowe wyniki obliczeń wraz z błędami, ostrzeżeniami i komunikatami. Możemy podejrzeć je dla każdego obiektu, sekcji modelu oraz planu.</li>
+<li><strong>View summary output tables by profile</strong> – podobnie jak wyżej, ale z większą możliwością dostosowania tabeli do własnych potrzeb. Ponadto, możliwe jest wyświetlenie na raz wyników dla różnych lokalizacji.</li>
+<li><strong>Summary of errors, warnings, and notes</strong> – zbiorcze zestawienie błędów, ostrzeżeń i komunikatów. Dzięki temu mamy możliwość efektywniejszej weryfikacji modelu.</li>
+<li><strong>View DSS data</strong> – DSS, czyli<strong> Data Storage System</strong>, to format danych używany w rodzinie oprogramowania <strong>HEC</strong>. Pozwala na wczytywanie i przeglądanie danych, które zostały zapisane wplikach DSS, np. hydrogramów z <strong>HEC-HMS</strong>.</li>
 </ul>
-
+</li>
+</ul>
+<h3><strong>View/edit geometric data</strong></h3>
+<p><a href="/blog/assets/images/2025-09-Okno-geometrii.png"><img decoding="async" class="size-large wp-image-742 aligncenter" src="/blog/assets/images/2025-09-Okno-geometrii-1024x600.png" alt="" width="1024" height="600" srcset="/blog/assets/images/2025-09-Okno-geometrii-1024x600.png 1024w, /blog/assets/images/2025-09-Okno-geometrii-300x176.png 300w, /blog/assets/images/2025-09-Okno-geometrii-768x450.png 768w, /blog/assets/images/2025-09-Okno-geometrii.png 1048w" sizes="(max-width: 1024px) 100vw, 1024px"></a>Ze wszystkich modułów, które oferuje nam HEC-RAS, najbardziej rozbudowany jest geometria. Odbywa się tutaj większość pracy związanej z definiowaniem cieku w modelach. Co prawda pewne elementy łatwiej jest przygotować w RasMapperze, który pełni funkcję oprogramowania GIS, ale wszystkie pozostałe elementy składowe opisu przekrojów i budowli są definiowane w tym miejscu. Opis zacznę od kolumny “Editors”, która znajduje się po lewej stronie. Znajdziemy tam:</p>
+<ul>
+<li><strong>Junct.</strong> – każdy model składa się z co najmniej 2 punktów węzłowych, po jednym na każdym końcu odcinka. Węzły pozwalają na tworzenie bardziej skomplikowanych sieci rzecznych, dzięki czemu możemy na przykład dodać dopływ.</li>
+<li><strong>Cross Section</strong> – jest to okno edycji przekrojów poprzecznych. Odległości (“<strong>Stations</strong>“) na przekrojach zawsze mierzymy od jego lewej strony, patrząc w dół cieku. W drugiej kolumnie (“<strong>Elevations</strong>“) wpisujemy wysokość każdego znanego punktu przekroju. Tutaj również wprowadza się odległości między przekrojami (“Downstream Reach Lengths”), osobno dla każdej części koryta (minimum to “<strong>Channel</strong>“), współczynniki szorstkości (“<strong>Manning’s n Values</strong>“), położenie punktów brzegowych koryta głównego (“<strong>Main Channel Bank Stations</strong>“) oraz współczynniki kontrakcji i ekspansji (“<strong>Cont\Exp Coefficient</strong>“), które są wykorzystywany w modelach przepływów stacjonarnych.<br>
+Bardziej przydatne funkcje, które tutaj jeszcze znajdziemy to możliwość wyświetlania wcześniej wyświetlonych przekrojów (“<strong>Keep Prev XS Plots</strong>“), jeżeli do generowania przekrojów korzystaliśmy z <strong>Numerycznego Modelu Terenu</strong> i później modyfikowaliśmy te dane, to można podejrzeć ich oryginalny kształt (“<strong>Plot Terrain (if available)</strong>“). Po rozwinięciu z górnego panelu “<strong>Options</strong>” warto zwrócić uwagę na “<strong>Skew Cross Section…</strong>“, które pozwala nam uwzględnić nieprostopadłe do osi przepływu ułożenie przekroju, “<strong>Ineffective flow area</strong>“, czyli strefy jałowego przepływu, “<strong>Levees</strong>” oznaczające obwałowania, dzięki czemu możemy ograniczyć rozlewanie się wody po całej szerokości przekroju przed osiągnięciem zadanej wysokości, “<strong>Obstructions</strong>” odpowiada za wszelkiego rodzaju przeszkody, które chcielibyśmy wstawić do modelu, a najważniejsze często jest “<strong>Horizontal Variation in n Values</strong>“, dzięki czemu możemy precyzyjnie zdefiniować szorstkości na całej szerokości przekroju.</li>
+<li><strong>Brdg/Culv</strong> – drugie najważniejsze okno dotyczące geometrii. Duża część budowanych modeli będzie zawierać konstrukcje takie jak mosty lub przepusty. To właśnie w tym miejscu mamy możliwość ich zdefiniowania, od ich położenia, przez geometrię, parametry hydrauliczne, kończąc na wyborze odpowiedniej metody obliczeniowej. Najważniejszą opcją związaną z tymi budowlami jest “<strong>Deck/Roadway</strong>“, gdzie określamy główny kształt budowli (górna i ewentualnie dolna krawędź konstrukcji, jeżeli jest to most), “<strong>Pier</strong>” jest stosowane do definiowania podpór mostu, “<strong>Culvert</strong>” to przepusty. Szczególnie w modelach ze zmiennym przepływem, przydatna może być zakładka “<strong>HTab. Param.</strong>“, która pozwala na zmianę dokładności obliczeń przepływu przez budowle.</li>
+<li><strong>Inline Structure</strong> – mając do zamodelowania konstrukcje przegradzające koryto, ale nie będące obiektami mostowymi, będziemy chcieli skorzystać z tej opcji. W tym miejscu możliwe jest dokładne opisanie np. przelewu wraz z towarzyszącymi mu elementami.</li>
+<li><strong>Lateral Structure</strong> – jest też możliwość modelowania struktur, które przebiegają wzdłuż koryta i przez które możliwy jest (pod pewnymi warunkami) przepływ wody. Dobrym przykładem w tym miejscu mogą być poldery zalewowe i towarzyszące im przewałowania, pozwalające na dopływ i odpływ wód z ich obszaru.</li>
+<li><strong>Storage Area</strong> – twórcy oprogramowania przewidzieli również możliwość retencjonowania części wód. Wykorzystuje się w tym celu narzędzie “<strong>Storage Area</strong>“, w którym możliwe jest stworzenie takich obszarów, do których możliwe jest przekierowanie wód lub pobranie ich. Najprościej można je zdefiniować jako zależność pomiędzy poziomem zwierciadła wody, a objętością. Co ciekawe, możliwe jest przekształcenie ich w obszary 2D.</li>
+<li><strong>2D flow Area</strong> – chcąc stworzyć model 2D raczej będziemy pracować w RasMapperze, ale również w podstawowym edytorze geometrii jest możliwość</li>
+<li><strong>SA/2D Conn</strong> – pracując z modelami 2D może pojawić się sytuacja, w której obszar modelu będzie przedzielony przez budowlę. W takim wypadku możliwe jest stworzenie dwóch oddzielnych obszarów i połączenie ich z wykorzystaniem budowli o zdefiniowanym przez użytkownika kształcie i sposobie działania.</li>
+<li><strong>Pump Station</strong> – pozwala modelować przepompownie w systemie, definiując ich położenie, charakterystykę wydajnościową oraz sposób pracy (ciągły, włączanie przy zadanym poziomie).</li>
+<li><strong>HTab Param.</strong> – okno służące do ręcznej edycji tabel hydraulicznych (<strong>Hydraulic Tables</strong>), np. powierzchnia zwierciadła–przepływ, stosowane m.in. przy obiektach.</li>
+<li><strong>View Picture</strong> – umożliwia przypięcie do obiektu zdjęcia poglądowego (np. mostu czy przepustu), co ułatwia dokumentację i walidację modelu.</li>
+</ul>
+<p>Na belce poziomej, w górnej części okna mamy “<strong>Tools</strong>“, czyli narzędzia. Większość z nich jest przeznaczona do modeli 2D i są to:</p>
+<ul>
+<li><strong>River Reach</strong> – tworzenie i edycja odcinków rzek.</li>
+<li><strong>Storage Area</strong> – definiowanie zasięgu obszaru retencyjnego w modelu 2D.</li>
+<li><strong>2D Flow Area</strong> – wyznaczenie obszaru obliczeniowego dla przepływu 2D.</li>
+<li><strong>BC Line</strong>s – linie, które definiują warunki brzegowe w modelach 2D (np. dopływ, odpływ).</li>
+<li><strong>Reference Lines</strong> – linie pomocnicze używane do orientacji w geometrii.</li>
+<li><strong>IC Points</strong> – punkty definiujące początkowe warunki w obszarach 2D.</li>
+<li><strong>Reference Points</strong> – punkty pomocnicze, np. do georeferencji.</li>
+<li><strong>2D Break Lines</strong> – linie podziału w siatce obliczeniowej, wymuszające zgodność siatki z obiektami (np. wał, droga).</li>
+<li><strong>2D Area Manning n Regions</strong> – strefy o różnych wartościach współczynnika szorstkości w obrębie obszaru 2D.</li>
+<li><strong>Pump Station</strong> – analogicznie jak w edytorze, ale przypisane do obszarów 2D.</li>
+<li><strong>RS</strong> – narzędzie do zarządzania numeracją i położeniem przekrojów.</li>
+<li><strong>Background Map</strong>– dodanie podkładu mapowego (np. ortofotomapa, model terenu).</li>
+</ul>
         </div>
 
         <!-- Post Navigation -->

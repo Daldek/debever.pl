@@ -99,72 +99,74 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <h2 id="wprowadzenie">Wprowadzenie</h2>
-
-<p>Ten poradnik kontynuuje serię "HEC-RAS od zera", budując na poprzednim omówieniu interfejsu użytkownika. Choć RAS Mapper oferuje zaawansowane możliwości modelowania geometrii, ten przewodnik skupia się na podstawowym edytorze do tworzenia sieci hydrograficznej i przekrojów poprzecznych.</p>
-
-<h2 id="tworzenie-nowego-projektu">Tworzenie nowego projektu</h2>
-
-<p>Uruchom HEC-RAS i przejdź do <strong>File &gt; New Project</strong>. Wybierz katalog bez polskich znaków (ą, ę, itd.) w ścieżce. Wprowadź tytuł projektu i potwierdź. System wyświetli nazwę projektu, ścieżkę pliku i system jednostek — zalecane jest ustawienie <strong>jednostek SI</strong> jako domyślnych natychmiast po instalacji.</p>
-
-<h2 id="praca-w-edytorze-geometrii">Praca w edytorze geometrii</h2>
-
-<p>Wejdź do modułu geometrii klikając <strong>View/Edit geometric data</strong> z głównego okna.</p>
-
-<h3 id="siec-hydrograficzna">Sieć hydrograficzna</h3>
-
-<p>HEC-RAS pozwala na tworzenie złożonych sieci rzecznych, ale to ćwiczenie wykorzystuje pojedynczy odcinek. Narysowany kształt reprezentuje tylko schemat; rzeczywiste dane lokalizacji pochodzą z RAS Mapper. Aby dodać odcinek, wybierz <strong>River Reach</strong> z paska narzędzi i narysuj dwupunktową linię reprezentującą kierunek przepływu wody. Kliknij dwukrotnie, aby zakończyć, następnie nazwij rzekę i odcinek w wyświetlonym oknie dialogowym.</p>
-
-<h3 id="przekroje-poprzeczne">Przekroje poprzeczne</h3>
-
-<p>Dodaj przekroje poprzeczne przez opcję <strong>Cross Section</strong> w lewym menu. Ten poradnik tworzy przekroje trapezoidalne z parametrami:</p>
-
+          <h2>Tworzenie geometrii modelu</h2>
+<h3>Wprowadzenie</h3>
+<p>Poprzedni wpis z serii <strong>HEC-RAS od zera</strong> dotyczył podstaw interfejsu użytkownika. Omówiono z nim najważniejsze elementy głównego okna programu oraz edytora geometrii. Edytor ten, choć bardzo ważny, dzisiaj już nie jest jedynym narzędziem, w którym możemy tworzyć podstawową strukturę modelu, czyli sieć hydrograficzną oraz przekroje. <strong>RAS Mapper</strong>, o którym mowa i któremu będzie poświęcony kolejny wpis, jest modułem, który pozwala stworzyć te elementy oraz umieścić je w odpowiednim miejscu w przestrzeni. Jednak na potrzeby wytłumaczenia podstawowych elementów geometrii modelu nie jest nam to potrzebne, więc zaczniemy od maksymalnie uproszczonego schematu.</p>
+<h3>Nowy projekt</h3>
+<p>Po uruchomieniu programu HEC-RAS pojawi się przed nami puste okienko, znane z poprzedniego wpisu. Żeby utworzyć nowy projekt, należy przejść do menu rozwijanego <strong>File</strong>, a następnie wybrać <strong>New Project</strong>. Z prawej strony mamy archaiczne drzewko z folderami, w którym musimy odnaleźć miejsce, w którym chcemy zapisać projekt. Proponuję wybierać takie miejsca na naszych dyskach, które w ścieżce nie będą miały żadnych znaków diakrytycznych, takich jak ą, ę. W polu <strong>Title</strong> wpisujemy nazwę naszego projektu (u mnie będzie to “Podstawy_1D”) i zatwierdzamy <strong>OK</strong>.</p>
+<p><a href="/blog/assets/images/2025-09-New-Project-podstawy-1D.png"><img fetchpriority="high" decoding="async" class="alignnone wp-image-761 size-full" src="/blog/assets/images/2025-09-New-Project-podstawy-1D.png" alt="" width="759" height="664" srcset="/blog/assets/images/2025-09-New-Project-podstawy-1D.png 759w, /blog/assets/images/2025-09-New-Project-podstawy-1D-300x262.png 300w" sizes="(max-width: 759px) 100vw, 759px"></a></p>
+<p>W tym momencie pojawi się komunikat informujący o nazwie projektu, jego ścieżce oraz systemie jednostek, które będą użyte w obliczeniach (warto ustawić <strong>SI Units</strong> jako domyślne zaraz po instalacji programu).</p>
+<p><a href="/blog/assets/images/2025-09-Sciezka-i-jednostki-podstawy-1D.png"><img decoding="async" class="alignnone wp-image-762 size-full" src="/blog/assets/images/2025-09-Sciezka-i-jednostki-podstawy-1D.png" alt="" width="412" height="193" srcset="/blog/assets/images/2025-09-Sciezka-i-jednostki-podstawy-1D.png 412w, /blog/assets/images/2025-09-Sciezka-i-jednostki-podstawy-1D-300x141.png 300w" sizes="(max-width: 412px) 100vw, 412px"></a></p>
+<p>W tym momencie w głównym oknie programu powinniśmy mieć wypełnione pola w <strong>Project</strong>.</p>
+<h3>Praca w edytorze geometrii</h3>
+<p>Z głównego okna programu, możemy przejść do modułu geometrii, klikając w przycisk podpisany jako <strong>View/Edit geometric data</strong>. W tym momencie ukaże nam się puste okno znane z poprzedniego wpisu serii <strong>HEC-RAS od zera</strong>.</p>
+<h4>Sieć hydrograficzna</h4>
+<p>HEC-RAS umożliwia tworzenie skomplikowanych sieci hydrograficznych, zbudowanych z wielu rzek i odcinków, które łączy się z wykorzystaniem węzłów. My zaczniemy jednak od najprostszego schematu, czyli pojedynczego odcinka, do którego ręcznie dodamy przekroje poprzeczne. Na co należy zwrócić uwagę to na fakt, że rysowany przez nas kształt sieci nie ma żadnego przełożenia na obliczenia. Jest to wyłącznie schemat, pozwalający określić wzajemne powiązanie kolejnych elementów modelu. Inaczej by to wyglądało w RAS Mapperze, tam rysując (lub importując z plików shapefile) sieć rzeczną i przekroje definiujemy ich dokładną lokalizację w przestrzeni, na podstawie której obliczane są np. odległości pomiędzy poszczególnymi elementami sieci.</p>
+<p>Żeby dodać odcinek, klikamy na <strong>River Reach</strong> w górnym pasku okna. W oknie geometrii wystarczy narysować odcinek składający się z dwóch punków, pamiętając że sieć jest rysowana zawsze z kierunkiem przepływu wody (a przekroje od lewej do prawej strony!). Klikając dwukrotnie lewym przyciskiem myszy kończymy rysowanie. Powinno się teraz pokazać nowe okno, w którym możemy nazwać rzekę i odcinek.</p>
+<p><a href="/blog/assets/images/2025-09-River-Reach-podstawy-1D.png"><img decoding="async" class="alignnone size-full wp-image-764" src="/blog/assets/images/2025-09-River-Reach-podstawy-1D.png" alt="" width="210" height="188"></a> <a href="/blog/assets/images/2025-09-Siec-rzeczna-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-765" src="/blog/assets/images/2025-09-Siec-rzeczna-podstawy-1D-1024x580.png" alt="" width="1024" height="580" srcset="/blog/assets/images/2025-09-Siec-rzeczna-podstawy-1D-1024x580.png 1024w, /blog/assets/images/2025-09-Siec-rzeczna-podstawy-1D-300x170.png 300w, /blog/assets/images/2025-09-Siec-rzeczna-podstawy-1D-768x435.png 768w, /blog/assets/images/2025-09-Siec-rzeczna-podstawy-1D.png 1204w" sizes="(max-width: 1024px) 100vw, 1024px"></a></p>
+<p>Pamiętamy też o zapisywaniu pliku, żeby nie stracić efektów naszej pracy. <strong>File</strong> -&gt; <strong>Save Geometry Data As…</strong>&nbsp;i wskazujemy nazwę. U mnie będzie to “Geometria_podstawy_1D”.</p>
+<h4>Przekroje poprzeczne</h4>
+<p>Drugim krokiem jest dodanie przekrojów poprzecznych. Będą to proste przekroje trapezowe o wymiarach i założeniach:</p>
 <ul>
-<li>Szerokość dna koryta: 8 m</li>
-<li>Głębokość: 2 m</li>
-<li>Nachylenie brzegu: 1:2.5</li>
-<li>Spadek zwierciadła wody: 0.0005</li>
-<li>Współczynnik Manninga n: 0.034</li>
+<li>szerokość koryta rzeki w dnie 8 m;</li>
+<li>głębokość koryta 2 m;</li>
+<li>nachylenie skarp 1:2,5;</li>
+<li>spadek zwierciadła wody 0,0005.</li>
+<li>szorstkość n = 0,034</li>
 </ul>
-
-<p>Użyj <strong>Options &gt; Add a New Cross Section</strong>, aby określić lokalizację. Wprowadź współrzędne w tabeli <strong>Cross Section Coordinates</strong> (kolumny Station i Elevation). Utwórz profil czteropunktowy: 0;2, 5;0, 13;0, 18;2. Ustaw współczynnik Manninga n tylko w polu Channel. Zdefiniuj stacje lewego i prawego brzegu odpowiednio jako 0 i 18. Skopiuj przekroje do dodatkowych stacji rzecznych (100, 300, 400), dostosowując rzędne na podstawie spadku 5 cm na 100 m.</p>
-
-<h3 id="interpolacja-przekrojow">Interpolacja przekrojów</h3>
-
-<p>Wróć do głównego edytora geometrii. Wybierz <strong>Tools &gt; XS Interpolation &gt; Between 2 XS's</strong>. Ustaw maksymalną odległość między przekrojami na 100 m, aby automatycznie wygenerować brakujące przekroje.</p>
-
-<h3 id="mosty">Mosty</h3>
-
-<p>Mosty wymagają gęsto rozmieszczonych przekrojów. Dokumentacja zaleca cztery przekroje: dwa bezpośrednio powyżej i poniżej konstrukcji, plus dwa w strefach niezakłóconego przepływu powyżej i poniżej.</p>
-
-<p>Interpoluj przekroje między stacjami 300–400 w odstępach 20 m dla mostu na stacji 350. W <strong>Brdg/Culv</strong> wybierz <strong>Add a Bridge and/or Culvert</strong>. W <strong>Deck/Roadway</strong> określ odległość do najbliższego przekroju powyżej i szerokość pomostu. Podaj współrzędne dla krawędzi górnej i dolnej, następnie skopiuj dane z góry na dół używając <strong>Copy US to DS</strong>.</p>
-
-<p>Dodaj dwa filary w zakładce <strong>Pier</strong>, każdy o szerokości 1 m. Określ stację osi i podaj współrzędne dolnej i górnej rzędnej dla każdego.</p>
-
-<h3 id="budowle-poprzeczne-jazy">Budowle poprzeczne (jazy)</h3>
-
-<p>Interpoluj przekroje między stacjami 1–100 przed dodaniem budowli. Budowla poprzeczna wymaga odległości od poprzedniego przekroju, szerokości i współrzędnych rzędnych.</p>
-
-<h3 id="przepusty">Przepusty</h3>
-
-<p>Przepusty mogą towarzyszyć mostom lub być samodzielnymi budowlami. Parametry konfiguracji obejmują:</p>
-
+<p>Żeby dodać przekroje należy w głównym oknie geometrii wybrać z lewego paska menu opcję <strong>Cross Section</strong>, która przeniesie nas do edytora. Wprowadzanie danych zaczynamy od tabeli <strong>Cross Section Coordinates</strong>, w której wypełniamy kolumny <strong>Station</strong> i <strong>Elevation</strong>, czyli odległości i rzędne. Jak już wspomniałem wcześniej, odległości liczone są od lewej strony przekroju, patrząc zgodnie z kierunkiem przepływu wody.</p>
+<p>Żeby stworzyć przekrój należy najpierw wskazać jego lokalizację. Z górnego panelu rozwijamy <strong>Options</strong> i wybieramy <strong>Add a New Cross Section…</strong> i wpisujemy lokalizację przekroju (podajemy to w metrach od umownego początku modelu). Tabela powinna składać się z 4 punktów, tj. 0;2, 5;0, 13;0 oraz 18;2.<br>
+Po prawej stronie znajdują się 4 kolejne atrybuty przekroju. Pomijamy <strong>Downstream Reach Lengths</strong>, ponieważ <strong>River Station</strong> przyjąłem na początku jako 1, czyli jest to najniższy przekrój w modelu. W <strong>Manning’s n Values</strong> uzupełniamy wyłącznie pole <strong>Channel</strong>, ponieważ mamy proste koryto trapezowe, bez lewej i prawej terasy zalewowej. <strong>Main Channel Bank Station</strong> – <strong>Left Bank</strong> przyjmie 0, ponieważ jest to punkt brzegowy koryta, i analogicznie postąpimy z <strong>Right Bank</strong>, czyli prawym punktem brzegowym, przyjmie on wartość 18. Wartości <strong>Cont\Exp Coefficient (Steady)</strong> zostawiamy domyślne, ponieważ nie mamy do czynienia z kontrakcją ani ekspansją strumienia przepływu (inaczej by było, gdybyśmy mieli jakieś struktury, np. most, ale o tym będzie później). Całość zatwierdzamy <strong>Apply Data</strong>, po czym powinniśmy ujrzeć przekrój.</p>
+<p><a href="/blog/assets/images/2025-09-Cross-Section-Data-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-766" src="/blog/assets/images/2025-09-Cross-Section-Data-podstawy-1D-1024x648.png" alt="" width="1024" height="648" srcset="/blog/assets/images/2025-09-Cross-Section-Data-podstawy-1D-1024x648.png 1024w, /blog/assets/images/2025-09-Cross-Section-Data-podstawy-1D-300x190.png 300w, /blog/assets/images/2025-09-Cross-Section-Data-podstawy-1D-768x486.png 768w, /blog/assets/images/2025-09-Cross-Section-Data-podstawy-1D.png 1048w" sizes="(max-width: 1024px) 100vw, 1024px"></a></p>
+<p>W analogiczny sposób postępujemy z kolejnymi przekrojami, zmieniając jedynie rzędne punktów. Kolejne przekroje proponuję dodać w <strong>River Station</strong> 100, 300 oraz 400. 200 pomijamy, stworzymy ten brakujący element wykorzystując narzędzie do interpolacji przekrojów, które jest wbudowane w HEC-RASa. Tworzenie (ale nie przez interpolację) nowych przekrojów najłatwiej będzie zrobić kopiując pierwszy przekrój, co możemy zrobić rozwijając <strong>Options</strong> i wybierając <strong>Copy Current Cross Section</strong>, a następnie wskazać nowe lokalizacje i zmienić rzędne. Pamiętamy o tym, żeby w nowych przekrojach wskazać odległości od przekroju położonego poniżej. Robimy to uzupełniając pole <strong>Channel</strong> w <strong>Downstream Reach Lengths</strong>.</p>
+<p><a href="/blog/assets/images/2025-09-Copy-Cross-Section-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-767" src="/blog/assets/images/2025-09-Copy-Cross-Section-podstawy-1D.png" alt="" width="337" height="145" srcset="/blog/assets/images/2025-09-Copy-Cross-Section-podstawy-1D.png 337w, /blog/assets/images/2025-09-Copy-Cross-Section-podstawy-1D-300x129.png 300w" sizes="(max-width: 337px) 100vw, 337px"></a></p>
+<p>Zakładając spadek i = 0,0005 na każde 100 m, wysokość zmienia się o 5 cm.</p>
+<h4>Interpolacja brakującego przekroju</h4>
+<p>Żeby uzupełnić brakujący przekrój musimy wrócić do głównego okna edytora geometrii. W nim, z górnego panelu, rozwijamy <strong>Tools</strong>, przechodzimy do<strong> XS Interpolation</strong> i wybieramy <strong>Between 2 XS’s</strong> (czyli interpolacji dokonujemy wyłącznie pomiędzy 2 istniejącymi przekrojami. W nowym oknie upewniamy się, że <strong>Upper Riv Sta</strong> to 300, a <strong>Lower Riv Sta</strong> to 100. Interpolacji możemy dokonać wskazując maksymalną odległość pomiędzy przekrojami, wskazując stały interwał odległości lub dokładnie wskazując w którym miejscu ma zostać dodany nowy przekrój. My skorzystamy z tej pierwszej metody, wskazując maksymalną odległość pomiędzy przekrojami na 100 m. Następnie klikamy na <strong>Interpolate New XS’s</strong> i zamykamy okno <strong>Close</strong>.</p>
+<p><a href="/blog/assets/images/2025-09-XS-interpolation-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-768" src="/blog/assets/images/2025-09-XS-interpolation-podstawy-1D.png" alt="" width="466" height="569" srcset="/blog/assets/images/2025-09-XS-interpolation-podstawy-1D.png 466w, /blog/assets/images/2025-09-XS-interpolation-podstawy-1D-246x300.png 246w" sizes="(max-width: 466px) 100vw, 466px"></a></p>
+<p>Nasz model na ten moment powinien wyglądać tak:<a href="/blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-769" src="/blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-podstawy-1D-1024x580.png" alt="" width="1024" height="580" srcset="/blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-podstawy-1D-1024x580.png 1024w, /blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-podstawy-1D-300x170.png 300w, /blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-podstawy-1D-768x435.png 768w, /blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-podstawy-1D.png 1204w" sizes="(max-width: 1024px) 100vw, 1024px"></a></p>
+<h4>Mosty</h4>
+<p>Nierozłącznym elementem modelowania jest uwzględnianie w nim wszystkich elementów mogących wpływać na warunki przepływu, również budowli inżynierskich takich jak mosty. Wymaga to od nas dodania większej liczby przekrojów poprzecznych, które powinny być zlokalizowane w pobliżu mostu. Dużo na ten temat napisane jest w dokumentacji HEC-RASa, która jest dostępna online, <a href="https://www.hec.usace.army.mil/confluence/rasdocs/ras1dtechref/latest/modeling-bridges/general-bridge-modeling-guidelines/cross-section-locations-for-bridges">pod tym adresem</a>. Żeby jednak nie zostawiać tak tego tematu, zaznaczę tylko że wymagane są co najmniej 4 przekroje. 2 z nich powinny być zlokalizowane tuż powyżej i tuż poniżej budowli, 1 powyżej, w miejscu, w którym przepływ jest prostopadły do przekroju i w którym nie ma jeszcze kontrakcji przepływu oraz 1 poniżej, w miejscu, w którym kończy się jego ekspansja i, podobnie jak powyżej budowli, przepływ jest niezakłócony i prostopadły do przekroju.</p>
+<p>Pierwszym krokiem będzie ponowna interpolacja przekrojów, tym razem pomiędzy przekrojami 300 i 400. Odległości między przekrojami zmniejszymy do 20 m. Oś mostu będzie zlokalizowana w punkcie 350, a przyjęta szerokość konstrukcji to 15 m. Będzie to prosta konstrukcja, składająca się z płyty oraz 2 filarów. Możemy ją dodać w głównym oknie edytora geometrii, w menu po lewej stronie w <strong>Brdg/Culv</strong>, a następnie rozwijamy z góry <strong>Options</strong> i wybieramy <strong>Add a Bridge and/or Culvert</strong> i wpisujemy jego lokalizację.</p>
+<p>Żeby dodać płytę mostu, wybieramy opcję <strong>Deck/Roadway.</strong> W niej określany odległość (<strong>Distance</strong>) krawędzi mostu od strony wody górnej do najbliższego przekroju położonego powyżej oraz szerokość (<strong>Width</strong>). Następnie w tabeli podajemy odległości oraz rzędne górnej oraz dolnej krawędzi konstrukcji. Nasza będzie bardzo prosta, więc wystarczy wypełnić wyłącznie część <strong>Upstream</strong>, a następnie skopiować ją przy pomocy <strong>Copy US to DS</strong>.</p>
+<p><a href="/blog/assets/images/2025-09-Deck-roadway-editor-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-772" src="/blog/assets/images/2025-09-Deck-roadway-editor-podstawy-1D.png" alt="" width="404" height="428" srcset="/blog/assets/images/2025-09-Deck-roadway-editor-podstawy-1D.png 404w, /blog/assets/images/2025-09-Deck-roadway-editor-podstawy-1D-283x300.png 283w" sizes="(max-width: 404px) 100vw, 404px"></a></p>
+<p>Następnie dodamy 2 podpory, każda o stałej szerokości 1 m. Robimy to w zakładce <strong>Pier</strong>. Najpierw wskazujemy lokalizację osi, czyli <strong>Centerline Station</strong>. Następnie w tabeli określamy szerokość oraz rzędne podpory. Wymagane są co najmniej 2 punkty, tj. dół i góra podpory. Druga podpora będzie kopią pierwszej, więc po kliknięciu <strong>Copy</strong>, możemy wskazać nowe położenie osi.</p>
+<p><a href="/blog/assets/images/2025-09-Pier-data-editor-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-774" src="/blog/assets/images/2025-09-Pier-data-editor-podstawy-1D.png" alt="" width="325" height="371" srcset="/blog/assets/images/2025-09-Pier-data-editor-podstawy-1D.png 325w, /blog/assets/images/2025-09-Pier-data-editor-podstawy-1D-263x300.png 263w" sizes="(max-width: 325px) 100vw, 325px"></a></p>
+<p><a href="/blog/assets/images/2025-09-Bridge-Culvert-data-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-773" src="/blog/assets/images/2025-09-Bridge-Culvert-data-podstawy-1D.png" alt="" width="526" height="653" srcset="/blog/assets/images/2025-09-Bridge-Culvert-data-podstawy-1D.png 526w, /blog/assets/images/2025-09-Bridge-Culvert-data-podstawy-1D-242x300.png 242w" sizes="(max-width: 526px) 100vw, 526px"></a></p>
+<h4>Budowle w korycie cieku</h4>
+<p>Drugim często spotykanym typem konstrukcji są konstrukcje przegradzające koryto. W oknie geometrii są one opisane jako <strong>Inline Structure</strong>. Ich dodanie również wymaga odpowiedniej lokalizacji przekrojów, więc i tutaj zaczniemy od interpolacji, tym razem pomiędzy przekrojami 1 i 100. Następnie należy zdefiniować geometrię przelewu, podając odległość jego krawędzi od strony wody górnej od przekroju poprzecznego powyżej, szerokości przelewu oraz położenia jego górnej krawędzi (znane już <strong>Station</strong> i <strong>Elevation</strong>).</p>
+<p><a href="/blog/assets/images/2025-09-Inline-structure-weir-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-777" src="/blog/assets/images/2025-09-Inline-structure-weir-podstawy-1D.png" alt="" width="404" height="399" srcset="/blog/assets/images/2025-09-Inline-structure-weir-podstawy-1D.png 404w, /blog/assets/images/2025-09-Inline-structure-weir-podstawy-1D-300x296.png 300w" sizes="(max-width: 404px) 100vw, 404px"></a></p>
+<p><a href="/blog/assets/images/2025-09-Inline-structure-data-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-776" src="/blog/assets/images/2025-09-Inline-structure-data-podstawy-1D.png" alt="" width="520" height="561" srcset="/blog/assets/images/2025-09-Inline-structure-data-podstawy-1D.png 520w, /blog/assets/images/2025-09-Inline-structure-data-podstawy-1D-278x300.png 278w" sizes="(max-width: 520px) 100vw, 520px"></a></p>
+<h4>Przepusty</h4>
+<p>Mosty i budowle przegradzające koryto mogą występować jako grupa konstrukcji wraz z przepustami. Most, który dodaliśmy wcześniej, jest podparty na filarach, nie ma więc sensu dodawać do niego przepustu, ale możemy to zrobić w naszym przelewie. W tym celu, nadal będąc w edytorze Inline Structure, należy przejść do <strong>Culvert</strong>. Ta zakładka jest identyczna jak przy dodawaniu przepustu do mostu. Założenia, które przyjąłem na potrzeby tego projektu to:</p>
 <ul>
-<li>Średnica: 0.5 m</li>
-<li>Odległość do przekroju powyżej: 7 m</li>
-<li>Długość: 6 m</li>
-<li>Współczynnik strat wlotowych: 0.5</li>
-<li>Współczynnik Manninga n (góra przepustu): 0.013</li>
-<li>Współczynnik Manninga n (dno przepustu): 0.03</li>
-<li>Zamulenie (od dna): 0.2 m</li>
-<li>Rzędna wlotu/wylotu: -0.15 m</li>
-<li>Stacja osi: 9 m</li>
+<li>średnica przepustu 0,5 m;</li>
+<li>odległość do przekroju powyżej 7 m;</li>
+<li>długość przepustu 6 m;</li>
+<li>współczynnik strat na wlocie 0,5;</li>
+<li>szorstkość góry przepustu 0,013;</li>
+<li>szorstkość dna przepustu 0,03;</li>
+<li>zablokowana część przepustu (licząc od dołu): 0,2 m;</li>
+<li>rzędna wlotu i wylotu -0,15 m;</li>
+<li>położenie osi przepustu 9 m.</li>
 </ul>
-
-<h2 id="dopracowanie-modelu">Dopracowanie modelu</h2>
-
-<p>Ustandaryzuj odległości między wszystkimi przekrojami w równych odstępach. Dostosuj współczynniki kontrakcji i ekspansji w pobliżu budowli z 0.1 do 0.3 (i z 0.3 do 0.5) używając <strong>Tables &gt; Contraction/Expansion Coefficients (Steady Flow)</strong>. Regularnie zapisuj pracę.</p>
-
+<p><a href="/blog/assets/images/2025-09-Culvert-data-editor-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-778" src="/blog/assets/images/2025-09-Culvert-data-editor-podstawy-1D.png" alt="" width="486" height="520" srcset="/blog/assets/images/2025-09-Culvert-data-editor-podstawy-1D.png 486w, /blog/assets/images/2025-09-Culvert-data-editor-podstawy-1D-280x300.png 280w" sizes="(max-width: 486px) 100vw, 486px"></a></p>
+<p><a href="/blog/assets/images/2025-09-Inline-structure-data-culvert-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-779" src="/blog/assets/images/2025-09-Inline-structure-data-culvert-podstawy-1D.png" alt="" width="520" height="561" srcset="/blog/assets/images/2025-09-Inline-structure-data-culvert-podstawy-1D.png 520w, /blog/assets/images/2025-09-Inline-structure-data-culvert-podstawy-1D-278x300.png 278w" sizes="(max-width: 520px) 100vw, 520px"></a></p>
+<h3>Zakończenie</h3>
+<p>Rzeczą, którą należy jeszcze zrobić jest wyrównanie odległości między przekrojami na odcinku 100-300. Na początku wyinterpolowaliśmy jedynie przekrój w lokalizacji 200, a należy dążyć do zachowania równych odległości. Ponadto, twórcy HEC-RASa zalecają również zmianę współczynników kontrakcji i ekspansji w przekrojach powyżej i poniżej budowli, co w naszym wypadku może nie być aż tak istotne, ale zrobimy to do celów szkoleniowych, żeby było wiadomo, gdzie tę opcję znaleźć. Co prawda pojawiła się ona już na etapie tworzenia przekrojów, ale znacznie łatwiej jest to zmienić w tabeli, która dostępna jest po rozwinięciu w głównym menu okna geometrii opcji <strong>Tables</strong> i przejściu do <strong>Contraction/Expansion Coefficients (Steady Flow)</strong>. Zgodnie z dokumentacją HEC-RASa dostępną <a href="https://www.hec.usace.army.mil/confluence/rasdocs/ras1dtechref/6.6/modeling-bridges/general-bridge-modeling-guidelines/contraction-and-expansion-losses">tutaj</a>, zmieniamy wartości w przekrojach wokół budowli z 0,1 na 0,3 oraz z 0,3 na 0,5.</p>
+<p><a href="/blog/assets/images/2025-09-Contr-Exp-coef-steady-flow-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-781" src="/blog/assets/images/2025-09-Contr-Exp-coef-steady-flow-podstawy-1D.png" alt="" width="666" height="556" srcset="/blog/assets/images/2025-09-Contr-Exp-coef-steady-flow-podstawy-1D.png 666w, /blog/assets/images/2025-09-Contr-Exp-coef-steady-flow-podstawy-1D-300x250.png 300w" sizes="(max-width: 666px) 100vw, 666px"></a></p>
+<p>Pamiętamy o regularnym zapisywaniu naszej pracy i kończymy ten etap budowy modelu hydraulicznego.</p>
+<p><a href="/blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-i-budowlami-podstawy-1D.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-783" src="/blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-i-budowlami-podstawy-1D-1024x580.png" alt="" width="1024" height="580" srcset="/blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-i-budowlami-podstawy-1D-1024x580.png 1024w, /blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-i-budowlami-podstawy-1D-300x170.png 300w, /blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-i-budowlami-podstawy-1D-768x435.png 768w, /blog/assets/images/2025-09-Siec-rzeczna-z-przekrojami-i-budowlami-podstawy-1D.png 1204w" sizes="(max-width: 1024px) 100vw, 1024px"></a></p>
         </div>
 
         <!-- Post Navigation -->

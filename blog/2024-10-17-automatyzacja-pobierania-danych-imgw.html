@@ -99,56 +99,37 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <p>Artykuł opisuje wyzwania napotkane podczas tworzenia narzędzia Python do automatyzacji pobierania publicznych danych z IMGW (Instytut Meteorologii i Gospodarki Wodnej).</p>
-
-<h2 id="ograniczenia-api">Ograniczenia API</h2>
-
-<p>API pozwala jedynie na pobieranie bieżących pomiarów bez dostępu do danych historycznych. System jest pełen niespójności:</p>
-
-<ul>
-<li>Niektóre endpointy akceptują nazwy stacji, inne wymagają wyłącznie ID</li>
-<li>Formaty odpowiedzi różnią się nieprzewidywalnie między słownikami a listami jednoelementowymi</li>
-</ul>
-
-<h2 id="problemy-z-danymi-hydrologicznymi">Problemy z danymi hydrologicznymi</h2>
-
-<p>Pliki historyczne dostarczane są jako CSV w archiwach ZIP, podzielone na formaty:</p>
-
-<ul>
-<li>Dobowe</li>
-<li>Miesięczne</li>
-<li>Połączone półroczne/roczne</li>
-</ul>
-
-<p>Dane obejmują lata 1951-2023. Przed 2022 rokiem konwencje nazewnictwa były spójne. W 2023 usunięto numery miesięcy z nazw plików.</p>
-
-<h3 id="problemy-z-jakoscia-danych">Problemy z jakością danych</h3>
-
-<ul>
-<li>Identyfikatory numeryczne zakodowane jako tekst</li>
-<li>Wiele reprezentacji brakujących wartości (puste komórki, 99.9, 9999, 99999.999)</li>
-<li>Spacje wiodące przed ID stacji</li>
-<li>Zmiana separatora z przecinka na średnik w 2023 roku</li>
-</ul>
-
-<h2 id="chaos-danych-meteorologicznych">Chaos danych meteorologicznych</h2>
-
-<p>Dane meteorologiczne są znacznie gorsze. Pliki używają niespójnych wielopoziomowych podziałów:</p>
-
-<ul>
-<li>Klimatologiczne</li>
-<li>Opadowe</li>
-<li>Synoptyczne</li>
-</ul>
-
-<p>Konwencje nazewnictwa plików wydają się losowe, z komponentami pojawiającymi się na różnych pozycjach. Zawartość plików ZIP zmienia nazwy po ekstrakcji.</p>
-
-<h2 id="status-projektu">Status projektu</h2>
-
-<p>Projekt rozwijam od września 2023 roku. Repozytorium dostępne jest na GitHub jako IMGWTools. Ostatnia motywacja pochodziła z powodzi na Odrze w 2023 roku oraz studiów podyplomowych z hydrologii na URK.</p>
-
-<p>Jak mawiał Boromir: "Nie wchodzi się po prostu do Mordoru" - to pozornie proste zadanie okazało się nieoczekiwanie skomplikowane.</p>
-
+          <h2>Dane publiczne IMGW</h2>
+<p>We wrześniu 2023, w ramach nauki Pythona, zacząłem pracę nad projektem, upraszczającym <strong>pobieranie danych publicznych IMGW</strong> z serwisu <a href="https://danepubliczne.imgw.pl/">https://danepubliczne.imgw.pl/</a>. Zadanie wydawałoby się proste, bo czym jest połączenie się z <strong>API,</strong> pobranie danych i zapisanie ich do pliku? Jak się okazało, rzeczywistość był bardziej złożona. Aż chce się zacytować Boromira, <em>“One does not simply walk into Mordor”</em>.</p>
+<p>Repozytorium mojego projektu znajdziecie na GitHubie: <a href="https://github.com/Daldek/IMGWTools" target="_blank" rel="noopener">https://github.com/Daldek/IMGWTools</a></p>
+<h3>API</h3>
+<p>Większość serwisów, z których korzystałem udostępnia dane przez API. Najczęściej wystarczy zdefiniować kilka podstawowych parametrów, przesłać zapytanie do serwera i <em>et voilà</em>, dostajemy to o co prosiliśmy. Niestety, <strong>IMGW</strong> ograniczyło tę możliwość wyłącznie do pobierania aktualnych pomiarów, bez dostępu do danych historycznych.</p>
+<p>Żeby nie było tak łatwo, na niczego nieświadomych użytkowników zastawiono kilka pułapek. Chcecie pobrać <strong>dane synoptyczne</strong>? Nie ma problemu! Podajcie tylko nazwę stacji lub jej identyfikator i dostaniecie najświeższe informacje. Chcecie tak samo pobrać <strong>dane hydrologiczne</strong> lub <strong>meteorologiczne</strong>? Wstrzymajcie swoje konie, bo od teraz akceptujemy tylko identyfikator.</p>
+<p>Jeżeli myślicie, że łatwiej będzie z analizą odpowiedzi otrzymanej z serwera, to jesteście w błędzie. Część danych jest zwracana jako słownik, część jako jednoelementowa lista zawierająca słownik. Może chociaż format przekazywanych danych będzie wspólny? W HTMLu nie przekażemy wam danych w najnowszej wersji API dla hydro. Dlaczego? Bo nie.</p>
+<p><strong>Niestety, ten brak konsekwencji jest tylko zapowiedzią tego co nas czeka za chwilę.</strong></p>
+<h3>Dane plikowe</h3>
+<p>Wszystkie dane historyczne są przekazywane jako pliki csv (właściwie to zip z csv w środku). IMGW podzieliło je, podobnie jak te dostępne przez API, na 3 kategorie:</p>
+<ol>
+<li>Dane aktynometryczne.</li>
+<li>Dane hydrologiczne.</li>
+<li>Dane meteorologiczne.</li>
+</ol>
+<p>Poza tym, na stronie znajdziemy jeszcze kilka innych folderów, z biuletynem PSHM, rocznikami oraz, najciekawszy, “test”.</p>
+<h4>Dane hydrologiczne</h4>
+<p>Przeanalizujmy to co jest dla mnie najciekawsze, czyli sposób w jaki IMGW udostępnia nam <strong>dane hydrologiczne</strong>.</p>
+<p><strong>Dane hydrologiczne</strong> są dostępne w podziale na <strong>dobowe</strong>, <strong>miesięczne</strong> oraz połączone<strong> półroczne i roczne</strong> pliki. Znajdziemy w nich zakres od 1951 roku do 2023. Do 2022 roku pliki są dość jednolite — nazewnictwo zaczyna się od skrótu interwału, np. “codz”, a następnie rok i miesiąc lub zmienna (jeżeli dotyczy). Co z 2023? Z nazwy wyrzucono numer miesiąca, więc misternie napisany w Pythonie kod, trzeba dostosować do tej drobnej, acz istotnej zmiany.</p>
+<p>A w środku? Eh, źle się dzieje <del>w państwie duńskim</del>. Festiwal niekonsekwencji, ponieważ niektóre kolumny mają informacje zapisane jako ciągi znaków, czyli coś co Python mógłby zinterpretować jako tekst. Zapisywanie identyfikatora lub roku raczej tego nie wymaga, nie? Inne dane są już dobrych typów, czyli int lub float. A co, jeżeli nie ma obserwacji? Tutaj możemy się spodziewać braku wpisu w kolumnie, wartości 99.9, albo 9999 ewentualnie 99999.999, co oczywiście zostało wyczerpująco opisane w osobnym pliku. Do tego jeszcze dodajmy spacje poprzedzające identyfikatory stacji. Rok 2023 prezentuje się lepiej, ale za to zmieniono separator kolumn z przecinka na średnik. Kolejna pętla “if-elif-else” ląduje w kodzie.</p>
+<p><a href="/blog/assets/images/2024-10-Dane-publiczne-hydro-imgw.png"><img fetchpriority="high" decoding="async" class="alignnone wp-image-657 size-large" src="/blog/assets/images/2024-10-Dane-publiczne-hydro-imgw-1024x172.png" alt="" width="1024" height="172" srcset="/blog/assets/images/2024-10-Dane-publiczne-hydro-imgw-1024x172.png 1024w, /blog/assets/images/2024-10-Dane-publiczne-hydro-imgw-300x50.png 300w, /blog/assets/images/2024-10-Dane-publiczne-hydro-imgw-768x129.png 768w, /blog/assets/images/2024-10-Dane-publiczne-hydro-imgw-1536x257.png 1536w, /blog/assets/images/2024-10-Dane-publiczne-hydro-imgw.png 1593w" sizes="(max-width: 1024px) 100vw, 1024px"></a></p>
+<p>Warto jeszcze wspomnieć o tym, że pliki dzienne i miesięczne zawierają wszystkie 3 mierzone parametry, czyli <strong>przepływ</strong>, <strong>stan wody</strong> oraz jej <strong>temperaturę</strong>. Pliki półroczne i roczne są podzielone na kolejne 3 kategorie, żeby nie łączyć ze sobą wszystkich parametrów. Jeżeli dobrze się im przyjrzycie, to zobaczycie, że w 2023 brakuje jednej kolumny.</p>
+<h4>Dane meteorologiczne</h4>
+<p>Jeżeli w danych hydro źle się działo, to tutaj jest obraz nędzy i rozpaczy. Na pierwszy widzimy, że dane dodatkowo podzielono na klimatologiczne, opadowe i synoptyczne. Po wejściu głębiej, okazuje się, że część plików pogrupowano w wielolecia. Konwencja nazewnictwa plików wydaje się być podobna do tej znanej z hydro, ale to tylko pozory. W przypadku plików “zip” wydawałoby się, mamy jasną sytuację. Nazwa zaczyna się od roku, następnie jest… miesiąc? Czasem tak, czasem jest oznaczenie typu danych. To samo oznaczenie może znajdować się równie dobrze na 3. miejscu, ale z tym też bywa różnie, bo może się tam znajdować oznaczanie rodzaju stacji. W danych synoptycznych, “drugie miejsce” jest, wydawałoby się, losową wartość liczbową, która na pewno ma jakieś znacznie, którego ja po prostu jeszcze nie odkryłem.</p>
+<p>Niestety, ale skutecznie uniemożliwiło mi to zautomatyzowanie pobierania tych danych. Zresztą, po rozpakowaniu zawartość tych zipów też zmienia sposób nazywania plików. To nam daje 2 osobne funkcje, które złożą nam nazwę pliku w całość.</p>
+<p><strong>Zgubiliście się w tym opisie? Bardzo dobrze, bo ja też.</strong></p>
+<h3>Co robić i jak żyć?</h3>
+<p>Projekt rozwijam od ponad roku z przerwą, aż tegoroczna powódź w dorzeczu Odry zmotywowała mnie do jego kontynuacji. W tym czasie zacząłem również <strong>studia podyplomowe z hydrologii na URK</strong>, co dostarcza dodatkowej motywacji do kontynuowania prac.</p>
+<p><a href="/blog/assets/images/2024-10-Notatki-scaled.jpg"><img decoding="async" class="alignnone size-medium wp-image-659" src="/blog/assets/images/2024-10-Notatki-300x225.jpg" alt="" width="300" height="225" srcset="/blog/assets/images/2024-10-Notatki-300x225.jpg 300w, /blog/assets/images/2024-10-Notatki-1024x768.jpg 1024w, /blog/assets/images/2024-10-Notatki-768x576.jpg 768w, /blog/assets/images/2024-10-Notatki-1536x1152.jpg 1536w, /blog/assets/images/2024-10-Notatki-2048x1536.jpg 2048w" sizes="(max-width: 300px) 100vw, 300px"></a></p>
+<p>Pomimo problemów udało mi się rozwiązać większość z nich, choć największym wyzwaniem pozostają dane meteo. Mam nadzieję, że IMGW kiedyś zorganizuje je w bardziej przejrzysty sposób — to byłoby prawdziwym wybawieniem dla wszystkich użytkowników.</p>
+<p>Osobną kwestią jest też ich wiarygodność, tzn. na ile są one oczyszczone z błędów i czy nadają się one do wykorzystania w projektach. Z tego co słyszałem to odpowiedź brzmi “<strong>nie</strong>“, ponieważ “dane są największym skarbem instytutu” jak to rzekomo miał stwierdzić pewien profesor.</p>
         </div>
 
         <!-- Post Navigation -->

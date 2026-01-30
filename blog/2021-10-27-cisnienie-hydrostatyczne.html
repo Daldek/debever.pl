@@ -99,53 +99,31 @@
 
         <!-- Post Content -->
         <div class="blog-post__content">
-          <h2 id="wprowadzenie">Wprowadzenie</h2>
-
-<p><strong>Hydrostatyka</strong> to dział mechaniki płynów zajmujący się prawami rządzącymi cieczami w spoczynku.</p>
-
-<h2 id="co-to-jest">Co to jest?</h2>
-
-<p>Hydrostatyka bada warunki, gdy płyn jest w równowadze — gdy wypadkowa wszystkich sił jest równa zeru.</p>
-
-<h2 id="siły-działajace-na-ciecze">Siły działające na ciecze</h2>
-
-<p>Opisano dwie kategorie sił:</p>
-
-<h3 id="1-siły-masowe">1. Siły masowe</h3>
-
-<p>Proporcjonalne do masy, obejmują:</p>
-
-<ul>
-<li>siłę ciężkości</li>
-<li>siłę bezwładności</li>
-<li>siłę odśrodkową</li>
-</ul>
-
-<h3 id="2-siły-powierzchniowe">2. Siły powierzchniowe</h3>
-
-<p>Proporcjonalne do pola powierzchni, działające prostopadle do powierzchni, skierowane do wewnątrz.</p>
-
-<h2 id="definicje-kluczowe">Definicje kluczowe</h2>
-
-<ul>
-<li>Gęstość: ρ = m/V [kg·m⁻³]</li>
-<li>Ciśnienie: p = F/S [N·m⁻² = Pa]</li>
-</ul>
-
-<h2 id="cisnienie-hydrostatyczne">Ciśnienie hydrostatyczne</h2>
-
-<p>Wyprowadzenie podstawowego równania następuje poprzez równoległościan zanurzony w cieczy, ustalając warunki równowagi. Wyprowadzenie pokazuje:</p>
-
-<blockquote>
-  <p>"wartość ciśnienia hydrostatycznego w dowolnym punkcie cieczy zależy liniowo od głębokości zanurzenia tego punktu."</p>
-</blockquote>
-
-<h2 id="wzor-koncowy">Wzór końcowy</h2>
-
-<p><strong>p = p_a + γh</strong></p>
-
-<p>Gdzie ciśnienie równa się ciśnieniu atmosferycznemu plus iloczyn ciężaru właściwego i głębokości.</p>
-
+          <h2>Hydrostatyka</h2>
+<p>&lt;mem z nosaczem&gt; <em>Hydrodynamika? To trzeba na spokojnie usiąść i pomyśleć</em> &lt;/mem z nosaczem&gt;</p>
+<h3>Czym właściwie jest?</h3>
+<p>Tak, tak. Zanim zaczniemy omawiać procesy zachodzące w naszych kanałach, rzekach, rowach, skupmy się najpierw na czymś spokojniejszym, czyli hydrostatyce. <strong>Hydrostatyka</strong> jest działem mechaniki płynów zajmującym się prawami, które rządzą cieczą gdy ta znajduje się w spoczynku. Ze spoczynkiem spotykamy się wtedy, kiedy po wyodrębnieniu dowolnej części cieczy, wypadkowa wszystkich sił będzie równa zeru.</p>
+<h3>Siły działające na ciecz</h3>
+<p>Pierwszą grupą sił są <strong>siły masowe</strong>. Spowodowane są oddziaływaniem zewnętrznych fizycznych pól sił, a ich wartość jest proporcjonalna do masy rozpatrywanej objętości cieczy. Wyróżniamy tutaj <strong>siłę ciężkości</strong> (ponieważ znajdujemy się w polu grawitacyjnym Ziemi), <strong>siłę bezwładności</strong> (jeżeli nasza ciecz znajduje się w naczyniu poruszającym się ruchem jednostajnym prostoliniowym i jest w równowadze względem jego ścian) oraz <strong>siłę odśrodkową</strong> (jeżeli naczynie wiruje)</p>
+<p>Drugą grupą są <strong>siły powierzchniowe</strong>. Czyli te, które działają na powierzchnie zewnętrzne i ograniczają objętość cieczy, a wartość tych sił jest proporcjonalna do jej pola powierzchni. Sił te działają zawsze prostopadłe i są skierowane do środka wydzielonej objętości.</p>
+<p>Gęstość jest stosunkiem masy do objętości:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">ρ = \frac{m}{V} [kg\times m^{-3}]</span></p>
+<p>Ciśnienie jest siłą działającą na jednostkę powierzchni, wyrażoną w Paskalach:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">p = \frac{F}{S} [N\times m^{-2} = Pa]</span></p>
+<h3>Ciśnienie hydrostatyczne</h3>
+<p>O ciśnieniu hydrostatycznym mówimy, gdy ciecz znajdująca się w spoczynku. Wyobraźmy sobie teraz naczynie, w którym zanurzyliśmy bryłę (brakuje mi lepszego słowa. Dodajmy też, że jest ona równoległościanem) i omówmy działające na nią siły:</p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-356 size-full" src="/blog/assets/images/2021-09-ciśnienie-hydrostatyczne.png" alt="" width="2160" height="1620">Nasza bryła ma ciężar oznaczony jako <span class="katex-eq" data-katex-display="false">Q</span>, pole powierzchni jej górnej i dolnej ściany są oznaczone jako <span class="katex-eq" data-katex-display="false">S</span>, znajdują się odpowiednio na wysokościach <span class="katex-eq" data-katex-display="false">y_{1}</span> i <span class="katex-eq" data-katex-display="false">y_{2}</span> oraz oddziałują na nie siły <span class="katex-eq" data-katex-display="false">F_{1}</span> i <span class="katex-eq" data-katex-display="false">F_{2}</span>. Do osiągnięcia równowagi statycznej musi być spełniony następujący warunek:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">F_{2} = F_{1}+mg</span></p>
+<p>czyli siła <span class="katex-eq" data-katex-display="false">F_{2}</span> jest równoważona przez siłę <span class="katex-eq" data-katex-display="false">F_{1}</span> oraz ciężar <span class="katex-eq" data-katex-display="false">mg</span>. Siły <span class="katex-eq" data-katex-display="false">F</span> możemy zapisać jako wartości ciśnienia działające na ściany:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">F_{1} = p_{1}S</span></p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">F_{2} = p_{2}S</span></p>
+<p>Podstawmy teraz tak zapisane siły do równania równowagi statycznej i zapiszmy masę jako iloczyn gęstości cieczy i objętości bryły:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">p_{2}S = p_{1}S + ρS(y_{1} - y_{2})g</span></p>
+<p>Widzimy też, że możemy skrócić równanie dzieląc jest przez <span class="katex-eq" data-katex-display="false">S</span></p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">p_{1} = p_{2} + ρ(y_{1} - y_{2})g</span></p>
+<p><strong>Oznacza to, że wartość ciśnienia hydrostatycznego w dowolnym punkcie cieczy zależy liniowo od głębokości zanurzenia tego punktu. Tak więc, w zbiorniku otwartym ciśnienie w dowolnym punkcie równa się ciśnieniu hydrostatycznemu zwiększonemu o wartość ciśnienia atmosferycznego</strong>. Uprośćmy powyższe równanie jeszcze bardziej, wiedząc, że <span class="katex-eq" data-katex-display="false">p_{1} = p_{a}</span>, zastępując iloczyn gęstości i przyspieszenia ziemskiego, ciężarem właściwym, a różnicą wysokości niech będzie głębokość. Wówczas ciśnienie w dowolnym punkcie będzie wynosić:</p>
+<p style="text-align: center;"><span class="katex-eq" data-katex-display="false">p = p_{a} + γh</span></p>
+<p>Wrzucam <a href="https://www.youtube.com/watch?v=NfcBzEeSwgE">link do filmu Politechniki Wrocławskiej</a>, w którym omawiane jest ciśnienie hydrostatyczne.</p>
         </div>
 
         <!-- Post Navigation -->
