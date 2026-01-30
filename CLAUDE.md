@@ -32,27 +32,53 @@ Email: kontakt@debever.pl
 - **Frontend:** Statyczny HTML5 + CSS3 + vanilla JavaScript (bez frameworków)
 - **Styl:** Dark mode, czcionka serif, minimalistyczny design
 - **Hosting:** Mikrus VPS (Debian)
-- **Serwer WWW:** Do wyboru (nginx lub Apache — skonfigurować według potrzeb)
-- **SSL:** Let's Encrypt (sprawdzić istniejący certyfikat lub wygenerować nowy)
+- **Serwer WWW:** nginx
+- **SSL:** Let's Encrypt (do skonfigurowania przy deploy produkcyjnym)
 - **Deployment:** Git (repozytorium GitHub + ręczny `git pull` na serwerze)
 
 ### Struktura katalogów
 
 ```
 debever.pl/
-├── index.html              # Strona główna (wizytówka)
-├── blog/                   # Blog (Phase 2)
-│   ├── index.html          # Lista wpisów
-│   └── posts/              # Pojedyncze wpisy w HTML (z Markdown)
+├── index.html              # Strona główna (wizytówka one-page)
+├── privacy.html            # Polityka prywatności (RODO)
+├── 404.html                # Strona błędu 404
+├── robots.txt              # Instrukcje dla crawlerów
+├── sitemap.xml             # Mapa strony (auto-aktualizowana przez build.py)
+├── blog/
+│   ├── index.html          # Lista wpisów (najnowsze pierwsze)
+│   ├── YYYY-MM-DD-slug.html # 26 wpisów blogowych (HTML)
+│   ├── tag/                # Strony tagów (*.html)
+│   ├── feed.xml            # RSS Feed
+│   ├── build.py            # Generator HTML z Markdown
+│   ├── template.html       # Szablon wpisu
+│   ├── index-template.html # Szablon listy wpisów
+│   ├── posts/              # Źródła Markdown z frontmatter YAML (obecnie puste)
+│   ├── assets/
+│   │   └── images/         # 271 obrazków blogowych (pobrane z WordPress)
+│   ├── scrape_blog.js      # Skrypt migracji treści z WordPress (jednorazowy)
+│   ├── TAGS.md             # Lista dostępnych tagów
+│   └── README.md           # Dokumentacja bloga
 ├── assets/
 │   ├── css/
-│   │   └── style.css       # Główny arkusz stylów
+│   │   └── style.css       # Główny arkusz stylów (BEM)
 │   ├── js/
-│   │   └── main.js         # Skrypty (jeśli potrzebne)
-│   ├── images/
-│   │   ├── profile.jpg     # Zdjęcie profilowe
-│   │   └── portfolio/      # Screenshoty z projektów
-│   └── fonts/              # Fonty (jeśli self-hosted)
+│   │   └── main.js         # Hamburger menu, cookie consent, smooth scroll
+│   └── images/
+│       ├── profile.jpg     # Zdjęcie profilowe
+│       ├── favicon.svg     # Favicon (symbol fali)
+│       ├── og-image.svg    # Open Graph image
+│       ├── Norwegia.jpg    # Tło hero (fiord)
+│       ├── Modelowanie_2D.png  # Portfolio
+│       ├── Telemac.jpeg        # Portfolio
+│       ├── Hydrologia.jpg      # Portfolio
+│       ├── GIS.jpg             # Portfolio
+│       ├── Ortofotomapa.jpg    # Portfolio
+│       └── Analiza_danych.png  # Portfolio
+├── tools/
+│   ├── pmaxtp.html         # Narzędzie PMAXTP (ukryte)
+│   └── wodowskazy.csv      # Dane wodowskazów
+├── site.webmanifest        # Web App Manifest
 ├── CLAUDE.md               # Ten plik (specyfikacja projektu)
 ├── PROGRESS.md             # WAŻNE: Status prac, aktualizowany przez Claude Code
 └── README.md               # Dokumentacja dla dewelopera
@@ -171,38 +197,33 @@ oraz tworzę materiały edukacyjne o modelowaniu hydraulicznym.
 
 ---
 
-## Phase 2: Migracja bloga
+## Phase 2: Migracja bloga — UKOŃCZONE
 
 ### Zakres
 
-Migracja obecnych wpisów z WordPress (debever.pl) do statycznego bloga pod `debever.pl/blog/`.
+Migracja 26 wpisów z WordPress (debever.pl) do statycznego bloga pod `debever.pl/blog/`.
 
-### Źródło treści
+### Co zostało zrobione
 
-Obecne wpisy do zmigrowania (przykłady):
-- Seria "HEC-RAS od zera" (5+ wpisów)
-- "Czym jest zlewnia?"
-- "Tworzenie siatki w BlueKenue"
-- "Skąd brać dane do projektów?"
-- Wpisy z kategorii Programming
+1. **Generator statyczny** — skrypt Python `blog/build.py` (Markdown → HTML)
+   - Zależności: `pyyaml`, `markdown2`
+   - Generuje pliki HTML z szablonów + pliki tagów + aktualizuje sitemap.xml
+2. **Scraping treści z WordPress** — skrypt Node.js `blog/scrape_blog.js` (cheerio)
+   - Selektor treści: `.entry-content.clr`
+   - Treść wstawiona bezpośrednio do `<div class="blog-post__content">`
+3. **Naprawa nagłówków** — h1 w treści zamienione na h2 (1 h1 na stronę = tytuł wpisu)
+4. **Pobranie obrazków** — 271 plików z WordPress do `blog/assets/images/`
+   - Ścieżki w HTML podmienione na lokalne (`/blog/assets/images/YYYY-MM-filename.ext`)
+5. **Strony tagów** — `blog/tag/*.html`
+6. **RSS Feed** — `blog/feed.xml` (autodiscovery w nagłówkach HTML)
+7. **Nawigacja** — prev/next między wpisami, link w głównej nawigacji
 
-### Format docelowy
+### Dodawanie nowych wpisów
 
-1. **Wpisy w Markdown** — przechowywane w `/blog/posts/` jako `.md`
-2. **Generator statyczny** — prosty skrypt (Python/Node) lub ręczna konwersja do HTML
-3. **Szablon wpisu** — spójny z resztą strony (dark mode, serif)
-
-### Struktura bloga
-
-```
-blog/
-├── index.html              # Lista wpisów (najnowsze pierwsze)
-├── posts/
-│   ├── 2025-09-28-hec-ras-geometria.md
-│   ├── 2025-09-08-hec-ras-interfejs.md
-│   └── ...
-└── assets/                 # Obrazki specyficzne dla bloga
-```
+1. Utwórz plik `blog/posts/YYYY-MM-DD-slug.md` z frontmatter YAML
+2. Uruchom `python3 blog/build.py`
+3. Zacommituj i push
+4. Na Mikrusie: `cd /var/www/debever.pl && sudo git pull && python3.12 blog/build.py`
 
 ### Schemat metadanych wpisu (frontmatter)
 
@@ -225,12 +246,13 @@ excerpt: "Omówienie tworzenia geometrii modelu w HEC-RAS..."
 | Element | Specyfikacja |
 |---------|--------------|
 | Motyw | Dark mode (ciemne tło, jasny tekst) |
-| Tło główne | `#0d1117` lub `#1a1a2e` |
-| Tło kart/sekcji | `#161b22` lub `#16213e` |
-| Tekst główny | `#e6edf3` lub `#f0f0f0` |
-| Akcent | Niebieski (#58a6ff) lub cyjan (#4cc9f0) — nawiązanie do wody |
-| Typografia | Serif dla nagłówków (np. Merriweather, Playfair Display) |
-| Typografia body | Sans-serif (np. Inter, Source Sans Pro) lub serif |
+| Tło główne | `#0d1117` |
+| Tło kart/sekcji | `#161b22` |
+| Tekst główny | `#e6edf3` |
+| Akcent | Niebieski `#58a6ff` — nawiązanie do wody |
+| Typografia nagłówki | Merriweather (serif) |
+| Typografia body | Inter (sans-serif) |
+| Typografia kod | JetBrains Mono (monospace) |
 
 ### Responsywność
 
@@ -476,7 +498,7 @@ Przed zakończeniem pracy:
 ### Repozytorium
 
 ```
-GitHub: https://github.com/Daldek/debever.pl (do utworzenia)
+GitHub: https://github.com/Daldek/debever.pl
 Branch produkcyjny: main
 Branch roboczy: develop
 ```
@@ -520,76 +542,81 @@ server {
 
 ## Checklist implementacji
 
-### Phase 0: Setup projektu
+### Phase 0: Setup projektu — UKOŃCZONE
 
-- [ ] Utworzyć repozytorium GitHub (Daldek/debever.pl)
-- [ ] Utworzyć branch `develop`
-- [ ] Utworzyć PROGRESS.md (szablon powyżej)
-- [ ] Sklonować na Mikrus do `/var/www/debever.pl`
+- [x] Utworzyć repozytorium GitHub (Daldek/debever.pl)
+- [x] Utworzyć branch `develop`
+- [x] Utworzyć PROGRESS.md
+- [x] Sklonować na Mikrus do `/var/www/debever.pl`
 - [ ] Skonfigurować nginx (z nagłówkami bezpieczeństwa)
 - [ ] Sprawdzić/odnowić certyfikat SSL
 - [ ] Test bezpieczeństwa (securityheaders.com)
 
-### Phase 1: Wizytówka
+### Phase 1: Wizytówka — UKOŃCZONE
 
-- [ ] Struktura katalogów (assets/, images/, css/, js/)
-- [ ] index.html — szkielet HTML5 + meta tagi
-- [ ] style.css — zmienne CSS, reset, dark mode base
-- [ ] Sekcja Hero + CTA
-- [ ] Sekcja Usługi (4 karty z ikonami)
-- [ ] Sekcja Portfolio (5 kafelków) — placeholdery na screenshoty
-- [ ] Sekcja O mnie — bio + zdjęcie
-- [ ] Sekcja Kontakt — dane firmowe + linki
-- [ ] Footer + link do bloga
-- [ ] Nawigacja sticky + smooth scroll + hamburger mobile
-- [ ] Responsywność (mobile 480px / tablet 768px / desktop 1024px)
-- [ ] Favicon
-- [ ] Testy cross-browser (Chrome, Firefox, Safari, mobile)
-- [ ] Merge do main + deploy
+- [x] Struktura katalogów (assets/, images/, css/, js/)
+- [x] index.html — szkielet HTML5 + meta tagi + JSON-LD + Open Graph
+- [x] style.css — zmienne CSS, reset, dark mode base (BEM)
+- [x] Sekcja Hero + CTA (tło Norwegia.jpg z parallax)
+- [x] Sekcja Usługi (4 karty z ikonami SVG Lucide)
+- [x] Sekcja Portfolio (6 kafelków z grafikami)
+- [x] Sekcja O mnie — bio + zdjęcie profilowe
+- [x] Sekcja Kontakt — dane firmowe (NIP, REGON, adres, email)
+- [x] Footer + link do bloga
+- [x] Nawigacja sticky + smooth scroll + hamburger mobile
+- [x] Responsywność (mobile 480px / tablet 768px / desktop 1024px)
+- [x] Favicon SVG + site.webmanifest
+- [x] Google Analytics 4 (G-3KHED211LP) + cookie consent (RODO)
+- [x] Polityka prywatności (privacy.html)
+- [x] SEO: robots.txt, sitemap.xml, canonical URL, RSS
+- [x] Strona 404.html
+- [x] Testy cross-browser (Chrome, Firefox, Safari, mobile)
+- [x] Deploy testowy na Mikrus (http://srv08.mikr.us:40693/)
 
-### Phase 2: Blog
+### Phase 2: Blog — UKOŃCZONE
 
-- [ ] Eksport treści z WordPress (XML lub scraping)
-- [ ] Konwersja do Markdown z frontmatter
-- [ ] Szablon wpisu HTML (blog/post-template.html)
-- [ ] Lista wpisów (blog/index.html)
-- [ ] Nawigacja między wpisami (poprzedni/następny)
-- [ ] Integracja z główną stroną (link w nav i footer)
-- [ ] Przekierowania ze starych URL-i (opcjonalnie, nginx rewrite)
-- [ ] Merge do main + deploy
+- [x] Scraping treści z WordPress (Node.js + cheerio)
+- [x] Szablon wpisu HTML (blog/template.html)
+- [x] Szablon listy wpisów (blog/index-template.html)
+- [x] Generator statyczny (blog/build.py — Markdown → HTML)
+- [x] Lista wpisów (blog/index.html — 26 wpisów)
+- [x] Nawigacja między wpisami (poprzedni/następny)
+- [x] Strony tagów (blog/tag/*.html)
+- [x] RSS Feed (blog/feed.xml)
+- [x] Integracja z główną stroną (link w nav)
+- [x] Pobranie 271 obrazków z WordPress do blog/assets/images/
+- [x] Podmiana ścieżek obrazków na lokalne
+
+### Phase 3: Deploy produkcyjny — TODO
+
+- [ ] Włączyć GA4 (odkomentować w index.html)
+- [ ] Skonfigurować SSL (Let's Encrypt)
+- [ ] Przekierować domenę debever.pl na Mikrusa
+- [ ] Zaktualizować nginx na port 80/443
+- [ ] Wygenerować apple-touch-icon.png (180x180) z favicon.svg
+- [ ] Skonwertować og-image.svg na PNG (1200x630)
 
 ---
 
 ## Zasoby
 
-### Obrazki do pobrania z obecnej strony
-
-- Zdjęcie profilowe: `https://debever.pl/wp-content/uploads/2021/03/Autor.jpg`
-- Ortofotomapa Szkudelniak: `https://debever.pl/wp-content/uploads/2023/04/Szkudelniak-scaled.jpg`
-- Jaz Biezdruchowo: `https://debever.pl/wp-content/uploads/2024/02/Jaz-Biezdruchowo.jpg`
-
 ### Ikony
 
-Użyć jednego z:
-- Lucide Icons (https://lucide.dev/) — lekkie, MIT license
-- Heroicons (https://heroicons.com/) — od Tailwind
-- Feather Icons (https://feathericons.com/)
-
-Sugerowane ikony dla usług:
-- Modelowanie hydrauliczne: `waves` lub `droplets`
-- Analizy hydrologiczne: `cloud-rain` lub `git-branch`
-- GIS: `map` lub `layers`
-- Analiza danych: `bar-chart` lub `trending-up`
+- Lucide Icons (https://lucide.dev/) — inline SVG w HTML
+  - Modelowanie hydrauliczne: `waves`
+  - Analizy hydrologiczne: `cloud-rain`
+  - GIS: `map`
+  - Analiza danych: `bar-chart`
 
 ### Fonty
 
-Opcja 1 (Google Fonts):
+Google Fonts (podłączone przez CDN):
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
-
-Opcja 2 (self-hosted dla performance):
-Pobrać fonty i umieścić w `/assets/fonts/`
+- **Merriweather** — nagłówki (serif)
+- **Inter** — tekst (sans-serif)
+- **JetBrains Mono** — bloki kodu (monospace)
 
 ---
 
@@ -615,7 +642,7 @@ Pobrać fonty i umieścić w `/assets/fonts/`
 
 ### Bezpieczeństwo
 
-10. **Dane firmowe** — zostaw placeholdery `[DO UZUPEŁNIENIA]`, właściciel uzupełni sam
+10. **Dane firmowe** — już uzupełnione (NIP, REGON, adres, email z CEIDG)
 11. **Nie commituj wrażliwych danych** — hasła, klucze API, prywatne dane
 12. **Sprawdzaj konfigurację nginx** — przed deployem upewnij się, że nagłówki bezpieczeństwa działają
 
